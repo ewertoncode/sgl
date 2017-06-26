@@ -1,0 +1,75 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package br.edu.ifnmg.psc.sgpl.persistencia;
+
+import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Entidade;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+
+
+/**
+ *
+ * @author Emerson Pereira
+ */
+public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
+    
+    private Connection conexao;
+    
+    public DaoGenerico() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sgpl","root", "root");        
+    }
+    
+    protected abstract String getConsultaInsert();
+    protected abstract String getConsultaUpdate();
+    protected abstract String getConsultaDelete();
+    protected abstract String getConsultaAbrir();
+    protected abstract String getConsultaBuscar();    
+    protected abstract void setBuscaFiltros(T filtro);    
+    protected abstract void setParametros(PreparedStatement sql, T obj);
+    protected abstract T setDados(ResultSet resultado);
+       
+    @Override
+    public boolean Salvar(T obj){
+        try{
+            PreparedStatement sql = null;
+            
+            if(obj.getId() == 0){
+                sql = conexao.prepareStatement(getConsultaInsert());
+            }else{
+                sql = conexao.prepareStatement(getConsultaUpdate());
+            }
+            
+            setParametros(sql, obj);
+            System.out.println(sql);
+            if(sql.executeUpdate() > 0)
+                return true;
+            else 
+                return false;            
+            
+        }catch(Exception e){
+            return false;
+        }        
+    }
+    
+    @Override
+    public abstract T Abrir(int id);    
+
+    @Override
+    public abstract List<T> Buscar(T filtro);
+
+    @Override
+    public abstract boolean Apagar(T obj);            
+    
+}
