@@ -30,9 +30,9 @@ public class SgplCamadaApresentacao {
             
             Setor setor = new Setor(1, "Setor1");            
             Endereco endereco = new Endereco(1,"Rua Jatobá", 10, "Casa Verde", "Sete Setembro", "Januária", "39480-000", "MG", "Brasil");
-            Usuario usuario = new Usuario(0, "Joao Paulo", "jp@gmail.com", "123", setor, endereco);                        
+            Usuario usuario = new Usuario(3, "Joao Paulo", "jp@gmail.com", "123", setor, endereco);                        
             
-            System.out.println(dao.Salvar(usuario));
+            System.out.println(dao.Abrir(4));
             
             
         /*}catch(Exception e){

@@ -47,7 +47,7 @@ public class Usuario implements Entidade{
     
     //Regra de Negocio UC2.1/RN2
     public void setEmail(String email) throws ViolacaoRegraDeNegocioException{
-        if(email == null || email.contains("@") || email.contains(".com"))            
+        if(email == null || (!email.contains("@")) || (!email.contains(".com")))            
             throw new ViolacaoRegraDeNegocioException("O email deve conter formato válido(Ex:xxxxxx@xxxxx.com)!");
         this.email = email;
     }      

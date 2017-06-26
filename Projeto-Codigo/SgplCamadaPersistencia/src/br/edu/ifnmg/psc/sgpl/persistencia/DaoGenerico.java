@@ -14,13 +14,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Emerson Pereira
  */
+
 public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
     
     private Connection conexao;
@@ -64,12 +65,52 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
     }
     
     @Override
-    public abstract T Abrir(int id);    
+    public boolean Apagar(T obj){
+        
+        try {        
+            PreparedStatement sql = conexao.prepareStatement(this.getConsultaDelete());
+                                
+            sql.setInt(1, obj.getId());
 
+            if (sql.executeUpdate() > 0) {
+                System.out.println(sql);    
+                obj = null;
+                return true;
+            } else {                  
+                return false;
+            }                       
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }                
+    }
+    
+    
+    @Override
+    public T Abrir(int id){
+        try{
+            PreparedStatement sql = conexao.prepareStatement(this.getConsultaAbrir());
+            
+            sql.setInt(1, id);
+            
+            ResultSet resultado = sql.executeQuery();
+            
+            if(resultado.next())
+                return this.setDados(resultado);
+            else
+                return null;
+            
+        }catch(SQLException e){
+            Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, e);
+            
+        }
+        return null;
+    }  
+    
+    /*
     @Override
     public abstract List<T> Buscar(T filtro);
-
-    @Override
-    public abstract boolean Apagar(T obj);            
+    */
+            
     
 }

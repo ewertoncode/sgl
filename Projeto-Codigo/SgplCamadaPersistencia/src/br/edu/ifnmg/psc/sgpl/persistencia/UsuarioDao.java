@@ -6,6 +6,7 @@
 
 package br.edu.ifnmg.psc.sgpl.persistencia;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.Setor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import java.sql.PreparedStatement;
@@ -32,17 +33,17 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
 
     @Override
     protected String getConsultaUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "update Usuario set nome = ?, email = ?, senha = ?, setor = ?, endereco = ? where id = ?";
     }
 
     @Override
     protected String getConsultaDelete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "delete from Usuario where id = ?";
     }
 
     @Override
     protected String getConsultaAbrir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "select * from Usuario where id = ?";
     }
 
     @Override
@@ -64,8 +65,8 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             sql.setInt(4, obj.getSetor().getId());
             sql.setInt(5, obj.getEndereco().getId());
             
-            //if(obj.getId() > 0)
-                //sql.setInt(5, obj.getId());
+            if(obj.getId() > 0)
+                sql.setInt(6, obj.getId());
             
         }catch(Exception e){
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
@@ -74,29 +75,18 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
 
     @Override
     protected Usuario setDados(ResultSet resultado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            Usuario obj = new Usuario();
+            obj.setId(resultado.getInt("id"));
+            obj.setNome(resultado.getString("nome"));
+            obj.setEmail(resultado.getString("email"));
+            //obj.getSetor().setId(resultado.getInt("setor"));
+            //obj.getEndereco().setId(resultado.getInt("endereco"));
+            
+            return obj;
+        }catch(Exception e){
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
     }
-
-    @Override
-    public Usuario Abrir(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Usuario> Buscar(Usuario filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean Apagar(Usuario obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    
-    
-    
-    
-    
-
 }
