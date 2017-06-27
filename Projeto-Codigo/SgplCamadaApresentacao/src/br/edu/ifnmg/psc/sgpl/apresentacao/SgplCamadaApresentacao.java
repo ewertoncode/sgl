@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Endereco;
@@ -15,32 +10,32 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Emerson Pereira
+  * @author Emerson Pereira
  */
-public class SgplCamadaApresentacao {
+public class SgplCamadaApresentacao {    
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-                                
-        //try{            
+    public static void main(String[] args){
+          
+        System.out.println("Olá");
+        try{            
             
             UsuarioRepositorio dao = new UsuarioDao();            
             
             Setor setor = new Setor(1, "Setor1");            
             Endereco endereco = new Endereco(1,"Rua Jatobá", 10, "Casa Verde", "Sete Setembro", "Januária", "39480-000", "MG", "Brasil");
-            Usuario usuario = new Usuario(3, "Joao Paulo", "jp@gmail.com", "123", setor, endereco);                        
+            Usuario usuario = new Usuario(0, "Joao Paulo", "jp@gmail.com", "123", setor, endereco);                        
             
-            System.out.println(dao.Abrir(4));
+            System.out.println(dao.Abrir(5));
             
-            
-        /*}catch(Exception e){
+        }catch(Exception e){            
             System.out.println("Entrou");
             System.out.println(e.getMessage());
-        }*/
-        
+        }
+         
     }
     
 }
-
+       

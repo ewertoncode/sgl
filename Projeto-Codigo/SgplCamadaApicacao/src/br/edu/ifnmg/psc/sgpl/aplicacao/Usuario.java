@@ -109,5 +109,5 @@ public class Usuario implements Entidade{
         return "Usuario: " + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", " + setor + ", " + endereco;
     }
     
-    //Fazer o hashCode() e equals() ????????????
+    
 }

@@ -48,12 +48,14 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
 
     @Override
     protected String getConsultaBuscar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "select * from Usuario where id = ?";
     }
 
     @Override
     protected void setBuscaFiltros(Usuario filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(filtro.getId() > 0)
+            this.adicionarFiltro("id", filtro.getId());
+        
     }
 
     @Override

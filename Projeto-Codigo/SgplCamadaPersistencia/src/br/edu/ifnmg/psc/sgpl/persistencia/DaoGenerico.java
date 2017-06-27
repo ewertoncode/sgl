@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +32,8 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
         
         conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sgpl","root", "root");        
     }
+    
+    private String where = "";
     
     protected abstract String getConsultaInsert();
     protected abstract String getConsultaUpdate();
@@ -107,10 +110,42 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
         return null;
     }  
     
-    /*
+    protected DaoGenerico<T> adicionaFiltro(String campo, String valor){
+        if(where.length() > 0)
+            where += " and ";
+        
+        where += campo + " = '" + valor + "'";
+        
+        return this;                
+    }
+    
+    protected DaoGenerico<T> adicionarFiltro(String campo, int valor){
+        if(where.length() > 0)
+            where += " and ";
+        
+        where += campo + " = " + Integer.toString(valor);
+        
+        return this;    
+    }
+        
     @Override
-    public abstract List<T> Buscar(T filtro);
-    */
+    public List<T> Buscar(T filtro){
+        
+        List<T> lista = new ArrayList<>();
+        
+        try{
+            if(filtro != null)
+                this.setBuscaFiltros(filtro);
+            
+            String sqlFinal = this.getConsultaBuscar();
+            
+        }catch(Exception e){
+            Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, e);
+        }
+                
+        return null;
+    }
+    
             
     
 }
