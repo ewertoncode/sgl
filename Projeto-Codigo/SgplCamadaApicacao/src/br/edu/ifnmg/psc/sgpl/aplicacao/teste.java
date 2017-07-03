@@ -57,5 +57,12 @@ public class teste {
         
         HistoricoRenegociacao historicoRenegociacao1 = new HistoricoRenegociacao(1, "Ocorreu tudo bem", "12122018", pregao1, fornecedor3, usuario1);
         System.out.println(historicoRenegociacao1.toString());
+        
+        
+        Usuario usuario2 = new Usuario();
+        usuario2.setEmail("asd");
+        //usuario2.setNome("a");
+        
+        
     }
 }
