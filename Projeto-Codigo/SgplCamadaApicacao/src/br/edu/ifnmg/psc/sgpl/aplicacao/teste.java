@@ -15,7 +15,7 @@ public class teste {
                 
         Setor setor1 = new Setor(1, "RH");
         
-        Usuario usuario1 = new Usuario(1, "João", "joão@gmail.com", "123", setor1);
+        Usuario usuario1 = new Usuario(1, "João Doria", "joão@gmail.com", "123", setor1);
         System.out.println(usuario1.toString());            
         
         Endereco endereco = new Endereco(1,"Rua Jatobá", 10, "Casa Verde", "Sete Setembro", "Januária", "39480-000", "MG", "Brasil");
@@ -60,7 +60,7 @@ public class teste {
         
         
         Usuario usuario2 = new Usuario();
-        usuario2.setEmail("asd");
+        usuario2.setEmail("asdzzxczxcz");
         //usuario2.setNome("a");
         
         

@@ -110,7 +110,7 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
         return null;
     }  
     
-    protected DaoGenerico<T> adicionaFiltro(String campo, String valor){
+    protected DaoGenerico<T> adicionarFiltro(String campo, String valor){
         if(where.length() > 0)
             where += " and ";
         

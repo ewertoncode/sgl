@@ -6,13 +6,12 @@
 
 package br.edu.ifnmg.psc.sgpl.persistencia;
 
-import br.edu.ifnmg.psc.sgpl.aplicacao.Setor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,27 +27,27 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
     
     @Override
     protected String getConsultaInsert(){
-        return "insert into Usuario(nome, email, senha, setor, endereco) values (?, ?, ?, ?, ?)";
+        return "insert into usuario(nome, email, senha, setor, endereco) values (?, ?, ?, ?, ?)";
     }
 
     @Override
     protected String getConsultaUpdate() {
-        return "update Usuario set nome = ?, email = ?, senha = ?, setor = ?, endereco = ? where id = ?";
+        return "update usuario set nome = ?, email = ?, senha = ?, setor = ?, endereco = ? where id = ?";
     }
 
     @Override
     protected String getConsultaDelete() {
-        return "delete from Usuario where id = ?";
+        return "delete from usuario where id = ?";
     }
 
     @Override
     protected String getConsultaAbrir() {
-        return "select * from Usuario where id = ?";
+        return "select * from usuario where id = ?";
     }
 
     @Override
     protected String getConsultaBuscar() {
-        return "select * from Usuario where id = ?";
+        return "select * from usuario";
     }
 
     @Override
@@ -56,6 +55,15 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
         if(filtro.getId() > 0)
             this.adicionarFiltro("id", filtro.getId());
         
+        if((filtro.getNome() != null))
+            this.adicionarFiltro("nome", filtro.getNome());
+        
+        //refazer aqui
+        if(filtro.getEmail() != null)
+            this.adicionarFiltro("email", filtro.getEmail());
+        
+        if(filtro.getSenha() != null)
+            this.adicionarFiltro("email", filtro.getSenha());
     }
 
     @Override
@@ -70,7 +78,7 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             if(obj.getId() > 0)
                 sql.setInt(6, obj.getId());
             
-        }catch(Exception e){
+        }catch(SQLException e){
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -82,11 +90,12 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             obj.setId(resultado.getInt("id"));
             obj.setNome(resultado.getString("nome"));
             obj.setEmail(resultado.getString("email"));
-            //obj.getSetor().setId(resultado.getInt("setor"));
-            //obj.getEndereco().setId(resultado.getInt("endereco"));
+            obj.getSetor().setId(resultado.getInt("setor"));
+            obj.getEndereco().setId(resultado.getInt("endereco"));
             
             return obj;
-        }catch(Exception e){
+            
+        }catch(ViolacaoRegraDeNegocioException | SQLException e){
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
