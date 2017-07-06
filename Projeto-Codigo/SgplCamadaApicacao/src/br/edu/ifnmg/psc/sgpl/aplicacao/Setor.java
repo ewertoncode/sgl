@@ -30,8 +30,8 @@ public class Setor implements Entidade{
     
     //Regra de Negócio UC1.1/RN1
     public void setNome(String nome) throws ViolacaoRegraDeNegocioException {
-        if(nome == null || nome.length() < 2)
-            throw new ViolacaoRegraDeNegocioException("O nome do setor deve ter mais do que 2 caracteres!");
+        if(nome == null || nome.length() < 1)
+            throw new ViolacaoRegraDeNegocioException("O nome do setor deve ter mais do que 1 caracter!");
         this.nome = nome;
     }        
     
