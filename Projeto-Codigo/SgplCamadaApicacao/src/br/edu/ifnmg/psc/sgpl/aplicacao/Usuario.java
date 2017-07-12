@@ -80,6 +80,7 @@ public class Usuario implements Entidade{
     }        
     
     
+    
     //Construtor1
     public Usuario() {
     }
@@ -107,7 +108,5 @@ public class Usuario implements Entidade{
     @Override
     public String toString() {
         return "Usuario: " + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", " + setor + ", " + endereco;
-    }
-    
-    
+    }   
 }

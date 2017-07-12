@@ -50,19 +50,19 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
             PreparedStatement sql = null;
             
             if(obj.getId() == 0){
-                sql = conexao.prepareStatement(getConsultaInsert());
+                sql = conexao.prepareStatement(getConsultaInsert());                
             }else{
                 sql = conexao.prepareStatement(getConsultaUpdate());
             }
             
             setParametros(sql, obj);
-            System.out.println(sql);
+            System.out.println(sql);            
             if(sql.executeUpdate() > 0)
                 return true;
-            else 
+            else                
                 return false;            
             
-        }catch(Exception e){
+        }catch(Exception e){                        
             return false;
         }        
     }
@@ -80,6 +80,7 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
                 obj = null;
                 return true;
             } else {                  
+                System.out.println(sql);
                 return false;
             }                       
         } catch (SQLException ex) {
@@ -96,9 +97,8 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
             
             sql.setInt(1, id);
             
-            ResultSet resultado = sql.executeQuery();
-            
-            if(resultado.next())
+            ResultSet resultado = sql.executeQuery();            
+            if(resultado.next())                
                 return this.setDados(resultado);
             else
                 return null;
