@@ -9,12 +9,12 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
  *
  * @author haw
  */
-public class UsuarioBusca extends javax.swing.JInternalFrame {
+public class UsuarioBuscar extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaBusca
      */
-    public UsuarioBusca() {
+    public UsuarioBuscar() {
         initComponents();
     }
 
