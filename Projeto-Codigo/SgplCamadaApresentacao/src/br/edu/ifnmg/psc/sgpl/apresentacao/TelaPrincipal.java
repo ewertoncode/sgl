@@ -7,7 +7,7 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 /**
  *
- * @author haw
+ * @author Emerson Pereira
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
@@ -29,8 +29,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnuUsuarios = new javax.swing.JMenuItem();
+        mnuFornecedores = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -38,16 +38,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cadastros");
 
-        jMenuItem2.setText("Usuarios");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem1.setText("Fornecedores");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnuUsuarios.setText("Usuarios");
+        mnuUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnuUsuariosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(mnuUsuarios);
+
+        mnuFornecedores.setText("Fornecedores");
+        mnuFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFornecedoresActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuFornecedores);
 
         jMenuItem3.setText("jMenuItem3");
         jMenu1.add(jMenuItem3);
@@ -61,19 +66,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 632, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 392, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mnuFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFornecedoresActionPerformed
+        
+        FornecedorBuscar tela = new FornecedorBuscar(Repositorios.getFornecedorRepositorio(), FornecedorEditar.class);
+        
+        this.add(tela);
+        tela.setVisible(true);
+    }//GEN-LAST:event_mnuFornecedoresActionPerformed
+
+    private void mnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        System.out.println("Entrou!");
+    }//GEN-LAST:event_mnuUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,8 +128,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem mnuFornecedores;
+    private javax.swing.JMenuItem mnuUsuarios;
     // End of variables declaration//GEN-END:variables
 }

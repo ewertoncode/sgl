@@ -17,6 +17,9 @@ public class Fornecedor implements Entidade{
     private String cnpj;
     private String telefone;
     private String email;
+    private Endereco endereco;
+
+    
     
     @Override
     public int getId() {
@@ -68,6 +71,13 @@ public class Fornecedor implements Entidade{
         this.email = email;
     }
     
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
     
     //Construtor1
     public Fornecedor() {
@@ -80,11 +90,12 @@ public class Fornecedor implements Entidade{
         this.cnpj = cnpj;
         this.telefone = telefone;
         this.email = email;
+        this.endereco = endereco;
     }
 
     @Override
     public String toString() {
-        return "Fornecedor: " + "id=" + id + ", razaoSocial=" + razaoSocial + ", nomeFantasia=" + nomeFantasia + ", cnpj=" + cnpj + ", telefone=" + telefone + ", email=" + email + ' ';
+        return "Fornecedor: " + "id=" + id + ", razaoSocial=" + razaoSocial + ", nomeFantasia=" + nomeFantasia + ", cnpj=" + cnpj + ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ' ' ;
     }    
     
 }

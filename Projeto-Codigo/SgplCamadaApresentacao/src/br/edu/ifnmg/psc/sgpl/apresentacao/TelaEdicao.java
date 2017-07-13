@@ -8,6 +8,8 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Entidade;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +34,7 @@ public abstract class TelaEdicao<T extends Entidade> extends javax.swing.JIntern
     public void setEntidade(T entidade) {
         this.entidade = entidade;
         
-        
+        carregaCampos();
     }
 
     public Repositorio<T> getRepositorio() {
@@ -50,5 +52,61 @@ public abstract class TelaEdicao<T extends Entidade> extends javax.swing.JIntern
     public void setBusca(TelaBusca<T> busca) {
         this.busca = busca;
     }
+    
+    
+    public abstract void carregaCampos();
+    public abstract void carregaObjeto() throws ViolacaoRegraDeNegocioException;
+    public abstract boolean verificarCamposObrigatorios();
+    
+    
+    public void salvar(){
+        if(!verificarCamposObrigatorios()){
+            JOptionPane.showMessageDialog(rootPane, "Todos os campos são de preenchimento obrigatório!");
+            return;
+        }
+            
+        if(JOptionPane.showConfirmDialog(rootPane, "Deseja realmente salvar o objeto?") == 0 ){
+
+            try {
+                carregaObjeto();
+                
+            } catch (ViolacaoRegraDeNegocioException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                return; 
+            }
+            
+            if(repositorio.Salvar(entidade)){
+                JOptionPane.showMessageDialog(rootPane, "Registro salvo com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha ao salvar o registro!");
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Operação Cancelada!");
+        }                
+    }
+    
+    public void apagar(){
+        if(JOptionPane.showConfirmDialog(rootPane, "Deseja realmente apagar o registro?") == 0 ){
+            if(repositorio.Apagar(entidade)){
+                JOptionPane.showMessageDialog(rootPane, "Registro removido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha ao remover o registro!");
+            }
+        }  else {
+            JOptionPane.showMessageDialog(rootPane, "Operação Cancelada!");
+        }
+        
+        cancelar();
+        
+    }
+    
+    public void cancelar(){
+        busca.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }
+    
+    
     
 }
