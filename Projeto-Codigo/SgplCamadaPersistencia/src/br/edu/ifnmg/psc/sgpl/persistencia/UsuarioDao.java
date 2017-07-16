@@ -63,7 +63,7 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             this.adicionarFiltro("email", filtro.getEmail());
         
         if(filtro.getSenha() != null)
-            this.adicionarFiltro("email", filtro.getSenha());
+            this.adicionarFiltro("senha", filtro.getSenha());
     }
 
     @Override

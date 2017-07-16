@@ -41,12 +41,12 @@ public class EnderecoDao extends DaoGenerico<Endereco> implements EnderecoReposi
 
     @Override
     protected String getConsultaAbrir() {
-        return "select * from endereco";
+        return "select * from endereco where id=?";
     }
 
     @Override
     protected String getConsultaBuscar() {
-        return "select * from endereco where id=?";
+        return "select * from endereco";
     }
 
     @Override
@@ -58,7 +58,7 @@ public class EnderecoDao extends DaoGenerico<Endereco> implements EnderecoReposi
         if((filtro.getLogradouro()!= null) && (!filtro.getLogradouro().isEmpty()))
             this.adicionarFiltro("logradouro", filtro.getLogradouro());
         
-        if(filtro.getNumero() > 0)
+        if((filtro.getNumero() != null) && (!filtro.getNumero().isEmpty()))
             this.adicionarFiltro("numero", filtro.getNumero());
         
         if((filtro.getComplemento()!= null) && (!filtro.getComplemento().isEmpty()))
@@ -86,7 +86,7 @@ public class EnderecoDao extends DaoGenerico<Endereco> implements EnderecoReposi
         try {
             
             sql.setString(1, obj.getLogradouro());
-            sql.setInt(2, obj.getNumero());
+            sql.setString(2, obj.getNumero());
             sql.setString(3, obj.getComplemento());
             sql.setString(4, obj.getBairro());
             sql.setString(5, obj.getCidade());
@@ -108,7 +108,7 @@ public class EnderecoDao extends DaoGenerico<Endereco> implements EnderecoReposi
             Endereco obj = new Endereco();
             obj.setId( resultado.getInt("id") );
             obj.setLogradouro(resultado.getString("logradouro") );
-            obj.setNumero(resultado.getInt("numero") );
+            obj.setNumero(resultado.getString("numero") );
             obj.setComplemento(resultado.getString("complento") );
             obj.setBairro(resultado.getString("bairro") );
             obj.setCidade(resultado.getString("cidade") );

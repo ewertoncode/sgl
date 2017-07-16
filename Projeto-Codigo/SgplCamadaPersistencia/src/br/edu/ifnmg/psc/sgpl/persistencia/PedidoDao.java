@@ -44,12 +44,12 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
 
     @Override
     protected String getConsultaAbrir() {
-        return "select * from pedido";
+        return "select * from pedido where id=?";
     }
 
     @Override
     protected String getConsultaBuscar() {
-        return "select * from pedido where id=?";
+        return "select * from pedido";
     }
 
     @Override

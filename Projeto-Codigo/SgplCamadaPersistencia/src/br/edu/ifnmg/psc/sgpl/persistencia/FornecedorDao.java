@@ -8,6 +8,7 @@ package br.edu.ifnmg.psc.sgpl.persistencia;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Endereco;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,16 +23,17 @@ public class FornecedorDao extends DaoGenerico<Fornecedor> implements Fornecedor
     
     public FornecedorDao() throws ClassNotFoundException, SQLException {
         super();
+        enderecos = new EnderecoDao();
     }
 
     @Override
     protected String getConsultaInsert() {
-        return "insert into fornecedor(razaoSocial, nomeFantasia, cnpj, telefone, email) values (?, ?, ?, ?, ?)";
+        return "insert into fornecedor(razaoSocial, nomeFantasia, cnpj, telefone, email, endereco) values (?, ?, ?, ?, ?, ?)";
     }
     
     @Override
     protected String getConsultaUpdate() {
-        return "update fornecedor set razaoSocial=?, nomeFantasia=?, cnpj=?, telefone=?, email=? where id=?";
+        return "update fornecedor set razaoSocial=?, nomeFantasia=?, cnpj=?, telefone=?, email=?, endereco=? where id=?";
     }
 
     @Override
@@ -41,12 +43,12 @@ public class FornecedorDao extends DaoGenerico<Fornecedor> implements Fornecedor
 
     @Override
     protected String getConsultaAbrir() {
-        return "select * from fornecedor";
+        return "select * from fornecedor where id=?";
     }
 
     @Override
     protected String getConsultaBuscar() {
-        return "select * from fornecedor where id=?";
+        return "select * from fornecedor";
     }
 
     @Override
@@ -68,6 +70,9 @@ public class FornecedorDao extends DaoGenerico<Fornecedor> implements Fornecedor
         
         if((filtro.getEmail() != null) && (!filtro.getEmail().isEmpty()))
             this.adicionarFiltro("email", filtro.getEmail());
+             
+        if(filtro.getEndereco()!= null) 
+            this.adicionarFiltro("endereco", filtro.getEndereco().getId());
     }
 
     @Override
@@ -79,15 +84,18 @@ public class FornecedorDao extends DaoGenerico<Fornecedor> implements Fornecedor
             sql.setString(3, obj.getCnpj());
             sql.setString(4, obj.getTelefone());
             sql.setString(5, obj.getEmail());
+            sql.setInt(6, obj.getEndereco().getId());
             
             if(obj.getId() > 0)
-                sql.setInt(6, obj.getId());
+                sql.setInt(7, obj.getId());
             
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    EnderecoDao enderecos;
+    
     @Override
     protected Fornecedor setDados(ResultSet resultado) {
         try {
@@ -97,7 +105,8 @@ public class FornecedorDao extends DaoGenerico<Fornecedor> implements Fornecedor
             obj.setNomeFantasia( resultado.getString("nomeFantasia") );
             obj.setCnpj( resultado.getString("cnpj") );
             obj.setEmail( resultado.getString("email") );
-            obj.setTelefone( resultado.getString("telefone") );
+            obj.setTelefone( resultado.getString("telefone"));            
+            obj.setEndereco(enderecos.Abrir(resultado.getInt("endereco")));
             
             return obj;
             

@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.Endereco;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import jdk.nashorn.internal.ir.CatchNode;
 
 /**
  *
@@ -29,7 +31,7 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
         super(repositorio, tipo_tela);
         initComponents();
         
-        filtro = new Fornecedor();
+        filtro = new Fornecedor();                
         
         
     }
@@ -154,47 +156,6 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
         editar();
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    @Override
-    public int retornaIdSelecionado() {
-        int linha = tblBusca.getSelectedRow();
-        int id = Integer.parseInt( tblBusca.getModel().getValueAt(linha, 0).toString() );
-        return id;
-    }
-
-    @Override
-    public void preencheFiltro() {
-        if(!txtNomeFantasia.getText().isEmpty())
-            filtro.setNomeFantasia(txtNomeFantasia.getText());
-    }
-
-    @Override
-    public void preencheTabela(List<Fornecedor> listagem) {
-        DefaultTableModel modelo = new DefaultTableModel();
-        
-        // Informa quais as colunas da tabela
-        
-        modelo.addColumn("ID");
-        modelo.addColumn("NomeFantasia");
-        //modelo.addColumn("RazaoSocial");
-       
-        
-        // Adiciona as linhas da tabela
-        
-        for(Fornecedor f : listagem){
-            Vector linha = new Vector();
-            linha.add(f.getId());
-            //linha.add(f.getRazaoSocial());
-            linha.add(f.getNomeFantasia());
-            //linha.add(f.getEmail());
-            //linha.add(f.getTelefone());            
-            
-            modelo.addRow(linha);
-        }
-        
-        tblBusca.setModel(modelo);
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
@@ -204,4 +165,60 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
     private javax.swing.JTable tblBusca;
     private javax.swing.JTextField txtNomeFantasia;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+    public int retornaIdSelecionado() {
+        int linha = tblBusca.getSelectedRow();
+        int id = Integer.parseInt( tblBusca.getModel().getValueAt(linha, 0).toString() );
+        return id;
+    }
+
+    @Override
+    public void preencheFiltro() {
+        try {                                     
+            if(!txtNomeFantasia.getText().isEmpty())
+               filtro.setNomeFantasia(txtNomeFantasia.getText());
+            
+                        
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());                        
+        }        
+    }
+
+    @Override
+    public void preencheTabela(List<Fornecedor> listagem) {
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        // Informa quais as colunas da tabela
+        
+        modelo.addColumn("Id");
+        modelo.addColumn("NomeFantasia");
+        modelo.addColumn("RazaoSocial");
+        //modelo.addColumn("RazaoSocial");               
+        
+        
+        
+        // Adiciona as linhas da tabela
+        
+        for(Fornecedor f : listagem){                        
+            
+            Vector linha = new Vector();
+            linha.add(f.getId());
+            linha.add(f.getNomeFantasia());
+            linha.add(f.getRazaoSocial());
+            linha.add(f.getEmail());
+            linha.add(f.getTelefone()); 
+            linha.add(f.getCnpj()); 
+            linha.add(f.getEndereco());                      
+            
+            modelo.addRow(linha);
+        }
+        
+        tblBusca.setModel(modelo);
+    }
+
+
 }
+

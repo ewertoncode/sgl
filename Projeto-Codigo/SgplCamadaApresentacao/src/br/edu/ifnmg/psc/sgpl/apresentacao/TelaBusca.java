@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Entidade;
@@ -36,9 +35,9 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
         this.tipo_tela = tipo_tela;
     }
     
-    public void buscar() {
-        preencheFiltro();
+    public void buscar() {        
         
+        preencheFiltro();       
         List<T> listagem = repositorio.Buscar(filtro);
         
         preencheTabela(listagem);

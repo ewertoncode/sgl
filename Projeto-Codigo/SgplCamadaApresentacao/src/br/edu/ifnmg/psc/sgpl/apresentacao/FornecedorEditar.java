@@ -7,8 +7,8 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
+import java.sql.SQLException;
 
 /**
  *
@@ -19,14 +19,11 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
     /**
      * Creates new form FornecedorBuscar
      */
-    public FornecedorEditar() {
-        
-        super();
-        initComponents();   
-        
-        entidade = new Fornecedor();
-        
+    public FornecedorEditar() throws SQLException, ClassNotFoundException {
+        this.enderecos = new EnderecoDao();
                 
+        initComponents();                                          
+        
     }
 
     /**
@@ -319,54 +316,53 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
     // End of variables declaration//GEN-END:variables
 
     
+    EnderecoDao enderecos;
     // Descobrir como criar o objeto Endereco e carregar seus atributos
     @Override
-    public void carregaCampos(){
-        txtRazaoSocial.setText(entidade.getRazaoSocial());
+    public void carregaCampos(){        
         txtNomeFantasia.setText(entidade.getNomeFantasia());
+        
+        txtRazaoSocial.setText(entidade.getRazaoSocial());
         txtCnpj.setText(entidade.getCnpj());
         txtTelefone.setText(entidade.getTelefone());
         txtEmail.setText(entidade.getEmail()); 
         
-        txtLogradouro.setText(entidade.getEndereco().getLogradouro());
-        //txtNumero.set(entidade.getEndereco().getNumero());
+        /*
+        txtLogradouro.setText(entidade.getEndereco().getLogradouro());        
+        txtNumero.setText(entidade.getEndereco().getNumero());
         txtComplemento.setText(entidade.getEndereco().getComplemento());
         txtBairro.setText(entidade.getEndereco().getBairro());        
         txtEstado.setText(entidade.getEndereco().getEstado());
         txtPais.setText(entidade.getEndereco().getPais());        
         txtCidade.setText(entidade.getEndereco().getCidade());        
         txtCep.setText(entidade.getEndereco().getCep());        
-    }
-
-    
+        */
+    }    
     
     @Override
-    public void carregaObjeto() throws ViolacaoRegraDeNegocioException {
+    public void carregaObjeto() throws ViolacaoRegraDeNegocioException {        
+        
+        entidade.setNomeFantasia(txtNomeFantasia.getText());        
         entidade.setRazaoSocial(txtRazaoSocial.getText());
-        entidade.setNomeFantasia(txtNomeFantasia.getText());
         entidade.setCnpj(txtCnpj.getText());
         entidade.setTelefone(txtTelefone.getText());
         entidade.setEmail(txtEmail.getText());
         
+        /*
         entidade.getEndereco().setLogradouro(txtLogradouro.getText());
-        //entidade.getEndereco().setNumero(txtNumero.getText());
+        entidade.getEndereco().setNumero(txtNumero.getText());
         entidade.getEndereco().setComplemento(txtComplemento.getText());
         entidade.getEndereco().setBairro(txtBairro.getText());
         entidade.getEndereco().setEstado(txtEstado.getText());
         entidade.getEndereco().setPais(txtPais.getText());
         entidade.getEndereco().setCidade(txtCidade.getText());
         entidade.getEndereco().setCep(txtCep.getText());
+        */
     }
 
     @Override
     public boolean verificarCamposObrigatorios() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return txtNomeFantasia.getText().length() >= 4;
     }
-
-
-
-
-
-
 
 }

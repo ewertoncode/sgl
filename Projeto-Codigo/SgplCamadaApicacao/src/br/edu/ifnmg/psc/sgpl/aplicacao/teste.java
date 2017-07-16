@@ -18,7 +18,7 @@ public class teste {
         Usuario usuario1 = new Usuario(1, "João Doria", "joão@gmail.com", "123", setor1);
         System.out.println(usuario1.toString());            
         
-        Endereco endereco = new Endereco(1,"Rua Jatobá", 10, "Casa Verde", "Sete Setembro", "Januária", "39480-000", "MG", "Brasil");
+        Endereco endereco = new Endereco(1,"Rua Jatobá", "10", "Casa Verde", "Sete Setembro", "Januária", "39480-000", "MG", "Brasil");
         usuario1.setEndereco(endereco);
         System.out.println(usuario1.toString());
         

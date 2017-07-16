@@ -131,13 +131,29 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
     @Override
     public List<T> Buscar(T filtro){
         
+        
+        
         List<T> lista = new ArrayList<>();
         
         try{
-            if(filtro != null)
+           if(filtro != null)
                 this.setBuscaFiltros(filtro);
             
-            String sqlFinal = this.getConsultaBuscar();
+            String sqlfinal = this.getConsultaBuscar();
+            
+            if(! where.isEmpty())
+                sqlfinal += " where " + where;
+                        
+            PreparedStatement sql = conexao.prepareStatement(sqlfinal );
+                       
+            ResultSet resultado = sql.executeQuery();
+            
+            while(resultado.next())
+                lista.add( this.setDados(resultado) );
+            
+            this.where = "";
+            
+            return lista;
             
         }catch(Exception e){
             Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, e);
