@@ -78,15 +78,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void mnuFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFornecedoresActionPerformed
         
-        FornecedorBuscar tela = new FornecedorBuscar(Repositorios.getFornecedorRepositorio(), FornecedorEditar.class);
-        
+        FornecedorBuscar tela = new FornecedorBuscar(Repositorios.getFornecedorRepositorio(), FornecedorEditar.class);        
         this.add(tela);
         tela.setVisible(true);
     }//GEN-LAST:event_mnuFornecedoresActionPerformed
 
     private void mnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUsuariosActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Entrou!");
+        UsuarioBuscar tela = new UsuarioBuscar(Repositorios.getUsuarioRepositorio(), UsuarioEditar.class);        
+        this.add(tela);
+        tela.setVisible(true);
     }//GEN-LAST:event_mnuUsuariosActionPerformed
 
     /**

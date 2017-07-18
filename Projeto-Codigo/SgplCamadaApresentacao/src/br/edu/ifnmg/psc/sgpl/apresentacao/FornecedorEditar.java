@@ -20,10 +20,8 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
      * Creates new form FornecedorBuscar
      */
     public FornecedorEditar() throws SQLException, ClassNotFoundException {
-        this.enderecos = new EnderecoDao();
-                
-        initComponents();                                          
-        
+        this.enderecos = new EnderecoDao();                
+        initComponents();                                                  
     }
 
     /**
@@ -320,8 +318,8 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
     // Descobrir como criar o objeto Endereco e carregar seus atributos
     @Override
     public void carregaCampos(){        
-        txtNomeFantasia.setText(entidade.getNomeFantasia());
         
+        txtNomeFantasia.setText(entidade.getNomeFantasia());        
         txtRazaoSocial.setText(entidade.getRazaoSocial());
         txtCnpj.setText(entidade.getCnpj());
         txtTelefone.setText(entidade.getTelefone());

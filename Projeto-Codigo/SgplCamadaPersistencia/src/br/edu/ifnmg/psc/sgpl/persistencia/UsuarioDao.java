@@ -23,6 +23,7 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
     
     public UsuarioDao() throws ClassNotFoundException, SQLException{
         super();
+        setores = new SetorDao();
     }
     
     @Override
@@ -57,8 +58,7 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
         
         if((filtro.getNome() != null))
             this.adicionarFiltro("nome", filtro.getNome());
-        
-        //refazer aqui
+                
         if(filtro.getEmail() != null)
             this.adicionarFiltro("email", filtro.getEmail());
         
@@ -82,16 +82,17 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
+    
+    SetorDao setores;
+    
     @Override
     protected Usuario setDados(ResultSet resultado) {
         try{
             Usuario obj = new Usuario();
             obj.setId(resultado.getInt("id"));
             obj.setNome(resultado.getString("nome"));
-            obj.setEmail(resultado.getString("email"));
-            obj.getSetor().setId(resultado.getInt("setor"));
-            obj.getEndereco().setId(resultado.getInt("endereco"));
+            obj.setEmail(resultado.getString("email"));                     
+            obj.setSetor(setores.Abrir(resultado.getInt("setor")));
             
             return obj;
             

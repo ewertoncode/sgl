@@ -12,7 +12,7 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
 public class ItemPregao implements Entidade{
     
     private int id;
-    private int quantidade;
+    private double quantidade;
     private double valorReferencia;
     private Pregao pregao;
     private Produto produto;
@@ -29,11 +29,11 @@ public class ItemPregao implements Entidade{
         this.id = id;
     }
 
-    public int getQuantidade() {
+    public double getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
 

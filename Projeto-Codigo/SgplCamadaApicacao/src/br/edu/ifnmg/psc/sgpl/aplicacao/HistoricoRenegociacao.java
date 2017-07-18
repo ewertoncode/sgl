@@ -12,9 +12,9 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
 public class HistoricoRenegociacao implements Entidade{
     
     private int id;
-    private String Descricao;
-    private String Data;
-    private Pregao Pregao;
+    private String descricao;
+    private String data;
+    private Pregao pregao;
     private Fornecedor fornecedor;
     private Usuario usuario;
     
@@ -29,27 +29,27 @@ public class HistoricoRenegociacao implements Entidade{
     }
 
     public String getDescricao() {
-        return Descricao;
+        return descricao;
     }
 
     public void setDescricao(String Descricao) {
-        this.Descricao = Descricao;
+        this.descricao = Descricao;
     }
 
     public String getData() {
-        return Data;
+        return data;
     }
 
     public void setData(String Data) {
-        this.Data = Data;
+        this.data = Data;
     }
 
     public Pregao getPregao() {
-        return Pregao;
+        return pregao;
     }
 
     public void setPregao(Pregao Pregao) {
-        this.Pregao = Pregao;
+        this.pregao = Pregao;
     }
 
     public Fornecedor getFornecedor() {
@@ -75,16 +75,16 @@ public class HistoricoRenegociacao implements Entidade{
     //Construtor2
     public HistoricoRenegociacao(int id, String Descricao, String Data, Pregao Pregao, Fornecedor fornecedor, Usuario usuario) {
         this.id = id;
-        this.Descricao = Descricao;
-        this.Data = Data;
-        this.Pregao = Pregao;
+        this.descricao = Descricao;
+        this.data = Data;
+        this.pregao = Pregao;
         this.fornecedor = fornecedor;
         this.usuario = usuario;
     }
 
     @Override
     public String toString() {
-        return "HistoricoRenegociacao: " + "id=" + id + ", Descricao=" + Descricao + ", Data=" + Data + ", Pregao=" + Pregao + ", fornecedor=" + fornecedor + ", usuario=" + usuario + ' ';
+        return "HistoricoRenegociacao: " + "id=" + id + ", Descricao=" + descricao + ", Data=" + data + ", Pregao=" + pregao + ", fornecedor=" + fornecedor + ", usuario=" + usuario + ' ';
     }
     
     

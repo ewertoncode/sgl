@@ -29,11 +29,8 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
     FornecedorBuscar(Repositorio<Fornecedor> repositorio, Class tipo_tela) {
         
         super(repositorio, tipo_tela);
-        initComponents();
-        
-        filtro = new Fornecedor();                
-        
-        
+        initComponents();        
+        filtro = new Fornecedor();                                
     }
 
     /**
@@ -63,13 +60,11 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
 
         tblBusca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null},
+                {null}
             },
             new String [] {
-
+                "Nome Fantasia"
             }
         ));
         jScrollPane1.setViewportView(tblBusca);
