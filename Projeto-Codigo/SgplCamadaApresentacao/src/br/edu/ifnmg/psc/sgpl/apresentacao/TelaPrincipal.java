@@ -99,7 +99,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         
         ProdutoBuscar tela = new ProdutoBuscar(Repositorios.getProdutoRepositorio(), ProdutoEditar.class);
-        
+        this.add(tela);
+        tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
