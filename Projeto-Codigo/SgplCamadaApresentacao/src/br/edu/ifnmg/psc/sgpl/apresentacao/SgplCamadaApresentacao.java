@@ -26,7 +26,7 @@ public class SgplCamadaApresentacao {
     /**
      * @param args the command line arguments
      */
-    
+    /*
     public static void main(String[] args){
                   
         try{            
@@ -54,7 +54,8 @@ public class SgplCamadaApresentacao {
             System.out.println("Algo deu Errado :/");
             System.out.println(e.getMessage());
         }         
-    }    
+    } 
+*/
 
 }
        
