@@ -49,14 +49,15 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
         try{
             PreparedStatement sql = null;
             
-            if(obj.getId() == 0){
-                sql = conexao.prepareStatement(getConsultaInsert());                
-            }else{
-                sql = conexao.prepareStatement(getConsultaUpdate());
+            if(obj.getId() == 0){                
+                sql = conexao.prepareStatement(getConsultaInsert());                                                            
+            }else{                
+                sql = conexao.prepareStatement(getConsultaUpdate());                
             }
-            
+            System.out.println(sql); 
             setParametros(sql, obj);
-            System.out.println(sql);            
+            
+            
             if(sql.executeUpdate() > 0)
                 return true;
             else                

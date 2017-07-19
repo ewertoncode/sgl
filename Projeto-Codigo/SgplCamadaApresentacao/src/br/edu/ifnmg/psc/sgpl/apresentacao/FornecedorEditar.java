@@ -48,7 +48,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         jLabel13 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnLimpar = new javax.swing.JButton();
+        btnLApagar = new javax.swing.JButton();
         txtRazaoSocial = new javax.swing.JTextField();
         txtCnpj = new javax.swing.JTextField();
         txtNomeFantasia = new javax.swing.JTextField();
@@ -103,10 +103,10 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
             }
         });
 
-        btnLimpar.setText("Limpar");
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+        btnLApagar.setText("Apagar");
+        btnLApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
+                btnLApagarActionPerformed(evt);
             }
         });
 
@@ -184,7 +184,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnLApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,7 +248,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
                     .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLApagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSalvar)
                         .addComponent(btnCancelar)))
@@ -268,9 +268,9 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+    private void btnLApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLApagarActionPerformed
         apagar();
-    }//GEN-LAST:event_btnLimparActionPerformed
+    }//GEN-LAST:event_btnLApagarActionPerformed
 
     private void txtCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCnpjActionPerformed
         // TODO add your handling code here:
@@ -283,7 +283,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnLApagar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

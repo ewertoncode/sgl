@@ -83,7 +83,7 @@ public class Fornecedor implements Entidade{
     public Fornecedor() {
     }
 
-    public Fornecedor(int id, String razaoSocial, String nomeFantasia, String cnpj, String telefone, String email) {
+    public Fornecedor(int id, String razaoSocial, String nomeFantasia, String cnpj, String telefone, String email, Endereco endereco) {
         this.id = id;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
