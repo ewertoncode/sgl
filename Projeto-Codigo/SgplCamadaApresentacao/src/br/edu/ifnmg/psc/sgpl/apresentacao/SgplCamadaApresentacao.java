@@ -98,7 +98,7 @@ public class SgplCamadaApresentacao {
             //System.out.println(dao10.Apagar(itemPedido));
             //System.out.println(dao11.Apagar(historicoRenegociacao));
             //System.out.println(dao12.Apagar(itemPregao));
-            //System.out.println(dao13.Salvar(notificacaoFornecedor));
+            System.out.println(dao13.Salvar(notificacaoFornecedor));
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Algo deu Errado :/");
