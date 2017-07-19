@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author haw
+ * @author Emerson Pereira
  */
 public class UsuarioEditar extends TelaEdicao<Usuario> {
 
@@ -39,6 +39,8 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         btnCancelar = new javax.swing.JButton();
         btnApagar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jLabel1.setText("Nome:");
 

@@ -39,6 +39,8 @@ public class SetorEditar extends TelaEdicao<Setor> {
 
         jTextField1.setText("jTextField1");
 
+        setClosable(true);
+
         jLabel1.setText("Nome:");
 
         btnSalvar.setText("Salvar");

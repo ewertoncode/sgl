@@ -47,6 +47,8 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        setClosable(true);
+
         jLabel1.setText("Nome:");
 
         txtNome.addActionListener(new java.awt.event.ActionListener() {

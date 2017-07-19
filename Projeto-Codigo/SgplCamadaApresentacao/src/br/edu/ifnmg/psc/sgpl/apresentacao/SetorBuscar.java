@@ -52,6 +52,8 @@ public class SetorBuscar extends TelaBusca<Setor> {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        setClosable(true);
+
         jLabel1.setText("Nome:");
 
         tblBusca.setModel(new javax.swing.table.DefaultTableModel(
