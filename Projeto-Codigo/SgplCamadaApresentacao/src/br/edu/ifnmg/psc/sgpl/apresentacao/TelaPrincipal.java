@@ -5,6 +5,8 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.apresentacao.ProdutoBuscar;
+
 /**
  *
  * @author Emerson Pereira
@@ -54,7 +56,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(mnuFornecedores);
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Produtos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -88,6 +95,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.add(tela);
         tela.setVisible(true);
     }//GEN-LAST:event_mnuUsuariosActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        
+        ProdutoBuscar tela = new ProdutoBuscar(Repositorios.getProdutoRepositorio(), ProdutoEditar.class);
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

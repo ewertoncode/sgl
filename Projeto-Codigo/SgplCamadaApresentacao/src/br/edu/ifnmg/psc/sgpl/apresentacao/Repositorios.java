@@ -7,8 +7,10 @@
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.persistencia.FornecedorDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.UsuarioDao;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -37,7 +39,7 @@ public class Repositorios {
     static FornecedorRepositorio fornecedorDao = null;
     
     public static FornecedorRepositorio getFornecedorRepositorio(){
-        if(usuarioDao == null)
+        if(fornecedorDao == null)
             try {
                 fornecedorDao = new FornecedorDao();
             } catch (ClassNotFoundException ex) {
@@ -46,6 +48,20 @@ public class Repositorios {
                 Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
             }
         return fornecedorDao;
+    }
+    
+    static ProdutoRepositorio produtoDao = null;
+    
+    public static ProdutoRepositorio getProdutoRepositorio(){
+        if(produtoDao == null)
+            try {
+                produtoDao = new ProdutoDao();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return produtoDao;
     }
     
     

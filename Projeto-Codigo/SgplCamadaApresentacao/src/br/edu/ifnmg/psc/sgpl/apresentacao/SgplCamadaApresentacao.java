@@ -50,11 +50,20 @@ public class SgplCamadaApresentacao {
     /**
      * @param args the command line arguments
      */
+<<<<<<< HEAD
     public static void main(String[] args) {
 
         try {
 
             UsuarioRepositorio dao = new UsuarioDao();
+=======
+    /*
+    public static void main(String[] args){
+                  
+        try{            
+            
+            UsuarioRepositorio dao = new UsuarioDao();            
+>>>>>>> 5846859a9fa065a83e71aaee610a46769f7d92da
             SetorRepositorio dao2 = new SetorDao();
             FornecedorRepositorio dao3 = new FornecedorDao();
             EnderecoRepositorio dao4 = new EnderecoDao();
@@ -103,7 +112,13 @@ public class SgplCamadaApresentacao {
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Algo deu Errado :/");
             System.out.println(e.getMessage());
+<<<<<<< HEAD
         }
     }
+=======
+        }         
+    } 
+*/
+>>>>>>> 5846859a9fa065a83e71aaee610a46769f7d92da
 
 }
