@@ -8,6 +8,9 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +23,7 @@ public class ProdutoBuscar extends TelaBusca<Produto> {
         initComponents();
         
         filtro = new Produto();
+        buscar();
     }
 
     /**
@@ -52,10 +56,25 @@ public class ProdutoBuscar extends TelaBusca<Produto> {
         jScrollPane1.setViewportView(tblBusca);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,6 +123,18 @@ public class ProdutoBuscar extends TelaBusca<Produto> {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        novo();
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -119,16 +150,48 @@ public class ProdutoBuscar extends TelaBusca<Produto> {
 
     @Override
     public int retornaIdSelecionado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int linha = tblBusca.getSelectedRow();
+        int id = Integer.parseInt( tblBusca.getModel().getValueAt(linha, 0).toString() );
+        return id;
     }
 
     @Override
     public void preencheFiltro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            filtro.setNome(null);
+            filtro.setCatmat(null);
+            if(! txtNome.getText().isEmpty())
+                filtro.setNome(txtNome.getText());
+            
+            if(! txtCatmat.getText().isEmpty())
+                filtro.setCatmat(txtCatmat.getText());
+            
+        } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
     }
 
     @Override
     public void preencheTabela(List<Produto> listagem) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       DefaultTableModel modelo = new DefaultTableModel();
+        
+        // Informa quais as colunas da tabela
+        
+        modelo.addColumn("ID");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Catmat");
+        
+        // Adiciona as linhas da tabela
+        
+        for(Produto p : listagem){
+            Vector linha = new Vector();
+            linha.add(p.getId());
+            linha.add(p.getNome());
+            linha.add(p.getCatmat());
+            
+            modelo.addRow(linha);
+        }
+        
+        tblBusca.setModel(modelo);
     }
 }

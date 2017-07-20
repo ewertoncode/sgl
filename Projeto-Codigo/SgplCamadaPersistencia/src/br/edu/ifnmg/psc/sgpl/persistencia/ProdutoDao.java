@@ -28,7 +28,7 @@ public class ProdutoDao extends DaoGenerico<Produto> implements ProdutoRepositor
     
     @Override
     protected String getConsultaInsert() {
-        return "insert into produto (nome, catmat) values (?, ?)";
+        return "insert into produto(nome, catmat) values (?,?)";
     }
 
     @Override
@@ -63,10 +63,11 @@ public class ProdutoDao extends DaoGenerico<Produto> implements ProdutoRepositor
     @Override
     protected void setParametros(PreparedStatement sql, Produto obj) {
         try{            
-            sql.setString(1, obj.getNome());                        
+            sql.setString(1, obj.getNome());
+            sql.setString(2, obj.getCatmat());
             
             if(obj.getId() > 0)
-                sql.setInt(2, obj.getId());
+                sql.setInt(3, obj.getId());
             
         }catch(SQLException e){
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);

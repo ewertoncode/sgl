@@ -19,6 +19,7 @@ public class ProdutoEditar extends TelaEdicao<Produto> {
      */
     public ProdutoEditar() {
         initComponents();
+        entidade = new Produto();
     }
 
     /**
@@ -48,10 +49,26 @@ public class ProdutoEditar extends TelaEdicao<Produto> {
         jLabel2.setText("Catmat:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnApagar.setText("Apagar");
+        btnApagar.setOpaque(true);
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +92,7 @@ public class ProdutoEditar extends TelaEdicao<Produto> {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnApagar))
                             .addComponent(txtCatmat, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,11 +110,23 @@ public class ProdutoEditar extends TelaEdicao<Produto> {
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
                     .addComponent(btnApagar))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        salvar();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        apagar();
+    }//GEN-LAST:event_btnApagarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -112,16 +141,18 @@ public class ProdutoEditar extends TelaEdicao<Produto> {
 
     @Override
     public void carregaCampos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        txtNomeProduto.setText(entidade.getNome());
+        txtCatmat.setText(entidade.getCatmat());
     }
 
     @Override
     public void carregaObjeto() throws ViolacaoRegraDeNegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entidade.setNome(txtNomeProduto.getText());
+        entidade.setCatmat(txtCatmat.getText());
     }
 
     @Override
     public boolean verificarCamposObrigatorios() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return !txtNomeProduto.getText().isEmpty();
     }
 }

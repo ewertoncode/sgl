@@ -11,6 +11,7 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
  */
 
 public class teste {
+    /*
     public static void main(String[] args) throws ViolacaoRegraDeNegocioException {
                 
         Setor setor1 = new Setor(1, "RH");
@@ -65,4 +66,5 @@ public class teste {
         
         
     }
+*/
 }
