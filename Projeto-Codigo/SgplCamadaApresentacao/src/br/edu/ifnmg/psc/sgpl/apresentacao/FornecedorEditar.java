@@ -63,6 +63,8 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         txtCidade = new javax.swing.JTextField();
         txtCep = new javax.swing.JTextField();
 
+        setClosable(true);
+
         jLabel1.setText("Razão Social:");
 
         jLabel2.setText("CNPJ:");

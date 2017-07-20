@@ -31,14 +31,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        mnuSetores = new javax.swing.JMenuItem();
         mnuUsuarios = new javax.swing.JMenuItem();
-        mnuFornecedores = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        mnuFornecedores = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Cadastros");
+
+        mnuSetores.setText("Setores");
+        mnuSetores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSetoresActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuSetores);
 
         mnuUsuarios.setText("Usuarios");
         mnuUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -48,14 +57,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(mnuUsuarios);
 
-        mnuFornecedores.setText("Fornecedores");
-        mnuFornecedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuFornecedoresActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuFornecedores);
-
         jMenuItem3.setText("Produtos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +64,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
+
+        mnuFornecedores.setText("Fornecedores");
+        mnuFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFornecedoresActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuFornecedores);
 
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
@@ -82,7 +91,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
+    
     private void mnuFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFornecedoresActionPerformed
         
         FornecedorBuscar tela = new FornecedorBuscar(Repositorios.getFornecedorRepositorio(), FornecedorEditar.class);        
@@ -102,6 +112,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.add(tela);
         tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void mnuSetoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSetoresActionPerformed
+        SetorBuscar tela = new SetorBuscar(Repositorios.getSetorRepositorio(), SetorEditar.class);
+        this.add(tela);
+        tela.setVisible(true);
+    }//GEN-LAST:event_mnuSetoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,6 +160,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem mnuFornecedores;
+    private javax.swing.JMenuItem mnuSetores;
     private javax.swing.JMenuItem mnuUsuarios;
     // End of variables declaration//GEN-END:variables
 }

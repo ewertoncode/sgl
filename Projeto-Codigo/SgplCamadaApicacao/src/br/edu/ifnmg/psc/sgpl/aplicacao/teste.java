@@ -29,9 +29,9 @@ public class teste {
         Pregao pregao1 = new Pregao(1, "10/10/2010", "10/10/2011", pedido1, usuario1);
         System.out.println(pregao1.toString());
         
-        Fornecedor fornecedor1 = new Fornecedor(1, "Agroveterinária LTDa1", "Casa do criador1", "1234567890-22", "33 93732-3223", "cc@gmail.com");
-        Fornecedor fornecedor2 = new Fornecedor(2, "Agroveterinária LTDa2", "Casa do criador2", "1234567890-22", "33 93732-3223", "cc@gmail.com");
-        Fornecedor fornecedor3 = new Fornecedor(3, "Agroveterinária LTDa3", "Casa do criador3", "1234567890-22", "33 93732-3223", "cc@gmail.com");
+        Fornecedor fornecedor1 = new Fornecedor(1, "Agroveterinária LTDa1", "Casa do criador1", "1234567890-22", "33 93732-3223", "cc@gmail.com", endereco);
+        Fornecedor fornecedor2 = new Fornecedor(2, "Agroveterinária LTDa2", "Casa do criador2", "1234567890-22", "33 93732-3223", "cc@gmail.com", endereco);
+        Fornecedor fornecedor3 = new Fornecedor(3, "Agroveterinária LTDa3", "Casa do criador3", "1234567890-22", "33 93732-3223", "cc@gmail.com", endereco);
         System.out.println(fornecedor1.toString());
         
         
