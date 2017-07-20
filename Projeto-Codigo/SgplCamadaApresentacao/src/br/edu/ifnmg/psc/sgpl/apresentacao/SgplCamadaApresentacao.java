@@ -74,7 +74,7 @@ public class SgplCamadaApresentacao {
             Usuario usuario = new Usuario(0, "Joao Paulo", "jp@gmail.com", "123", setor, endereco);
             //Fornecedor fornecedor1 = new Fornecedor(0, "Luis1 LTDA", "Distribuidora do Luis", "1921281281", "luisLTDA@gmail.com", "123123", endereco);
             //Fornecedor fornecedor2 = new Fornecedor(31, "Luis2 LTDA", "Distribuidora do Luis", "1921281281", "luisLTDA@gmail.com", "123123", endereco);
-            //Fornecedor fornecedor3 = new Fornecedor(32, "Luis3 LTDA", "Distribuidora do Luis", "1921281281", "luisLTDA@gmail.com", "123123", endereco);
+            Fornecedor fornecedor3 = new Fornecedor(32, "Luis3 LTDA", "Distribuidora do Luis", "1921281281", "luisLTDA@gmail.com", "123123", endereco);
             Pedido pedido = new Pedido(1, "2017-07-04", usuario);
             Pregao pregao = new Pregao(0, "2017-07-04", "2017-07-06", pedido, usuario);
             StatusItem statusItem = new StatusItem(2, "Ativos");
@@ -83,7 +83,7 @@ public class SgplCamadaApresentacao {
             //ItemPedido itemPedido = new ItemPedido(2, 20, fornecedor1, 5.8, fornecedor2, 4.6, fornecedor3, 6, pedido, produto);
             //HistoricoRenegociacao historicoRenegociacao = new HistoricoRenegociacao(2, "Pagara corretamente...", "2017-07-10", pregao, fornecedor3, usuario);
             //ItemPregao itemPregao = new ItemPregao(2, 10, 30, pregao, produto, fornecedor3, statusItem);
-            //NotificacaoFornecedor notificacaoFornecedor = new NotificacaoFornecedor(1, "Em curso....", "2017-07-10", 1, fornecedor3, pregao);
+            NotificacaoFornecedor notificacaoFornecedor = new NotificacaoFornecedor(1, "Em curso....", "2017-07-10", 1, fornecedor3, pregao);
             
             
             
@@ -98,7 +98,7 @@ public class SgplCamadaApresentacao {
             //System.out.println(dao10.Apagar(itemPedido));
             //System.out.println(dao11.Apagar(historicoRenegociacao));
             //System.out.println(dao12.Apagar(itemPregao));
-            //System.out.println(dao13.Salvar(notificacaoFornecedor));
+            System.out.println(dao13.Salvar(notificacaoFornecedor));
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Algo deu Errado :/");

@@ -8,9 +8,11 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.SetorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.persistencia.FornecedorDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.SetorDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.UsuarioDao;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -62,6 +64,20 @@ public class Repositorios {
                 Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
             }
         return produtoDao;
+    }
+    
+     static SetorRepositorio setorDao = null;
+    
+    public static SetorRepositorio getSetorRepositorio(){
+        if(setorDao == null)
+            try {
+                setorDao = new SetorDao();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return setorDao;
     }
     
     

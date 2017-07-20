@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 19-Jul-2017 às 00:26
+-- Generation Time: 20-Jul-2017 às 11:43
 -- Versão do servidor: 5.7.18-0ubuntu0.16.04.1
 -- PHP Version: 7.0.18-0ubuntu0.16.04.1
 
@@ -69,7 +69,8 @@ CREATE TABLE `fornecedor` (
 --
 
 INSERT INTO `fornecedor` (`id`, `razaoSocial`, `nomeFantasia`, `cnpj`, `telefone`, `email`, `endereco`) VALUES
-(4, 'Luis LTDA', 'Distribuidora do Luis', '1921281281', 'luisLTDA@gmail.com', '123123', NULL);
+(5, 'Luis1 LTDA', 'Distribuidora do Luis', '1921281281', 'luisLTDA@gmail.com', '123123', 0),
+(7, 'Luis1 LTDA', 'Distribuidora do Luis', '1921281281', 'luisLTDA@gmail.com', '123123', 0);
 
 -- --------------------------------------------------------
 
@@ -185,7 +186,7 @@ CREATE TABLE `notificacao_fornecedor` (
 --
 
 INSERT INTO `notificacao_fornecedor` (`id`, `descricao`, `data`, `status`, `fornecedor`, `pregao`) VALUES
-(1, 'Em curso', '2017-07-10', 1, 32, 0);
+(1, 'Em curso....', '2017-07-10', 1, 32, 0);
 
 -- --------------------------------------------------------
 
@@ -231,6 +232,25 @@ INSERT INTO `pregao` (`id`, `data`, `diasEntrega`, `pedido`, `usuario`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `produto`
+--
+
+CREATE TABLE `produto` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `catmat` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `produto`
+--
+
+INSERT INTO `produto` (`id`, `nome`, `catmat`) VALUES
+(1, 'Computador', '123456');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `setor`
 --
 
@@ -244,7 +264,11 @@ CREATE TABLE `setor` (
 --
 
 INSERT INTO `setor` (`id`, `nome`) VALUES
-(1, 'Setor1');
+(1, 'Setor1'),
+(2, 'Setor1'),
+(3, 'Administração'),
+(4, 'Protocolo'),
+(5, 'Administracao');
 
 -- --------------------------------------------------------
 
@@ -345,6 +369,12 @@ ALTER TABLE `pregao`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `produto`
+--
+ALTER TABLE `produto`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `setor`
 --
 ALTER TABLE `setor`
@@ -375,7 +405,7 @@ ALTER TABLE `endereco`
 -- AUTO_INCREMENT for table `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `historico_renegociacao`
 --
@@ -412,10 +442,15 @@ ALTER TABLE `pedido`
 ALTER TABLE `pregao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `produto`
+--
+ALTER TABLE `produto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `setor`
 --
 ALTER TABLE `setor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `status_item`
 --
