@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/haw/Desktop/GitHubPSC/GitHubPsc/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/UsuarioBuscar.java</file>
             <file>file:/home/haw/Desktop/GitHubPSC/GitHubPsc/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/EmitirNotaEmpenhoBuscar.java</file>
             <file>file:/home/haw/Desktop/GitHubPSC/GitHubPsc/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/UsuarioEditar.java</file>
             <file>file:/home/haw/Desktop/GitHubPSC/GitHubPsc/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/EmitirNotaEmpenhoEditar.java</file>
+=======
+            <file>file:/home/ewerton/Documentos/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/Repositorios.java</file>
+            <file>file:/home/ewerton/Documentos/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/SgplCamadaApresentacao.java</file>
+>>>>>>> e92a5807ec79f7806ff3af76a206dbedac0b7b8f
         </group>
     </open-files>
 </project-private>

@@ -30,7 +30,9 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
     public DaoGenerico() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sgpl","root", "root");        
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sgpl","root", "root");
+        
+        System.out.print(conexao);
     }
     
     private String where = "";

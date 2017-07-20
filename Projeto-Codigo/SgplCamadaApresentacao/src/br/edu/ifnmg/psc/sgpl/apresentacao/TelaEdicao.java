@@ -83,7 +83,8 @@ public abstract class TelaEdicao<T extends Entidade> extends javax.swing.JIntern
             
         } else {
             JOptionPane.showMessageDialog(rootPane, "Operação Cancelada!");
-        }                
+        }  
+        cancelar();
     }
     
     public void apagar(){

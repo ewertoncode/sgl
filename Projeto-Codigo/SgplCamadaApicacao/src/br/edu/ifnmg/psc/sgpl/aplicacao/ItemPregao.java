@@ -82,7 +82,7 @@ public class ItemPregao implements Entidade{
     }
     
     //Contrutor2
-    public ItemPregao(int id, int quantidade, double valorReferencia, Pregao pregao, Produto produto, Fornecedor forncedor, StatusItem statusItem) {
+    public ItemPregao(int id, double quantidade, double valorReferencia, Pregao pregao, Produto produto, Fornecedor forncedor, StatusItem statusItem) {
         this.id = id;
         this.quantidade = quantidade;
         this.valorReferencia = valorReferencia;
