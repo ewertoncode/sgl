@@ -26,6 +26,7 @@ public class SetorBuscar extends TelaBusca<Setor> {
         super(repositorio, tipo_tela);
         initComponents();     
         filtro = new Setor();
+        buscar();
     }
 
     @SuppressWarnings("unchecked")

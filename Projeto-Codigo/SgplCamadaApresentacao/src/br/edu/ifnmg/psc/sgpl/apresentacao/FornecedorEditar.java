@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
@@ -13,7 +14,7 @@ import java.text.ParseException;
 
 /**
  *
- * @author haw
+ * @author Emerson Pereira
  */
 public class FornecedorEditar extends TelaEdicao<Fornecedor> {
 
@@ -21,7 +22,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
      * Creates new form FornecedorBuscar
      */
     public FornecedorEditar() throws SQLException, ClassNotFoundException, ParseException {
-        this.enderecos = new EnderecoDao();        
+        this.enderecos = Repositorios.getEnderecoRepositorio();        
         initComponents();   
 
     }
@@ -324,9 +325,8 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
-    
-    
-    EnderecoDao enderecos;
+   
+    EnderecoRepositorio enderecos;
     // Descobrir como criar o objeto Endereco e carregar seus atributos
     @Override
     public void carregaCampos(){        
@@ -335,9 +335,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         txtRazaoSocial.setText(entidade.getRazaoSocial());
         txtCnpj.setText(entidade.getCnpj());
         txtTelefone.setText(entidade.getTelefone());
-        txtEmail.setText(entidade.getEmail()); 
-        
-        /*
+        txtEmail.setText(entidade.getEmail());         
         txtLogradouro.setText(entidade.getEndereco().getLogradouro());        
         txtNumero.setText(entidade.getEndereco().getNumero());
         txtComplemento.setText(entidade.getEndereco().getComplemento());
@@ -345,8 +343,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         txtEstado.setText(entidade.getEndereco().getEstado());
         txtPais.setText(entidade.getEndereco().getPais());        
         txtCidade.setText(entidade.getEndereco().getCidade());        
-        txtCep.setText(entidade.getEndereco().getCep());        
-        */
+        txtCep.setText(entidade.getEndereco().getCep());                
     }    
     
     @Override
@@ -356,9 +353,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         entidade.setRazaoSocial(txtRazaoSocial.getText());
         entidade.setCnpj(txtCnpj.getText());
         entidade.setTelefone(txtTelefone.getText());
-        entidade.setEmail(txtEmail.getText());
-        
-        /*
+        entidade.setEmail(txtEmail.getText());                       
         entidade.getEndereco().setLogradouro(txtLogradouro.getText());
         entidade.getEndereco().setNumero(txtNumero.getText());
         entidade.getEndereco().setComplemento(txtComplemento.getText());
@@ -366,8 +361,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         entidade.getEndereco().setEstado(txtEstado.getText());
         entidade.getEndereco().setPais(txtPais.getText());
         entidade.getEndereco().setCidade(txtCidade.getText());
-        entidade.getEndereco().setCep(txtCep.getText());
-        */
+        entidade.getEndereco().setCep(txtCep.getText());       
     }
 
     @Override

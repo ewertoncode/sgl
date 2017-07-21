@@ -6,10 +6,12 @@
 
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.SetorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
+import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.FornecedorDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.SetorDao;
@@ -78,6 +80,19 @@ public class Repositorios {
                 Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
             }
         return setorDao;
+    }
+    static EnderecoRepositorio enderecoDao = null;
+    
+    public static EnderecoRepositorio getEnderecoRepositorio(){
+        if(enderecoDao == null)
+            try {
+                enderecoDao = new EnderecoDao();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return enderecoDao;
     }
     
     

@@ -109,7 +109,7 @@ public class EnderecoDao extends DaoGenerico<Endereco> implements EnderecoReposi
             obj.setId( resultado.getInt("id") );
             obj.setLogradouro(resultado.getString("logradouro") );
             obj.setNumero(resultado.getString("numero") );
-            obj.setComplemento(resultado.getString("complento") );
+            obj.setComplemento(resultado.getString("complemento") );
             obj.setBairro(resultado.getString("bairro") );
             obj.setCidade(resultado.getString("cidade") );
             obj.setCep(resultado.getString("cep") );
