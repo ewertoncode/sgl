@@ -30,7 +30,8 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
         
         super(repositorio, tipo_tela);
         initComponents();        
-        filtro = new Fornecedor();                                
+        filtro = new Fornecedor();     
+        buscar();
     }
 
     /**
@@ -190,10 +191,7 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
         
         modelo.addColumn("Id");
         modelo.addColumn("NomeFantasia");
-        modelo.addColumn("RazaoSocial");
-        //modelo.addColumn("RazaoSocial");               
-        
-        
+        modelo.addColumn("RazaoSocial");                                    
         
         // Adiciona as linhas da tabela
         

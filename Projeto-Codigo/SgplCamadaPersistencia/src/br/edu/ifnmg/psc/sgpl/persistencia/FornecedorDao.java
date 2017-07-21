@@ -12,6 +12,7 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.Endereco;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -114,6 +115,15 @@ public class FornecedorDao extends DaoGenerico<Fornecedor> implements Fornecedor
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public boolean Salvar(Fornecedor obj){
+        if(obj.getEndereco() != null && obj.getEndereco().getId() == 0)
+            if(this.enderecos.Salvar(obj.getEndereco())){
+                List<Endereco> tmp = this.enderecos.Buscar(obj.getEndereco());
+                obj.setEndereco(tmp.get(0));
+            }
+        return super.Salvar(obj);
     }
 
 }

@@ -26,6 +26,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
         super(repositorio, tipo_tela);
         initComponents();        
         filtro = new Usuario();
+        buscar();
     }
     
     @SuppressWarnings("unchecked")
