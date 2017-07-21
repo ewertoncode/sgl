@@ -1,6 +1,0 @@
------------------------------------------------------OBSERVAÇÕES/AFAZERES-----------------------------------------------------------------------
-1 - Corrigir banco de dados
-2 - Implementar Banco de Dados Corretamente
-
-3 - Como Carregar SETOR na classe UsuarioBuscar.preencheTabela(), UsuarioEditar.carregaCampos() e UsuarioBuscar.carregaObjeto???
-4 - Como fazer o metodo Usuario.preencheFiltro() corretamente, quando tipo INT ou OBJ???
