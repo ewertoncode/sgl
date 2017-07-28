@@ -6,9 +6,13 @@
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Setor;
+import br.edu.ifnmg.psc.sgpl.aplicacao.SetorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,14 +21,25 @@ import javax.swing.table.DefaultTableModel;
  * @author Emerson Pereira
  */
 public class UsuarioBuscar extends TelaBusca<Usuario> {
-
+    
+    SetorRepositorio setores = Repositorios.getSetorRepositorio();
+    
     /**
      * Creates new form TelaBusca
      */
     public UsuarioBuscar(Repositorio<Usuario> repositorio, Class tipo_tela) {
         
         super(repositorio, tipo_tela);
-        initComponents();        
+        initComponents(); 
+        
+        List<Setor> lista = setores.Buscar(null);
+        
+        lista.add(0, null);
+        
+        ComboBoxModel modelo = new DefaultComboBoxModel(lista.toArray());
+        
+        cbxSetor.setModel(modelo);
+        
         filtro = new Usuario();
         buscar();
     }
@@ -211,7 +226,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
         modelo.addColumn("Id");
         modelo.addColumn("Nome");
         modelo.addColumn("Email");
-        //modelo.addColumn("Setor");               
+        modelo.addColumn("Setor");               
         
         
         

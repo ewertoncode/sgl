@@ -32,8 +32,7 @@ public abstract class TelaEdicao<T extends Entidade> extends javax.swing.JIntern
     }
 
     public void setEntidade(T entidade) {
-        this.entidade = entidade;
-        
+        this.entidade = entidade;        
         carregaCampos();
     }
 
