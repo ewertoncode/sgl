@@ -18,7 +18,7 @@ import jdk.nashorn.internal.ir.CatchNode;
 
 /**
  *
- * @author haw
+ * @author Emerson Pereira
  */
 public class FornecedorBuscar extends TelaBusca<Fornecedor> {
 
@@ -138,7 +138,6 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
     private void txtNomeFantasiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeFantasiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeFantasiaActionPerformed
-
     
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         novo();

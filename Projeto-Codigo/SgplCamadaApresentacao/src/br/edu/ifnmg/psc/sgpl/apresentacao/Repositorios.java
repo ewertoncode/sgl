@@ -8,11 +8,13 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.PedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.SetorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.FornecedorDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.PedidoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.SetorDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.UsuarioDao;
@@ -24,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author Emerson Pereira
  */
-public class Repositorios { 
+public class Repositorios{ 
     
     static UsuarioRepositorio usuarioDao = null;
     
@@ -81,6 +83,7 @@ public class Repositorios {
             }
         return setorDao;
     }
+    
     static EnderecoRepositorio enderecoDao = null;
     
     public static EnderecoRepositorio getEnderecoRepositorio(){
@@ -93,6 +96,20 @@ public class Repositorios {
                 Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
             }
         return enderecoDao;
+    }
+    
+    static PedidoRepositorio pedidoDao = null;
+    
+    public static PedidoRepositorio getPedidoRepositorio(){
+        if(pedidoDao == null)
+            try {
+                pedidoDao = new PedidoDao();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return pedidoDao;
     }
     
     

@@ -316,17 +316,21 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
-    
     EnderecoRepositorio enderecos;
+    
     // Descobrir como criar o objeto Endereco e carregar seus atributos
     @Override
-    public void carregaCampos(){        
+    public void carregaCampos(){                        
+        
+        //if(entidade.getEndereco()==null)
+            //return ;
         
         txtNomeFantasia.setText(entidade.getNomeFantasia());        
         txtRazaoSocial.setText(entidade.getRazaoSocial());
         txtCnpj.setText(entidade.getCnpj());
         txtTelefone.setText(entidade.getTelefone());
-        txtEmail.setText(entidade.getEmail());         
+        txtEmail.setText(entidade.getEmail());   
+        
         txtLogradouro.setText(entidade.getEndereco().getLogradouro());        
         txtNumero.setText(entidade.getEndereco().getNumero());
         txtComplemento.setText(entidade.getEndereco().getComplemento());
@@ -344,7 +348,8 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         entidade.setRazaoSocial(txtRazaoSocial.getText());
         entidade.setCnpj(txtCnpj.getText());
         entidade.setTelefone(txtTelefone.getText());
-        entidade.setEmail(txtEmail.getText());                       
+        entidade.setEmail(txtEmail.getText());    
+        
         entidade.getEndereco().setLogradouro(txtLogradouro.getText());
         entidade.getEndereco().setNumero(txtNumero.getText());
         entidade.getEndereco().setComplemento(txtComplemento.getText());

@@ -19,8 +19,7 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
     /**
      * Creates new form UsuarioEditar
      */
-    public UsuarioEditar() throws SQLException, ClassNotFoundException{
-        //this.setor = new SetorDao();
+    public UsuarioEditar() throws SQLException, ClassNotFoundException{        
         initComponents();
     }
 
@@ -191,7 +190,7 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         txtNome.setText(entidade.getNome());        
         txtEmail.setText(entidade.getEmail());
         txtSenha.setText(entidade.getSenha());                        
-        //cbxSetor.setText(entidade.getSetor().getId());        
+        cbxSetor.setSelectedItem(entidade.getSetor().getId());        
     }
 
     @Override
@@ -199,7 +198,7 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         entidade.setNome(txtNome.getText());        
         entidade.setEmail(txtEmail.getText());
         entidade.setSenha(txtSenha.getText());        
-        //entidade.getSetor().setSetor((txtSetor.getText()));        
+        entidade.getSetor().setNome(txtNome.getText());
     }
 
     @Override
