@@ -48,7 +48,7 @@ public class Setor implements Entidade{
     
     @Override
     public String toString(){
-        return ("Setor: " + this.nome);
+        return this.nome;
     }
     
     //Fazer o hashCode() e equals() ????????????

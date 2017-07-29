@@ -25,7 +25,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
-   
+        /*
         if(!Aplicacao.isLogged()){
             if(telalogin == null)
                 telalogin = new TelaLogin();
@@ -34,6 +34,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.setVisible(false);
             return;
         }
+        */
         initComponents();
         
 
@@ -59,6 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         mnuFornecedores = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -115,6 +117,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem1);
+
+        jMenuItem4.setText("Pregões");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem4);
 
         jMenuBar1.add(jMenu3);
 
@@ -205,6 +215,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaAjuda.setVisible(true);
     }//GEN-LAST:event_jMenu5MouseClicked
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        PregaoBuscar telaPregao = new PregaoBuscar(Repositorios.getPregaoRepositorio(), PedidoEditar.class);
+        this.add(telaPregao);
+        telaPregao.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,6 +268,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem mnuFornecedores;
     private javax.swing.JMenuItem mnuSetores;
     private javax.swing.JMenuItem mnuUsuarios;

@@ -12,6 +12,7 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,7 +61,7 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
         if((filtro.getData() != null))
             this.adicionarFiltro("data", filtro.getData());
                 
-        if(filtro.getDiasEntrega() != null)
+        if(filtro.getDiasEntrega() > 0)
             this.adicionarFiltro("diasEntrega", filtro.getDiasEntrega());
         
         if(filtro.getPedido() != null) 
@@ -73,8 +74,8 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
     @Override
     protected void setParametros(PreparedStatement sql, Pregao obj) {
         try{            
-            sql.setString(1, obj.getData());            
-            sql.setString(2, obj.getDiasEntrega());                        
+            sql.setDate(1, (java.sql.Date) obj.getData());            
+            sql.setInt(2, obj.getDiasEntrega());                        
             sql.setInt(3, obj.getPedido().getId());
             sql.setInt(4, obj.getUsuario().getId());
             
@@ -94,8 +95,8 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
         try{
             Pregao obj = new Pregao();
             obj.setId(resultado.getInt("id"));
-            obj.setData(resultado.getString("data"));
-            obj.setDiasEntrega(resultado.getString("diasEntrega"));                     
+            obj.setData(resultado.getDate("data"));
+            obj.setDiasEntrega(resultado.getInt("diasEntrega"));                     
             obj.setPedido(pedidos.Abrir(resultado.getInt("pedido")));
             obj.setUsuario(usuarios.Abrir(resultado.getInt("usuario")));
             
@@ -105,6 +106,10 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
+    }
+
+    private void adicionarFiltro(String data, Date data0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

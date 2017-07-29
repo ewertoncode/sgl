@@ -85,7 +85,7 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
             Pedido obj = new Pedido();
             obj.setId(resultado.getInt("id"));
             obj.setData(resultado.getString("data"));
-            obj.setUsuario(usuario.Abrir(resultado.getInt("usuario")));                                    
+            //obj.setUsuario(usuario.Abrir(resultado.getInt("usuario")));                                    
             
             return obj;
             

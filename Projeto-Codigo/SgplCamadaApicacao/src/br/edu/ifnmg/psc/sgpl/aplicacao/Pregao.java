@@ -5,6 +5,8 @@
  */
 package br.edu.ifnmg.psc.sgpl.aplicacao;
 
+import java.util.Date;
+
 /**
  *
  * @author Emerson Pereira
@@ -12,10 +14,14 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
 public class Pregao implements Entidade{        
     
     private int id;
-    private String data;
-    private String diasEntrega;
+    private Date data;
+    private int diasEntrega;
     private Pedido pedido;
     private Usuario usuario;
+
+    public Pregao(int i, Date data, Pedido pedido, Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @Override
     public int getId() {
@@ -27,19 +33,19 @@ public class Pregao implements Entidade{
         this.id = id;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
-    public String getDiasEntrega() {
+    public int getDiasEntrega() {
         return diasEntrega;
     }
 
-    public void setDiasEntrega(String diasEntrega) {
+    public void setDiasEntrega(int diasEntrega) {
         this.diasEntrega = diasEntrega;
     }
 
@@ -62,7 +68,7 @@ public class Pregao implements Entidade{
     public Pregao() {
     }
 
-    public Pregao(int id, String data, String diasEntrega, Pedido pedido, Usuario usuario) {
+    public Pregao(int id, Date data, int diasEntrega, Pedido pedido, Usuario usuario) {
         this.id = id;
         this.data = data;
         this.diasEntrega = diasEntrega;
@@ -72,7 +78,7 @@ public class Pregao implements Entidade{
 
     @Override
     public String toString() {
-        return "Pregao: " + "id=" + id + ", data=" + data + ", diasEntrega=" + diasEntrega + ", pedido=" + pedido + ", usuario=" + usuario + '}';
+        return ""+this.id;
     }
     
     
