@@ -16,7 +16,7 @@ public class Usuario implements Entidade{
     private String nome;
     private String email;
     private String senha;
-    private Setor setor;
+    private Setor setor;    
     private Endereco endereco;
     
     @Override
@@ -84,7 +84,13 @@ public class Usuario implements Entidade{
     //Construtor1
     public Usuario() {
     }
-        
+
+    public Usuario(int id, String email, String senha) {
+        this.id = id;
+        this.email = email;
+        this.senha = senha;
+    }            
+    
     //Construtor2
     //Perguntar - this.setId(id);
     public Usuario(int id, String nome, String email, String senha, Setor setor) {

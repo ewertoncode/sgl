@@ -115,18 +115,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
 
     @Override
     public void preencheFiltro() {
-        try {     
-            /*
-            if(!txtNome.getText().isEmpty())
-               filtro.setNome(txtNome.getText());
-            
-            if(!txtEmail.getText().isEmpty())
-               filtro.setEmail(txtNome.getText());
-            */
-                        
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());                        
-        }      
+
     }
 
     @Override
@@ -135,10 +124,9 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
         DefaultTableModel modelo = new DefaultTableModel();
         
         // Informa quais as colunas da tabela        
-        modelo.addColumn("Id");
-        modelo.addColumn("Nome");
-        modelo.addColumn("Email");
-        modelo.addColumn("Setor");               
+        modelo.addColumn("Id");        
+        modelo.addColumn("Produto");               
+        modelo.addColumn("Quantidade");
         
         
         
@@ -147,8 +135,8 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
             
             Vector linha = new Vector();
             linha.add(u.getId());
-//            linha.add(u.getProduto());                        
-                                    
+            //linha.add(u.getProduto());                        
+            //linha.add(u.getQuantidade());                        
             modelo.addRow(linha);
         }
         
