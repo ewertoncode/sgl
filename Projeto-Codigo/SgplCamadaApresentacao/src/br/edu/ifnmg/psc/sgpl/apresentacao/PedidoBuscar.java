@@ -115,12 +115,14 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
 
     @Override
     public void preencheFiltro() {
-        try {                                     
+        try {     
+            /*
             if(!txtNome.getText().isEmpty())
                filtro.setNome(txtNome.getText());
             
             if(!txtEmail.getText().isEmpty())
                filtro.setEmail(txtNome.getText());
+            */
                         
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());                        
