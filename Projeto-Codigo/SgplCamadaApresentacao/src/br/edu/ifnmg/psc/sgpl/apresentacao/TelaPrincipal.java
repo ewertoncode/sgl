@@ -7,6 +7,7 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Aplicacao;
 import br.edu.ifnmg.psc.sgpl.apresentacao.ProdutoBuscar;
+import java.awt.Image;
 
 /**
  *
@@ -34,7 +35,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
         
+
         initComponents();
+        
+
     }
 
     /**
@@ -46,19 +50,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuSetores = new javax.swing.JMenuItem();
         mnuUsuarios = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         mnuFornecedores = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
+        setTitle("SGPL - Sistema de Gestão de Processos Licitatórios");
+        getContentPane().setLayout(null);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 18, 0, 0);
 
-        jMenu1.setText("Cadastros");
+        jDesktopPane1.setMinimumSize(new java.awt.Dimension(100, 100));
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jDesktopPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jDesktopPane1);
+        jDesktopPane1.setBounds(0, 0, 750, 500);
+
+        jMenu1.setText("Gestão");
 
         mnuSetores.setText("Setores");
         mnuSetores.addActionListener(new java.awt.event.ActionListener() {
@@ -76,13 +95,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(mnuUsuarios);
 
+        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Pregão");
+
         jMenuItem3.setText("Produtos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu3.add(jMenuItem3);
 
         mnuFornecedores.setText("Fornecedores");
         mnuFornecedores.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +114,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 mnuFornecedoresActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuFornecedores);
+        jMenu3.add(mnuFornecedores);
 
         jMenuItem1.setText("Pedidos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -98,23 +122,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu3.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Relatórios");
+
+        jMenuItem2.setText("Gastos por setor");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Ajuda");
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 748, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -152,6 +179,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,10 +219,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem mnuFornecedores;
     private javax.swing.JMenuItem mnuSetores;
