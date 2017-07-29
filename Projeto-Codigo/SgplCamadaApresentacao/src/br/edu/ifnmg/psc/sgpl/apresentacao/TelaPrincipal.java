@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.Aplicacao;
 import br.edu.ifnmg.psc.sgpl.apresentacao.ProdutoBuscar;
 
 /**
@@ -12,11 +13,27 @@ import br.edu.ifnmg.psc.sgpl.apresentacao.ProdutoBuscar;
  * @author Emerson Pereira
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+    
+    TelaLogin telalogin;
 
+    public void setTelalogin(TelaLogin telalogin) {
+        this.telalogin = telalogin;
+    }
+    
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
+        
+        if(!Aplicacao.isLogged()){
+            if(telalogin == null)
+                telalogin = new TelaLogin();
+            
+            telalogin.setVisible(true);
+            this.setVisible(false);
+            return;
+        }
+        
         initComponents();
     }
 
