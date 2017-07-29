@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PregaoBuscar extends TelaBusca<Pregao> {
 
+    
     /**
      * Creates new form PregaoBuscar
      */
