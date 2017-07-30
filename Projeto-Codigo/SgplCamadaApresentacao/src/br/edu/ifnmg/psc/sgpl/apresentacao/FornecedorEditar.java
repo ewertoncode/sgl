@@ -341,14 +341,18 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         txtTelefone.setText(entidade.getTelefone());
         txtEmail.setText(entidade.getEmail());   
         
-        txtLogradouro.setText(entidade.getEndereco().getLogradouro());        
-        txtNumero.setText(entidade.getEndereco().getNumero());
-        txtComplemento.setText(entidade.getEndereco().getComplemento());
-        txtBairro.setText(entidade.getEndereco().getBairro());        
-        txtEstado.setText(entidade.getEndereco().getEstado());
-        txtPais.setText(entidade.getEndereco().getPais());        
-        txtCidade.setText(entidade.getEndereco().getCidade());        
-        txtCep.setText(entidade.getEndereco().getCep());                
+        if(entidade.getEndereco() != null) {
+            txtLogradouro.setText(entidade.getEndereco().getLogradouro());        
+            txtNumero.setText(entidade.getEndereco().getNumero());
+            txtComplemento.setText(entidade.getEndereco().getComplemento());
+            txtBairro.setText(entidade.getEndereco().getBairro());        
+            txtEstado.setText(entidade.getEndereco().getEstado());
+            txtPais.setText(entidade.getEndereco().getPais());        
+            txtCidade.setText(entidade.getEndereco().getCidade());        
+            txtCep.setText(entidade.getEndereco().getCep());    
+        }
+        
+                    
     }    
     
     @Override

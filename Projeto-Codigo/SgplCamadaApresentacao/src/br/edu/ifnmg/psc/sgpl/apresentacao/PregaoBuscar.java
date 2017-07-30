@@ -18,8 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author ewertoncardoso
  */
 public class PregaoBuscar extends TelaBusca<Pregao> {
-
-    
+ 
     /**
      * Creates new form PregaoBuscar
      */
@@ -206,7 +205,7 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
     }//GEN-LAST:event_txtCodPregaoActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
+        novo();
     }//GEN-LAST:event_btnNovoActionPerformed
 
 

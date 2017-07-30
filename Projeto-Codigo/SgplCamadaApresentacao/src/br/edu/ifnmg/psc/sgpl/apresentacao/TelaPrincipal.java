@@ -216,7 +216,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        PregaoBuscar telaPregao = new PregaoBuscar(Repositorios.getPregaoRepositorio(), PedidoEditar.class);
+        PregaoBuscar telaPregao = new PregaoBuscar(Repositorios.getPregaoRepositorio(), PregaoEditar.class);
         this.add(telaPregao);
         telaPregao.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
