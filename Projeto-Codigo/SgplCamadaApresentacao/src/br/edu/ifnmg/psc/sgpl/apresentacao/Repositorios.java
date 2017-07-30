@@ -10,6 +10,7 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PedidoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.PregaoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.SetorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
@@ -17,6 +18,7 @@ import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.FornecedorDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ItemPedidoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.PedidoDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.PregaoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.SetorDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.UsuarioDao;
@@ -114,6 +116,7 @@ public class Repositorios{
         return pedidoDao;
     }
     
+
     static ItemPedidoRepositorio itemPedidoDao = null;
     
     public static ItemPedidoRepositorio getItemPedidoRepositorio(){
@@ -125,10 +128,24 @@ public class Repositorios{
             } catch (SQLException ex) {
                 Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
             }
+        
         return itemPedidoDao;
     }
+                
+    static PregaoRepositorio pregaoDao = null;
     
-    
+    public static PregaoRepositorio getPregaoRepositorio(){
+        if(pregaoDao == null)
+            try {
+                pregaoDao = new PregaoDao();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        return pregaoDao;
+    }        
 }
 
  

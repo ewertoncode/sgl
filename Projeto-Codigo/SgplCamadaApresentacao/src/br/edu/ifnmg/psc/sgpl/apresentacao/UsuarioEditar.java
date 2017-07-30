@@ -190,7 +190,7 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         txtNome.setText(entidade.getNome());        
         txtEmail.setText(entidade.getEmail());
         txtSenha.setText(entidade.getSenha());                        
-        cbxSetor.setSelectedItem(entidade.getSetor().getId());        
+        cbxSetor.setSelectedItem(entidade.getSetor());        
     }
 
     @Override

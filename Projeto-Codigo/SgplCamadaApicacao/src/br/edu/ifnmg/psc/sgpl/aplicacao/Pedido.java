@@ -52,7 +52,7 @@ public class Pedido implements Entidade{
 
     @Override
     public String toString() {
-        return "Pedido: " + "id=" + id + ", data=" + data + ", usuario=" + usuario;
+        return ""+this.id;
     }
     
     

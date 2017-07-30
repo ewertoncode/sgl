@@ -12,7 +12,7 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
 public class Produto implements Entidade{
     
     private int id;
-    private String nome;
+    public String nome;
     private String catmat;
     
     @Override
@@ -54,7 +54,7 @@ public class Produto implements Entidade{
 
     @Override
     public String toString() {
-        return "Produto: " + "id=" + id + ", nome=" + nome + ", catmat=" + catmat + ' ';
+        return id + " - " + nome + " - " + catmat + ' ';
     }
     
 }

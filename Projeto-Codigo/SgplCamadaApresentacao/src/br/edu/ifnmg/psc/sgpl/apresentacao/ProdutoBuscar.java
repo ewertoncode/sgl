@@ -184,6 +184,7 @@ public class ProdutoBuscar extends TelaBusca<Produto> {
         // Adiciona as linhas da tabela
         
         for(Produto p : listagem){
+            System.out.print(p.getNome());
             Vector linha = new Vector();
             linha.add(p.getId());
             linha.add(p.getNome());
