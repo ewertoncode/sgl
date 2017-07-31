@@ -12,79 +12,142 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Emerson Pereira
  */
 public class PedidoEditar extends TelaEdicao<Pedido> {
-    
-    UsuarioRepositorio usuarios = Repositorios.getUsuarioRepositorio();
-    ProdutoRepositorio produtos = Repositorios.getProdutoRepositorio();
-    FornecedorRepositorio fornecedores = Repositorios.getFornecedorRepositorio();
-    ItemPedidoRepositorio itensPedidos = Repositorios.getItemPedidoRepositorio();        
-        
+
+    private List<Vector> listaUsuarios = new Vector();
+    private List<Vector> listaProdutos = new Vector();
+    private List<Vector> listaFornecedores = new Vector();
+    private List<Vector> listaItensPedido = new Vector();
+
     /**
      * Creates new form PedidoEditar
      */
-    public PedidoEditar() throws SQLException, ClassNotFoundException, ParseException{
-        /*
-        usuarios = Repositorios.getUsuarioRepositorio();
-        itensPedidos = Repositorios.getItemPedidoRepositorio();
-        fornecedores = Repositorios.getFornecedorRepositorio();
-        produtos = Repositorios.getProdutoRepositorio();
-        */
+    
+    public PedidoEditar() {
+        initComponents();
+
+        List<Usuario> usuarios = this.getUsuarios();
+
+        for (Usuario p : usuarios) {
+            cbxUsuario.addItem(p.toString());
+        }
+
+        List<Produto> produtos = this.getProdutos();
+
+        for (Produto p : produtos) {
+            cbxProduto.addItem(p.toString());
+        }
+
+        List<Fornecedor> fornecedores1 = this.getFornecedores();
+
+        for (Fornecedor f : fornecedores1) {
+            cbxFornecedor1.addItem(f.toString());
+        }
+
+        List<Fornecedor> fornecedores2 = this.getFornecedores();
+
+        for (Fornecedor f : fornecedores2) {
+            cbxFornecedor2.addItem(f.toString());
+        }
+
+        List<Fornecedor> fornecedores3 = this.getFornecedores();
+
+        for (Fornecedor f : fornecedores3) {
+            cbxFornecedor3.addItem(f.toString());
+        }
         
-        initComponents();      
-        
-        List<Usuario> lista = usuarios.Buscar(null);        
-        List<Produto> lista1 = produtos.Buscar(null);        
-        List<Fornecedor> lista2 = fornecedores.Buscar(null);        
-        List<Fornecedor> lista3 = fornecedores.Buscar(null);        
-        List<Fornecedor> lista4 = fornecedores.Buscar(null);        
-        
-        
-        lista.add(0, null);
-        lista1.add(0, null);
-        lista2.add(0, null);
-        lista3.add(0, null);
-        lista4.add(0, null);
-        
-        
-        ComboBoxModel modelo = new DefaultComboBoxModel(lista.toArray());
-        ComboBoxModel modelo1 = new DefaultComboBoxModel(lista1.toArray());
-        ComboBoxModel modelo2 = new DefaultComboBoxModel(lista2.toArray());
-        ComboBoxModel modelo3 = new DefaultComboBoxModel(lista3.toArray());
-        ComboBoxModel modelo4 = new DefaultComboBoxModel(lista4.toArray());
-        
-        
-        cbxUsuario.setModel(modelo);        
-        cbxProduto.setModel(modelo1);        
-        cbxFornecedor1.setModel(modelo2);        
-        cbxFornecedor2.setModel(modelo3);        
-        cbxFornecedor3.setModel(modelo4);                
+        //////////////
         
         entidade = new Pedido();
-        
-        
-        //ComboBoxModel model = new DefaultComboBoxModel();
-        
-        /*cbxUsuario.setModel(model);
-        cbxFornecedor1.setModel(model);
-        cbxFornecedor2.setModel(model);
-        cbxFornecedor3.setModel(model);
-        cbxProduto.setModel(model);*/
-        
-                 
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        // Informa quais as colunas da tabela         
+        modelo.addColumn("Produto");
+        modelo.addColumn("Quantidade");
+        modelo.addColumn("Fornecedor 1");
+        modelo.addColumn("Valor");
+        modelo.addColumn("Fornecedor 2");
+        modelo.addColumn("Valor");
+        modelo.addColumn("Fornecedor 3");                
+        modelo.addColumn("Valor");
+
+        tblItem.setModel(modelo);
+
     }
+    
+    private List getUsuarios() {
+
+        Usuario filtroUsuario = new Usuario();
+
+        Repositorio<Usuario> repositorioUsuario = Repositorios.getUsuarioRepositorio();
+
+        List<Usuario> usuarios = repositorioUsuario.Buscar(filtroUsuario);
+
+        return usuarios;
+    }
+    
+    private List setUsuarioInList(Vector usuario) {
+        
+        listaUsuarios.add(usuario);
+        
+        return this.listaUsuarios;
+    }
+
+    private List getProdutos() {
+
+        Produto filtroProduto = new Produto();
+
+        Repositorio<Produto> repositorioProduto = Repositorios.getProdutoRepositorio();
+
+        List<Produto> produtos = repositorioProduto.Buscar(filtroProduto);
+
+        return produtos;
+    }
+    
+    private List setProdutoInList(Vector produto) {
+        
+        listaProdutos.add(produto);
+        
+        return this.listaProdutos;
+    } 
+
+    private List getFornecedores() {
+
+        Fornecedor filtroFornecedor = new Fornecedor();
+
+        Repositorio<Fornecedor> repositorioFornecedor = Repositorios.getFornecedorRepositorio();
+
+        List<Fornecedor> fornecedores = repositorioFornecedor.Buscar(filtroFornecedor);
+
+        return fornecedores;
+    }
+    
+    private List setFornecedorInList(Vector fornecedor) {
+        
+        listaFornecedores.add(fornecedor);
+        
+        return this.listaFornecedores;
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +167,7 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         jLabel3 = new javax.swing.JLabel();
         btnAdicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBusca = new javax.swing.JTable();
+        tblItem = new javax.swing.JTable();
         cbxUsuario = new javax.swing.JComboBox<>();
         cbxFornecedor1 = new javax.swing.JComboBox<>();
         cbxFornecedor2 = new javax.swing.JComboBox<>();
@@ -150,23 +213,33 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         jLabel2.setText("Produto:");
 
         cbxProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Quantidade:");
 
         btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
-        tblBusca.setModel(new javax.swing.table.DefaultTableModel(
+        tblItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Produto", "Quantidade", "Valor Forn. 1", "Valor Forn. 2", "Valor Form. 3"
+                "Produto", "Quantidade", "Fornecedor 1", "Valor", "Fornecedor 2", "Valor", "Formecedor 3", "Valor"
             }
         ));
-        jScrollPane1.setViewportView(tblBusca);
+        jScrollPane1.setViewportView(tblItem);
 
         cbxUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +249,11 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         });
 
         cbxFornecedor1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFornecedor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFornecedor1ActionPerformed(evt);
+            }
+        });
 
         cbxFornecedor2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -220,53 +298,60 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cbxUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cbxFornecedor1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(cbxFornecedor2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(cbxFornecedor3, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel9)
-                            .addComponent(txtValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10)
-                            .addComponent(txtValor2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cbxFornecedor1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbxFornecedor2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel7)
+                                        .addGap(194, 194, 194)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(cbxFornecedor3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbxUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtValor3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCancelar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnApagar)
+                                        .addGap(124, 124, 124))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel9)
+                                            .addComponent(txtValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel10)
+                                            .addComponent(txtValor2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtValor3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                        .addGap(38, 38, 38)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(btnApagar)
-                .addGap(218, 218, 218))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,11 +365,11 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
                     .addComponent(jLabel6)
                     .addComponent(jLabel8)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxFornecedor3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxFornecedor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxFornecedor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxFornecedor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxFornecedor3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,14 +401,14 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar)
                     .addComponent(btnApagar))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -357,6 +442,60 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         apagar();
     }//GEN-LAST:event_btnApagarActionPerformed
 
+    private void cbxProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxProdutoActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo.addColumn("Produto");
+        modelo.addColumn("Quantidade");
+        modelo.addColumn("Fornecedor 1");
+        modelo.addColumn("Valor");
+        modelo.addColumn("Fornecedor 2");
+        modelo.addColumn("Valor");
+        modelo.addColumn("Fornecedor 3");                
+        modelo.addColumn("Valor");
+        
+        Vector linha = new Vector();
+        
+        String produto = String.valueOf(cbxProduto.getSelectedItem());
+        String[] split = produto.split("-");                
+        linha.add(split[1]);
+        linha.add(txtQuantidade.getText()); 
+        
+        String forn1 = String.valueOf(cbxFornecedor1.getSelectedItem());        
+        String[] fornecedor1 = forn1.split("-");                
+        linha.add(fornecedor1[2]);        
+        String valor1 = String.valueOf(txtValor1.getText());        
+        linha.add(txtValor1.getText());
+                
+        String forn2 = String.valueOf(cbxFornecedor2.getSelectedItem());        
+        String[] fornecedor2 = forn2.split("-");                
+        linha.add(fornecedor2[2]);        
+        String valor2 = String.valueOf(txtValor2.getText());       
+        linha.add(txtValor2.getText());
+                
+        String forn3 = String.valueOf(cbxFornecedor3.getSelectedItem());        
+        String[] fornecedor3 = forn3.split("-");                
+        linha.add(fornecedor3[2]);
+        String valor3 = String.valueOf(txtValor3.getText());        
+        linha.add(txtValor3.getText());
+        
+        this.setProdutoInList(linha);
+        
+        for(Vector v : this.listaProdutos) {
+            modelo.addRow(v);
+        }
+        
+        tblItem.setModel(modelo);        
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void cbxFornecedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFornecedor1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxFornecedor1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -378,7 +517,7 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBusca;
+    private javax.swing.JTable tblItem;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtValor1;
     private javax.swing.JTextField txtValor2;
@@ -389,12 +528,10 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     //ItemPedidoRepositorio itensPedidos;
     //FornecedorRepositorio fornecedores;
     //ProdutoRepositorio produtos;
-    
-    
-    
     @Override
     public void carregaCampos() {
-                
+
+        /*        
         cbxUsuario.setSelectedItem(entidade.getUsuario().getId());
         cbxFornecedor1.setSelectedItem(fornecedores.Abrir(entidade.getId()));
         cbxFornecedor2.setSelectedItem(fornecedores.Abrir(entidade.getId()));        
@@ -406,15 +543,15 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         //txtValor1.setText(Double.toString(itensPedidos.Abrir(entidade.getId())));
         //txtValor2.setText(Double.toString(itensPedidos.Abrir(entidade.getId())));
         //txtValor3.setText(Double.toString(itensPedidos.Abrir(entidade.getId())));        
-        
+         */
     }
 
     @Override
     public void carregaObjeto() throws ViolacaoRegraDeNegocioException {
-        
+
         //Pegar data do sistema
         //entidade.setData("");
-        entidade.setUsuario((Usuario)cbxUsuario.getSelectedItem());
+        //entidade.setUsuario((Usuario)cbxUsuario.getSelectedItem());
         //entidade.getUsuario().setUsuario((Usuario)cbxUsuario.getSelectedItem());
         //entidade.getPedido().setId();
         //entidade.getSetor().setNome(txtNome.getText());
