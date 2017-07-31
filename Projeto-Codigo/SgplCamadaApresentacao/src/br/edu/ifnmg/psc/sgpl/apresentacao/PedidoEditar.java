@@ -40,45 +40,54 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
      */
     
     public PedidoEditar() {
-        initComponents();
-
-        List<Usuario> usuarios = this.getUsuarios();
-
+        initComponents();       
+        
+        List<Usuario> usuarios = this.getUsuarios();                        
+        ComboBoxModel modeloUsuarios = new DefaultComboBoxModel(usuarios.toArray());
+        cbxUsuario.setModel(modeloUsuarios);
+        
         for (Usuario p : usuarios) {
             cbxUsuario.addItem(p.toString());
         }
-
-        List<Produto> produtos = this.getProdutos();
+        
+        List<Produto> produtos = this.getProdutos();                        
+        ComboBoxModel modeloProdutos = new DefaultComboBoxModel(produtos.toArray());
+        cbxProduto.setModel(modeloProdutos);                
 
         for (Produto p : produtos) {
             cbxProduto.addItem(p.toString());
         }
 
         List<Fornecedor> fornecedores1 = this.getFornecedores();
-
+        ComboBoxModel modeloFornecedores1 = new DefaultComboBoxModel(fornecedores1.toArray());
+        cbxFornecedor1.setModel(modeloFornecedores1);
+        
         for (Fornecedor f : fornecedores1) {
             cbxFornecedor1.addItem(f.toString());
         }
 
         List<Fornecedor> fornecedores2 = this.getFornecedores();
-
+        ComboBoxModel modeloFornecedores2 = new DefaultComboBoxModel(fornecedores2.toArray());
+        cbxFornecedor2.setModel(modeloFornecedores2);
+        
         for (Fornecedor f : fornecedores2) {
             cbxFornecedor2.addItem(f.toString());
         }
 
         List<Fornecedor> fornecedores3 = this.getFornecedores();
-
+        ComboBoxModel modeloFornecedores3 = new DefaultComboBoxModel(fornecedores3.toArray());
+        cbxFornecedor3.setModel(modeloFornecedores3);
+        
         for (Fornecedor f : fornecedores3) {
             cbxFornecedor3.addItem(f.toString());
         }
         
-        //////////////
+        
         
         entidade = new Pedido();
 
         DefaultTableModel modelo = new DefaultTableModel();
-
-        // Informa quais as colunas da tabela         
+                
         modelo.addColumn("Produto");
         modelo.addColumn("Quantidade");
         modelo.addColumn("Fornecedor 1");
@@ -89,7 +98,6 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         modelo.addColumn("Valor");
 
         tblItem.setModel(modelo);
-
     }
     
     private List getUsuarios() {
@@ -145,9 +153,6 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         
         return this.listaFornecedores;
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -531,8 +536,9 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     @Override
     public void carregaCampos() {
 
-        /*        
+        /*       
         cbxUsuario.setSelectedItem(entidade.getUsuario().getId());
+        
         cbxFornecedor1.setSelectedItem(fornecedores.Abrir(entidade.getId()));
         cbxFornecedor2.setSelectedItem(fornecedores.Abrir(entidade.getId()));        
         cbxFornecedor3.setSelectedItem(fornecedores.Abrir(entidade.getId()));                        
@@ -561,4 +567,5 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     public boolean verificarCamposObrigatorios() {
         return true;
     }
+    
 }
