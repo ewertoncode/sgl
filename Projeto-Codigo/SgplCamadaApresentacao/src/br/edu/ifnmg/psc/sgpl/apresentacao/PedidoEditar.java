@@ -18,6 +18,8 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.ComboBoxModel;
@@ -34,57 +36,48 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     private List<Vector> listaProdutos = new Vector();
     private List<Vector> listaFornecedores = new Vector();
     private List<Vector> listaItensPedido = new Vector();
-
+    
+    SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    
     /**
      * Creates new form PedidoEditar
      */
     
-    public PedidoEditar() {
-        initComponents();       
+    public PedidoEditar() {    
+        initComponents();                       
         
-        List<Usuario> usuarios = this.getUsuarios();                        
-        ComboBoxModel modeloUsuarios = new DefaultComboBoxModel(usuarios.toArray());
-        cbxUsuario.setModel(modeloUsuarios);
+        entidade = new Pedido();        
         
-        for (Usuario p : usuarios) {
-            cbxUsuario.addItem(p.toString());
-        }
         
-        List<Produto> produtos = this.getProdutos();                        
-        ComboBoxModel modeloProdutos = new DefaultComboBoxModel(produtos.toArray());
-        cbxProduto.setModel(modeloProdutos);                
+        List<Usuario> usuarios = this.getUsuarios();                                                
+        
+        for (Usuario u : usuarios) {
+            cbxUsuario.addItem(u.toString());
+        }                
+        
+        List<Produto> produtos = this.getProdutos();                                           
 
         for (Produto p : produtos) {
             cbxProduto.addItem(p.toString());
         }
 
-        List<Fornecedor> fornecedores1 = this.getFornecedores();
-        ComboBoxModel modeloFornecedores1 = new DefaultComboBoxModel(fornecedores1.toArray());
-        cbxFornecedor1.setModel(modeloFornecedores1);
+        List<Fornecedor> fornecedores1 = this.getFornecedores();        
         
         for (Fornecedor f : fornecedores1) {
             cbxFornecedor1.addItem(f.toString());
         }
 
-        List<Fornecedor> fornecedores2 = this.getFornecedores();
-        ComboBoxModel modeloFornecedores2 = new DefaultComboBoxModel(fornecedores2.toArray());
-        cbxFornecedor2.setModel(modeloFornecedores2);
+        List<Fornecedor> fornecedores2 = this.getFornecedores();        
         
         for (Fornecedor f : fornecedores2) {
             cbxFornecedor2.addItem(f.toString());
         }
 
-        List<Fornecedor> fornecedores3 = this.getFornecedores();
-        ComboBoxModel modeloFornecedores3 = new DefaultComboBoxModel(fornecedores3.toArray());
-        cbxFornecedor3.setModel(modeloFornecedores3);
+        List<Fornecedor> fornecedores3 = this.getFornecedores();        
         
         for (Fornecedor f : fornecedores3) {
             cbxFornecedor3.addItem(f.toString());
-        }
-        
-        
-        
-        entidade = new Pedido();
+        }       
 
         DefaultTableModel modelo = new DefaultTableModel();
                 
@@ -533,34 +526,20 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     //ItemPedidoRepositorio itensPedidos;
     //FornecedorRepositorio fornecedores;
     //ProdutoRepositorio produtos;
+    
+    Date dataAtual = new Date();               
     @Override
     public void carregaCampos() {
-
-        /*       
-        cbxUsuario.setSelectedItem(entidade.getUsuario().getId());
         
-        cbxFornecedor1.setSelectedItem(fornecedores.Abrir(entidade.getId()));
-        cbxFornecedor2.setSelectedItem(fornecedores.Abrir(entidade.getId()));        
-        cbxFornecedor3.setSelectedItem(fornecedores.Abrir(entidade.getId()));                        
-        cbxProduto.setSelectedItem(produtos.Abrir(entidade.getId()));
-        
-        //txtQuantidade.setText(String.valueOf(itensPedidos.Abrir(entidade.getId())));
-        //((itensPedidos.Abrir(entidade.getId())));        
-        //txtValor1.setText(Double.toString(itensPedidos.Abrir(entidade.getId())));
-        //txtValor2.setText(Double.toString(itensPedidos.Abrir(entidade.getId())));
-        //txtValor3.setText(Double.toString(itensPedidos.Abrir(entidade.getId())));        
-         */
+        cbxUsuario.setSelectedItem(entidade.getUsuario());        
     }
 
+    
     @Override
     public void carregaObjeto() throws ViolacaoRegraDeNegocioException {
-
-        //Pegar data do sistema
-        //entidade.setData("");
-        //entidade.setUsuario((Usuario)cbxUsuario.getSelectedItem());
-        //entidade.getUsuario().setUsuario((Usuario)cbxUsuario.getSelectedItem());
-        //entidade.getPedido().setId();
-        //entidade.getSetor().setNome(txtNome.getText());
+        entidade.getUsuario().setNome(cbxUsuario.toString());                        
+        entidade.setData(formatador.format(dataAtual));
+        
     }
 
     @Override
