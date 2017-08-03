@@ -8,6 +8,7 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregaoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PregaoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
@@ -15,6 +16,7 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.SetorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.FornecedorDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.ItemPregaoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.PedidoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.PregaoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
@@ -126,6 +128,20 @@ public class Repositorios{
                 Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
             }
         return pregaoDao;
+    }
+    
+    static ItemPregaoRepositorio itemPregaoDao = null;
+    
+    public static ItemPregaoRepositorio getItemPregaoRepositorio(){
+        if(produtoDao == null)
+            try {
+                itemPregaoDao = new ItemPregaoDao();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return itemPregaoDao;
     }
     
     
