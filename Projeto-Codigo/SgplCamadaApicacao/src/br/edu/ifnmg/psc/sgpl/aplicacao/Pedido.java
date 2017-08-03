@@ -57,6 +57,10 @@ public class Pedido implements Entidade{
         return id + " - " + data + " - " + usuario + ' ';
     }
 
+    public void setData(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
    
         
     

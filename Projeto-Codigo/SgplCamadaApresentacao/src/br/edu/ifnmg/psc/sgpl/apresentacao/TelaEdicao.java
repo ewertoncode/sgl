@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public abstract class TelaEdicao<T extends Entidade> extends javax.swing.JInternalFrame{
     
     Repositorio<T> repositorio;
-    T entidade;
+    T entidade;    
     
     TelaBusca<T> busca;
 
@@ -106,7 +106,5 @@ public abstract class TelaEdicao<T extends Entidade> extends javax.swing.JIntern
         this.setVisible(false);
         this.dispose();
     }
-    
-    
-    
+            
 }

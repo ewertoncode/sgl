@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.Aplicacao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedido;
@@ -35,9 +36,7 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     private List<Vector> listaUsuarios = new Vector();
     private List<Vector> listaProdutos = new Vector();
     private List<Vector> listaFornecedores = new Vector();
-    private List<Vector> listaItensPedido = new Vector();
-    
-    SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    private List<Vector> listaItensPedido = new Vector();        
     
     /**
      * Creates new form PedidoEditar
@@ -46,8 +45,7 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     public PedidoEditar() {    
         initComponents();                       
         
-        entidade = new Pedido();        
-        
+        entidade = new Pedido();              
         
         List<Usuario> usuarios = this.getUsuarios();                                                
         
@@ -527,21 +525,24 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     //FornecedorRepositorio fornecedores;
     //ProdutoRepositorio produtos;
     
-    Date dataAtual = new Date();               
+               
     @Override
-    public void carregaCampos() {
-        
+    public void carregaCampos() {        
         cbxUsuario.setSelectedItem(entidade.getUsuario());                
     }   
 
     
     @Override
     public void carregaObjeto() throws ViolacaoRegraDeNegocioException {        
-        //entidade.setData(formatador.format(dataAtual));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();        
+        entidade.setData(dateFormat.format(date));
+        entidade.setUsuario(Aplicacao.getUsuario());
+        
     }
 
     @Override
     public boolean verificarCamposObrigatorios() {
-        return true;
+        return !listaProdutos.isEmpty();
     }    
 }

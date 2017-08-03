@@ -59,7 +59,48 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
         filtro = new Pedido();                
         buscar();
     }
+    
+    @Override
+    public int retornaIdSelecionado() {
+        int linha = tblBusca.getSelectedRow();
+        int id = Integer.parseInt( tblBusca.getModel().getValueAt(linha, 0).toString() );
+        return id;
+    }
 
+    @Override
+    public void preencheFiltro() {
+        this.filtro = new Pedido();
+        this.filtro.setUsuario((Usuario)cbxUsuario.getSelectedItem());
+    }
+
+    @Override
+    public void preencheTabela(List<Pedido> listagem) {
+       
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        // Informa quais as colunas da tabela        
+        modelo.addColumn("Id");        
+        modelo.addColumn("Produto");               
+        modelo.addColumn("Quantidade");                
+        
+        
+        // Adiciona as linhas da tabela        
+        for(Pedido p : listagem){                        
+            
+            Vector linha = new Vector();
+            linha.add(p.getId());
+            linha.add(produtos.Buscar());
+            //linha.add(p.getProduto());                        
+            //linha.add(p.getQuantidade());                        
+            modelo.addRow(linha);
+        }
+        
+        tblBusca.setModel(modelo);    
+    }
+
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,44 +248,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
     private void cbxProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxProdutoActionPerformed
-    
-    @Override
-    public int retornaIdSelecionado() {
-        int linha = tblBusca.getSelectedRow();
-        int id = Integer.parseInt( tblBusca.getModel().getValueAt(linha, 0).toString() );
-        return id;
-    }
-
-    @Override
-    public void preencheFiltro() {
-        this.filtro = new Pedido();
-        this.filtro.setUsuario((Usuario)cbxUsuario.getSelectedItem());
-    }
-
-    @Override
-    public void preencheTabela(List<Pedido> listagem) {
-       
-        DefaultTableModel modelo = new DefaultTableModel();
         
-        // Informa quais as colunas da tabela        
-        modelo.addColumn("Id");        
-        modelo.addColumn("Produto");               
-        modelo.addColumn("Quantidade");
-        
-        
-        
-        // Adiciona as linhas da tabela        
-        for(Pedido p : listagem){                        
-            
-            Vector linha = new Vector();
-            linha.add(p.getId());
-            //linha.add(p.getProduto());                        
-            //linha.add(p.getQuantidade());                        
-            modelo.addRow(linha);
-        }
-        
-        tblBusca.setModel(modelo);    
-    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
