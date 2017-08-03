@@ -5,6 +5,8 @@
  */
 package br.edu.ifnmg.psc.sgpl.aplicacao;
 
+import java.util.Date;
+
 /**
  *
  * @author Emerson Pereira
@@ -52,9 +54,10 @@ public class Pedido implements Entidade{
 
     @Override
     public String toString() {
-        return ""+this.id;
+        return id + " - " + data + " - " + usuario + ' ';
     }
-    
-    
+
+   
+        
     
 }

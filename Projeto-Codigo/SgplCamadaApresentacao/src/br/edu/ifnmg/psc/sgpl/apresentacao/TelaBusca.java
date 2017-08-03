@@ -42,7 +42,11 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
         preencheTabela(listagem);
     }
     
-    public void novo() {
+    public void novo() {                                
+        
+        int id = retornaIdSelecionado();
+        
+        filtro = repositorio.Abrir(id);
         
         try {
             tela_edicao = (TelaEdicao<T>) tipo_tela.newInstance();            

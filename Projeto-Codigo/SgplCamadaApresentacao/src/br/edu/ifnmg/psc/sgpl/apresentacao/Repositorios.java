@@ -9,6 +9,7 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregaoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PregaoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
@@ -17,6 +18,7 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.FornecedorDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ItemPregaoDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.ItemPedidoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.PedidoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.PregaoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
@@ -116,6 +118,22 @@ public class Repositorios{
         return pedidoDao;
     }
     
+
+    static ItemPedidoRepositorio itemPedidoDao = null;
+    
+    public static ItemPedidoRepositorio getItemPedidoRepositorio(){
+        if(itemPedidoDao == null)
+            try {
+                itemPedidoDao = new ItemPedidoDao();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        return itemPedidoDao;
+    }
+                
     static PregaoRepositorio pregaoDao = null;
     
     public static PregaoRepositorio getPregaoRepositorio(){
@@ -127,7 +145,9 @@ public class Repositorios{
             } catch (SQLException ex) {
                 Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
             }
+        
         return pregaoDao;
+
     }
     
     static ItemPregaoRepositorio itemPregaoDao = null;
@@ -145,6 +165,5 @@ public class Repositorios{
     }
     
     
-}
-
+    }        
  

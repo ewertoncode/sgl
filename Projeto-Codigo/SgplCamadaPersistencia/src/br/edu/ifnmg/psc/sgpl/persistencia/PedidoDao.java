@@ -20,11 +20,10 @@ import java.util.logging.Logger;
  * @author Emerson Pereira
  */
 public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
-    
-    private UsuarioDao usuario;
-    
+           
     public PedidoDao() throws ClassNotFoundException, SQLException {
         super();
+        usuario = new UsuarioDao();
     }
     
     @Override
@@ -78,7 +77,9 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
+    
+    UsuarioDao usuario;
+            
     @Override
     protected Pedido setDados(ResultSet resultado) {
         try{
