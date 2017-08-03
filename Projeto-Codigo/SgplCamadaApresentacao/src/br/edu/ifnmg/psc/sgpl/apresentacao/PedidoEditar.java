@@ -531,20 +531,17 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     @Override
     public void carregaCampos() {
         
-        cbxUsuario.setSelectedItem(entidade.getUsuario());        
-    }
+        cbxUsuario.setSelectedItem(entidade.getUsuario());                
+    }   
 
     
     @Override
-    public void carregaObjeto() throws ViolacaoRegraDeNegocioException {
-        entidade.getUsuario().setNome(cbxUsuario.toString());                        
-        entidade.setData(formatador.format(dataAtual));
-        
+    public void carregaObjeto() throws ViolacaoRegraDeNegocioException {        
+        //entidade.setData(formatador.format(dataAtual));
     }
 
     @Override
     public boolean verificarCamposObrigatorios() {
         return true;
-    }
-    
+    }    
 }
