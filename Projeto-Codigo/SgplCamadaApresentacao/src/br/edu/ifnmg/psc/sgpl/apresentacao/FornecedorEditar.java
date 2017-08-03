@@ -335,8 +335,8 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
     @Override
     public void carregaCampos(){                        
         
-        //if(entidade.getEndereco()==null)
-            //return ;
+        if(entidade.getEndereco()==null)
+            return ;
         
         txtNomeFantasia.setText(entidade.getNomeFantasia());        
         txtRazaoSocial.setText(entidade.getRazaoSocial());
