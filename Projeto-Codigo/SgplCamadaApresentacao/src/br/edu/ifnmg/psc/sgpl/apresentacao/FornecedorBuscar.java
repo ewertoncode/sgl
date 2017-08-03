@@ -181,6 +181,8 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
         }        
     }
 
+    
+    ///////////////////
     @Override
     public void preencheTabela(List<Fornecedor> listagem) {
         

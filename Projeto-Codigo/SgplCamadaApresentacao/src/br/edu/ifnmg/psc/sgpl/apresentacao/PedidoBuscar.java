@@ -89,7 +89,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
             
             Vector linha = new Vector();
             linha.add(p.getId());
-            linha.add(produtos.Buscar());
+            //linha.add(produtos.Buscar());
             //linha.add(p.getProduto());                        
             //linha.add(p.getQuantidade());                        
             modelo.addRow(linha);

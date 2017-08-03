@@ -528,7 +528,9 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
                
     @Override
     public void carregaCampos() {        
-        cbxUsuario.setSelectedItem(entidade.getUsuario());                
+        cbxUsuario.setSelectedItem(entidade.getUsuario());
+        List<Produto> produtos = this.getProdutos();        
+        cbxFornecedor1.setSelectedItem(produtos);
     }   
 
     

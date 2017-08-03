@@ -100,7 +100,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         entidade.setStatus((StatusPregao)selStatus.getSelectedItem());
         entidade.setUsuario(Aplicacao.getUsuario());
     }
-
+    
     @Override
     public boolean verificarCamposObrigatorios() {
         return !listaProdutos.isEmpty();
