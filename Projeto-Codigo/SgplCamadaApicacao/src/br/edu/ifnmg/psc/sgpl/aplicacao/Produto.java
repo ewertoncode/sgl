@@ -54,7 +54,7 @@ public class Produto implements Entidade{
 
     @Override
     public String toString() {
-        return id + " - " + nome + " - " + catmat + ' ';
+        return nome + " - " + catmat + ' ';
     }
     
 }

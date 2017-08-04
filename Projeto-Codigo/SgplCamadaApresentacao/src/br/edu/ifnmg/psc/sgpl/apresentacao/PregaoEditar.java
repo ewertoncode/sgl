@@ -54,14 +54,11 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         modelo.addColumn("Valor Referência");
 
         tblProdutos.setModel(modelo);
+                
+        List<Produto> produtos = this.getProdutos();
         
-        
-       List<Produto> produtos = this.getProdutos();
-       
-       for(Produto p : produtos) {
-           selProduto.addItem(p.toString());
-       }
-
+        ComboBoxModel modelProduto = new DefaultComboBoxModel(produtos.toArray());
+        selProduto.setModel(modelProduto);
     }
     
     private List getProdutos() {
@@ -309,8 +306,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 
         String produto = String.valueOf(selProduto.getSelectedItem());
         String[] split = produto.split("-");
-        linha.add(split[0]);
-        linha.add(split[1]);
+        linha.add(((Produto)selProduto.getSelectedItem()).getId());
+        linha.add(((Produto)selProduto.getSelectedItem()).getNome());
         linha.add(txtQtd.getText()); 
         linha.add(txtValReferencia.getText()); 
         
@@ -349,7 +346,6 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     itemPregao.setValorReferencia((double)v.get(3));
                     itemPregao.setPregao(entidade);
                     
-                    //Pegar pregao
                     
                     Repositorio<ItemPregao> repositorioItemPregao = Repositorios.getItemPregaoRepositorio();
                     try {
