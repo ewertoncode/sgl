@@ -528,11 +528,10 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
                
     @Override
     public void carregaCampos() {        
-        cbxUsuario.setSelectedItem(entidade.getUsuario());
-        List<Produto> produtos = this.getProdutos();        
-        cbxFornecedor1.setSelectedItem(produtos);
+        cbxUsuario.setSelectedItem(entidade.getUsuario());        
     }   
 
+    List<Produto> produtos = this.getProdutos();        
     
     @Override
     public void carregaObjeto() throws ViolacaoRegraDeNegocioException {        
@@ -540,6 +539,7 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         Date date = new Date();        
         entidade.setData(dateFormat.format(date));
         entidade.setUsuario(Aplicacao.getUsuario());
+        cbxFornecedor1.setSelectedItem(produtos);
         
     }
 
