@@ -347,6 +347,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     itemPregao.setProduto((Produto)v.get(0));
                     itemPregao.setQuantidade((double)v.get(2));
                     itemPregao.setValorReferencia((double)v.get(3));
+                    itemPregao.setPregao(entidade);
                     
                     //Pegar pregao
                     
