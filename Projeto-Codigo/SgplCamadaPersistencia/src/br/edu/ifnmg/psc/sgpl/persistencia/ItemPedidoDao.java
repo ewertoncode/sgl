@@ -54,6 +54,8 @@ public class ItemPedidoDao extends DaoGenerico<ItemPedido> implements ItemPedido
     protected String getConsultaBuscar() {
         return "select * from item_pedido";
     }
+    
+    
 
     @Override
     protected void setBuscaFiltros(ItemPedido filtro) {

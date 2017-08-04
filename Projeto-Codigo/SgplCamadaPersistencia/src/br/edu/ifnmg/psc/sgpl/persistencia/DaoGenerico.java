@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
     
-    private Connection conexao;
+    protected Connection conexao;
     
     public DaoGenerico() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -133,9 +133,7 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
         
     @Override
     public List<T> Buscar(T filtro){
-        
-        
-        
+
         List<T> lista = new ArrayList<>();
         
         try{

@@ -102,7 +102,6 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
         tblBusca = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("SGPL - Pregões");
@@ -143,8 +142,6 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
 
         btnEditar.setText("Editar");
 
-        jButton1.setText("Detalhar itens");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,9 +172,7 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNovo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEditar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(btnEditar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 17, Short.MAX_VALUE))))
         );
@@ -200,8 +195,7 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
-                    .addComponent(btnEditar)
-                    .addComponent(jButton1))
+                    .addComponent(btnEditar))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -221,7 +215,6 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

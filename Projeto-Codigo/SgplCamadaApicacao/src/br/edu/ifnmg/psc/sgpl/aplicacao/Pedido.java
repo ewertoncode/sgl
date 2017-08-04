@@ -6,6 +6,8 @@
 package br.edu.ifnmg.psc.sgpl.aplicacao;
 
 import java.util.Date;
+import java.util.List;
+
 
 /**
  *
@@ -16,6 +18,7 @@ public class Pedido implements Entidade{
     private int id;
     private String data; 
     private Usuario usuario;
+    private List itens;
 
     @Override
     public int getId() {
@@ -43,6 +46,14 @@ public class Pedido implements Entidade{
         this.usuario = usuario;
     }
 
+    public List getItens() {
+        return itens;
+    }
+
+    public void setItens(List itens) {
+        this.itens = itens;
+    }
+
     public Pedido() {
     }
 
@@ -54,14 +65,13 @@ public class Pedido implements Entidade{
 
     @Override
     public String toString() {
-        return id + " - " + data + " - " + usuario + ' ';
+        return id + "";
     }
 
     public void setData(Date date) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
-        
+    }  
+    
+    
     
 }
