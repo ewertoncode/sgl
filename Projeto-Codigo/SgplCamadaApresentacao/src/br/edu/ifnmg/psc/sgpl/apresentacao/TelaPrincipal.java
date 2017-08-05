@@ -21,12 +21,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.telalogin = telalogin;
     }
     
-    /**
-     * Creates new form TelaPrincipal
-     */
+    
     
     public TelaPrincipal() {
-     
+     /*
         if(!Aplicacao.isLogged()){
             if(telalogin == null)
                 telalogin = new TelaLogin();
@@ -35,9 +33,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.setVisible(false);
             return;
         }
-        
+       */  
         initComponents();
-        
+       
 
     }
 

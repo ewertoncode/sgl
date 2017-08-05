@@ -17,14 +17,19 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,9 +40,12 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
 
     private List<Vector> listaUsuarios = new Vector();
     private List<Vector> listaProdutos = new Vector();
-    private List<Vector> listaFornecedores = new Vector();
+    private List<Vector> listaFornecedores1 = new Vector();
+    private List<Vector> listaFornecedores2 = new Vector();
+    private List<Vector> listaFornecedores3 = new Vector();
     private List<Vector> listaItensPedido = new Vector();        
     
+    private List<Vector> listaSalvaItens = new Vector();
     /**
      * Creates new form PedidoEditar
      */
@@ -47,36 +55,6 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         
         entidade = new Pedido();              
         
-        List<Usuario> usuarios = this.getUsuarios();                                                
-        
-        for (Usuario u : usuarios) {
-            cbxUsuario.addItem(u.toString());
-        }                
-        
-        List<Produto> produtos = this.getProdutos();                                           
-
-        for (Produto p : produtos) {
-            cbxProduto.addItem(p.toString());
-        }
-
-        List<Fornecedor> fornecedores1 = this.getFornecedores();        
-        
-        for (Fornecedor f : fornecedores1) {
-            cbxFornecedor1.addItem(f.toString());
-        }
-
-        List<Fornecedor> fornecedores2 = this.getFornecedores();        
-        
-        for (Fornecedor f : fornecedores2) {
-            cbxFornecedor2.addItem(f.toString());
-        }
-
-        List<Fornecedor> fornecedores3 = this.getFornecedores();        
-        
-        for (Fornecedor f : fornecedores3) {
-            cbxFornecedor3.addItem(f.toString());
-        }       
-
         DefaultTableModel modelo = new DefaultTableModel();
                 
         modelo.addColumn("Produto");
@@ -89,6 +67,27 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         modelo.addColumn("Valor");
 
         tblItem.setModel(modelo);
+        
+        List<Usuario> usuarios = this.getUsuarios();                                                        
+        ComboBoxModel modelUsuario = new DefaultComboBoxModel(usuarios.toArray());
+        cbxUsuario.setModel(modelUsuario);             
+        
+        List<Produto> produtos = this.getProdutos();                                           
+        ComboBoxModel modelProduto = new DefaultComboBoxModel(produtos.toArray());
+        cbxProduto.setModel(modelProduto);
+
+        List<Fornecedor> fornecedores1 = this.getFornecedores();        
+        ComboBoxModel modelFornecedor1 = new DefaultComboBoxModel(fornecedores1.toArray());
+        cbxFornecedor1.setModel(modelFornecedor1);
+
+        List<Fornecedor> fornecedores2 = this.getFornecedores();        
+        ComboBoxModel modelFornecedor2 = new DefaultComboBoxModel(fornecedores2.toArray());
+        cbxFornecedor2.setModel(modelFornecedor2);
+
+        List<Fornecedor> fornecedores3 = this.getFornecedores();        
+        ComboBoxModel modelFornecedor3 = new DefaultComboBoxModel(fornecedores3.toArray());
+        cbxFornecedor3.setModel(modelFornecedor3);        
+        
     }
     
     private List getUsuarios() {
@@ -126,6 +125,17 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         
         return this.listaProdutos;
     } 
+    
+    ////////////////////////////////////////////////
+    private List setSalvaItens(Vector ItensPedido) {
+        
+        listaSalvaItens.add(ItensPedido);
+        
+        return this.listaSalvaItens;
+    } 
+    
+    
+    
 
     private List getFornecedores() {
 
@@ -138,11 +148,25 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         return fornecedores;
     }
     
-    private List setFornecedorInList(Vector fornecedor) {
+    private List setFornecedor1InList(Vector fornecedor) {
         
-        listaFornecedores.add(fornecedor);
+        listaFornecedores1.add(fornecedor);
         
-        return this.listaFornecedores;
+        return this.listaFornecedores1;
+    }
+    
+    private List setFornecedor2InList(Vector fornecedor) {
+        
+        listaFornecedores2.add(fornecedor);
+        
+        return this.listaFornecedores2;
+    }
+    
+    private List setFornecedor3InList(Vector fornecedor) {
+        
+        listaFornecedores3.add(fornecedor);
+        
+        return this.listaFornecedores3;
     }
 
     /**
@@ -427,7 +451,52 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     }//GEN-LAST:event_txtValor2ActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        salvar();
+        if (!verificarCamposObrigatorios()) {
+            JOptionPane.showMessageDialog(rootPane, "Todos os campos são de preenchimento obrigatório!");
+            return;
+        }
+
+        try {
+            carregaObjeto();
+        } catch (ViolacaoRegraDeNegocioException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+
+        if (repositorio.Salvar(entidade)) {
+                        
+            //Pegar o maior id??????
+            
+            for (Vector v : this.listaSalvaItens) {
+
+                ItemPedido itemPedido = new ItemPedido();
+                
+                itemPedido.setPedido(entidade);
+                itemPedido.setProduto((Produto) v.get(0));
+                itemPedido.setQuantidade(Double.parseDouble(v.get(1).toString()));
+                itemPedido.setFornecedor1((Fornecedor) v.get(2));
+                itemPedido.setValorFornecedor1(Double.parseDouble(v.get(3).toString()));
+                itemPedido.setFornecedor2((Fornecedor) v.get(4));
+                itemPedido.setValorFornecedor2(Double.parseDouble(v.get(5).toString()));
+                itemPedido.setFornecedor3((Fornecedor) v.get(6));
+                itemPedido.setValorFornecedor3(Double.parseDouble(v.get(7).toString()));
+                
+
+                Repositorio<ItemPedido> repositorioItemPedido = Repositorios.getItemPedidoRepositorio();
+                try {
+                    if (repositorioItemPedido.Salvar(itemPedido)) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro salvo com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Falha ao salvar Registro!");
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, e.getMessage());
+                    return;
+                }
+            }
+        }else
+            JOptionPane.showMessageDialog(rootPane, "Falha ao salvar Registro!");
+        
+        cancelar();        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -443,6 +512,7 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     }//GEN-LAST:event_cbxProdutoActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+
         DefaultTableModel modelo = new DefaultTableModel();
         
         modelo.addColumn("Produto");
@@ -454,38 +524,37 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         modelo.addColumn("Fornecedor 3");                
         modelo.addColumn("Valor");
         
-        Vector linha = new Vector();
-        
-        String produto = String.valueOf(cbxProduto.getSelectedItem());
-        String[] split = produto.split("-");                
-        linha.add(split[1]);
+        Vector linha = new Vector(); 
+        Vector salvaItens = new Vector(); 
+                
+        linha.add(((Produto)cbxProduto.getSelectedItem()).getNome());        
         linha.add(txtQuantidade.getText()); 
+        linha.add(((Fornecedor)cbxFornecedor1.getSelectedItem()).getNomeFantasia());
+        linha.add(txtValor1.getText()); 
+        linha.add(((Fornecedor)cbxFornecedor2.getSelectedItem()).getNomeFantasia());
+        linha.add(txtValor2.getText()); 
+        linha.add(((Fornecedor)cbxFornecedor3.getSelectedItem()).getNomeFantasia());
+        linha.add(txtValor3.getText()); 
+                  
+                
+        salvaItens.add(((Produto)cbxProduto.getSelectedItem()));
+        salvaItens.add(txtQuantidade.getText()); 
+        salvaItens.add(((Fornecedor)cbxFornecedor1.getSelectedItem()));
+        salvaItens.add(txtValor1.getText()); 
+        salvaItens.add(((Fornecedor)cbxFornecedor2.getSelectedItem()));
+        salvaItens.add(txtValor2.getText()); 
+        salvaItens.add(((Fornecedor)cbxFornecedor3.getSelectedItem()));
+        salvaItens.add(txtValor3.getText());                         
         
-        String forn1 = String.valueOf(cbxFornecedor1.getSelectedItem());        
-        String[] fornecedor1 = forn1.split("-");                
-        linha.add(fornecedor1[2]);        
-        String valor1 = String.valueOf(txtValor1.getText());        
-        linha.add(txtValor1.getText());
-                
-        String forn2 = String.valueOf(cbxFornecedor2.getSelectedItem());        
-        String[] fornecedor2 = forn2.split("-");                
-        linha.add(fornecedor2[2]);        
-        String valor2 = String.valueOf(txtValor2.getText());       
-        linha.add(txtValor2.getText());
-                
-        String forn3 = String.valueOf(cbxFornecedor3.getSelectedItem());        
-        String[] fornecedor3 = forn3.split("-");                
-        linha.add(fornecedor3[2]);
-        String valor3 = String.valueOf(txtValor3.getText());        
-        linha.add(txtValor3.getText());
+        this.setSalvaItens(salvaItens);
         
         this.setProdutoInList(linha);
         
         for(Vector v : this.listaProdutos) {
             modelo.addRow(v);
-        }
+        }                
         
-        tblItem.setModel(modelo);        
+        tblItem.setModel(modelo);                 
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void cbxFornecedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFornecedor1ActionPerformed
@@ -528,19 +597,18 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
                
     @Override
     public void carregaCampos() {        
-        cbxUsuario.setSelectedItem(entidade.getUsuario());        
+        
     }   
 
     List<Produto> produtos = this.getProdutos();        
     
     @Override
-    public void carregaObjeto() throws ViolacaoRegraDeNegocioException {        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();        
-        entidade.setData(dateFormat.format(date));
-        entidade.setUsuario(Aplicacao.getUsuario());
-        cbxFornecedor1.setSelectedItem(produtos);
+    public void carregaObjeto() throws ViolacaoRegraDeNegocioException {                
         
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String date = df.format(new Date());
+        entidade.setData(date);
+        entidade.setUsuario((Usuario)cbxUsuario.getSelectedItem());                
     }
 
     @Override

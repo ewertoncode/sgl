@@ -24,6 +24,7 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
     public UsuarioDao() throws ClassNotFoundException, SQLException{
         super();
         setores = new SetorDao();
+        enderecos = new EnderecoDao();
     }
     
     @Override
@@ -84,6 +85,7 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
     }
     
     SetorDao setores;
+    EnderecoDao enderecos;
     
     @Override
     protected Usuario setDados(ResultSet resultado) {
@@ -91,8 +93,9 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             Usuario obj = new Usuario();
             obj.setId(resultado.getInt("id"));
             obj.setNome(resultado.getString("nome"));
-            obj.setEmail(resultado.getString("email"));                     
+            obj.setEmail(resultado.getString("email"));            
             obj.setSetor(setores.Abrir(resultado.getInt("setor")));
+            obj.setEndereco(enderecos.Abrir(resultado.getInt("endereco")));
             
             return obj;
             

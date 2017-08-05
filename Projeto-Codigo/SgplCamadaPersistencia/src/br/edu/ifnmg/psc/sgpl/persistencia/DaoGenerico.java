@@ -56,10 +56,9 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
             }else{                
                 sql = conexao.prepareStatement(getConsultaUpdate());                
             }
-            System.out.println(sql); 
-            setParametros(sql, obj);
             
-            
+            setParametros(sql, obj);            
+             
             if(sql.executeUpdate() > 0)
                 return true;
             else                
@@ -91,8 +90,7 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
             return false;
         }                
     }
-    
-    
+        
     @Override
     public T Abrir(int id){
         try{
@@ -161,8 +159,6 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
         }
                 
         return null;
-    }
-    
-            
+    }             
     
 }

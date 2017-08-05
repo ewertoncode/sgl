@@ -65,7 +65,7 @@ public class Pedido implements Entidade{
 
     @Override
     public String toString() {
-        return id + "";
+        return id + " - " + data + " - " + usuario;
     }
 
     public void setData(Date date) {

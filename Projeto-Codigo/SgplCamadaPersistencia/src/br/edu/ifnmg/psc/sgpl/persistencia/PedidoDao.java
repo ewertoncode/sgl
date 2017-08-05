@@ -36,7 +36,7 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
 
     @Override
     protected String getConsultaUpdate() {
-        return "update pedido set usuario=?, data=? where id=?";
+        return "update pedido set data=?, usuario=? where id=?";
     }
 
     @Override
@@ -93,7 +93,7 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
             Pedido obj = new Pedido();
             obj.setId(resultado.getInt("id"));
             obj.setData(resultado.getString("data"));
-            //obj.setUsuario(usuario.Abrir(resultado.getInt("usuario")));                                    
+            obj.setUsuario(usuario.Abrir(resultado.getInt("usuario")));                                    
             
             return obj;
             
@@ -103,6 +103,7 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
         return null;
     }
     
+    /*
     @Override
     public Pedido Abrir(int id){
         try{
@@ -147,5 +148,6 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
         }
         return null;
     }
+*/
 
 }
