@@ -44,30 +44,56 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
     
     public void novo() {                                
         
-        int id = retornaIdSelecionado();
 
-        filtro = repositorio.Abrir(id);
+        //int id = retornaIdSelecionado();
+
+        //filtro = repositorio.Abrir(id);
         
+
+        //Se clicar no botão NOVO, como não vai ter nenhuma linha selecionada, 
+        //ele joga no catch, e não chama o método setEntidade. "Reduzir código depois..."
         try {
-            tela_edicao = (TelaEdicao<T>) tipo_tela.newInstance();            
-        } catch (InstantiationException ex) {
-            Logger.getLogger(TelaBusca.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(TelaBusca.class.getName()).log(Level.SEVERE, null, ex);
+            int id = retornaIdSelecionado();
+            filtro = repositorio.Abrir(id);
+
+            try {
+                tela_edicao = (TelaEdicao<T>) tipo_tela.newInstance();
+            } catch (InstantiationException ex) {
+                Logger.getLogger(TelaBusca.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(TelaBusca.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            tela_edicao.setBusca(this);
+
+            tela_edicao.setRepositorio(repositorio);
+
+            tela_edicao.setEntidade(filtro);
+
+            this.getParent().add(tela_edicao);
+
+            tela_edicao.setVisible(true);
+
+            this.setVisible(false);
+        } catch (Exception e) {
+            
+            try {
+                tela_edicao = (TelaEdicao<T>) tipo_tela.newInstance();
+            } catch (InstantiationException ex) {
+                Logger.getLogger(TelaBusca.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(TelaBusca.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            tela_edicao.setBusca(this); 
+            tela_edicao.setRepositorio(repositorio);
+            this.getParent().add(tela_edicao);
+            tela_edicao.setVisible(true);
+            this.setVisible(false);
         }
-        
-        tela_edicao.setBusca(this);
-        
-        tela_edicao.setRepositorio(repositorio);
-        
-        tela_edicao.setEntidade(filtro);
-        
-        this.getParent().add(tela_edicao);
-        
-        tela_edicao.setVisible(true);
-        
-        this.setVisible(false);
     }
+    
+    
     
     public void editar(){
         int id = retornaIdSelecionado();

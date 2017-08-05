@@ -43,6 +43,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SGPL - Autenticação");
+        setResizable(false);
 
         jLabel1.setText("Email:");
 

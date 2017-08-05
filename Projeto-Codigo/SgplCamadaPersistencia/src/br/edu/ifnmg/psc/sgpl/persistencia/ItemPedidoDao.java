@@ -54,6 +54,8 @@ public class ItemPedidoDao extends DaoGenerico<ItemPedido> implements ItemPedido
     protected String getConsultaBuscar() {
         return "select * from item_pedido";
     }
+    
+    
 
     @Override
     protected void setBuscaFiltros(ItemPedido filtro) {
@@ -94,14 +96,14 @@ public class ItemPedidoDao extends DaoGenerico<ItemPedido> implements ItemPedido
             ItemPedido obj = new ItemPedido();
             obj.setId(resultado.getInt("id"));
             obj.setQuantidade(resultado.getDouble("quantidade"));
-            obj.setFornecedor1(fornecedor1.Abrir(resultado.getInt("fornecedor")));
+            obj.setFornecedor1(fornecedor1.Abrir(resultado.getInt("fornecedor1")));
             obj.setValorFornecedor1(resultado.getDouble("valorFornecedor1"));
-            obj.setFornecedor2(fornecedor2.Abrir(resultado.getInt("fornecedor")));
+            obj.setFornecedor2(fornecedor2.Abrir(resultado.getInt("fornecedor2")));
             obj.setValorFornecedor2(resultado.getDouble("valorFornecedor2"));
-            obj.setFornecedor3(fornecedor3.Abrir(resultado.getInt("fornecedor")));
+            obj.setFornecedor3(fornecedor3.Abrir(resultado.getInt("fornecedor3")));
             obj.setValorFornecedor3(resultado.getDouble("valorFornecedor3"));
             obj.setPedido(pedidos.Abrir(resultado.getInt("pedido")));
-            obj.setProduto(produtos.Abrir(resultado.getInt("produtos")));            
+            obj.setProduto(produtos.Abrir(resultado.getInt("produto")));            
             
             return obj;
             

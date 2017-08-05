@@ -6,12 +6,15 @@
 
 package br.edu.ifnmg.psc.sgpl.persistencia;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +36,7 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
 
     @Override
     protected String getConsultaUpdate() {
-        return "update pedido set usuario=?, data=? where id=?";
+        return "update pedido set data=?, usuario=? where id=?";
     }
 
     @Override
@@ -49,6 +52,10 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
     @Override
     protected String getConsultaBuscar() {
         return "select * from pedido";
+    }
+    
+    protected String getConsutaBuscaItens() {
+        return "select * from item_pedido where pedido =?";
     }
 
     @Override
@@ -86,7 +93,7 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
             Pedido obj = new Pedido();
             obj.setId(resultado.getInt("id"));
             obj.setData(resultado.getString("data"));
-            //obj.setUsuario(usuario.Abrir(resultado.getInt("usuario")));                                    
+            obj.setUsuario(usuario.Abrir(resultado.getInt("usuario")));                                    
             
             return obj;
             
@@ -95,5 +102,52 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
         }
         return null;
     }
+    
+    /*
+    @Override
+    public Pedido Abrir(int id){
+        try{
+            PreparedStatement sql = conexao.prepareStatement(this.getConsultaAbrir());
+            
+            sql.setInt(1, id);
+            
+            ResultSet resultado = sql.executeQuery();            
+            if(resultado.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setId(resultado.getInt("id"));
+                pedido.setData(resultado.getString("data"));
+                
+                List<ItemPedido> listaItens = new ArrayList<>();
+                PreparedStatement sqlItens = conexao.prepareStatement(this.getConsutaBuscaItens());
+            
+                sqlItens.setInt(1, pedido.getId());
+
+                ResultSet resultadoItens = sqlItens.executeQuery();
+                
+                while(resultadoItens.next()) {
+                    
+                    ProdutoDao produtoDao = null;
+                    
+                    ItemPedido item = new ItemPedido();
+                    item.setId(resultadoItens.getInt("id"));
+                    item.setProduto(produtoDao.Abrir(resultadoItens.getInt("produto")));
+                    listaItens.add(item);
+                }
+                
+                pedido.setItens(listaItens);
+                
+                return pedido;
+                
+            }
+            else
+                return null;
+            
+        }catch(SQLException e){
+            Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, e);
+            
+        }
+        return null;
+    }
+*/
 
 }

@@ -6,21 +6,19 @@
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Aplicacao;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregao;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Pregao;
-import br.edu.ifnmg.psc.sgpl.aplicacao.Setor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
-import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,36 +42,42 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         
         ComboBoxModel model = new DefaultComboBoxModel(StatusPregao.values());
         selStatus.setModel(model);
-        
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        // Informa quais as colunas da tabela 
+        modelo.addColumn("Cod");
+        modelo.addColumn("Produto");
+        modelo.addColumn("Quantidade"); 
+        modelo.addColumn("Valor Referência");
+
+        tblProdutos.setModel(modelo);
+                
         List<Produto> produtos = this.getProdutos();
+        ComboBoxModel modelProduto = new DefaultComboBoxModel(produtos.toArray());
+        selProduto.setModel(modelProduto);
         
-        if(!produtos.isEmpty()) {
-        
-            DefaultTableModel modelo = new DefaultTableModel();
-
-            // Informa quais as colunas da tabela 
-            modelo.addColumn("Cod");
-            modelo.addColumn("Produto");
-            modelo.addColumn("Quantidade"); 
-            modelo.addColumn("Valor Referência");
-
-            tblProdutos.setModel(modelo);
-
-           for(Produto p : produtos) {
-                selProduto.addItem(p.toString());
-           }
-       }
+        List<Pedido> pedidos = this.getPedidos();
+        ComboBoxModel modelPedido = new DefaultComboBoxModel(pedidos.toArray());
+        selPedido.setModel(modelPedido);
     }
     
     private List getProdutos() {
 
-        Produto filtroProduto = new Produto();
-        
         Repositorio<Produto> repositorioProduto = Repositorios.getProdutoRepositorio();
         
-        List<Produto> produtos = repositorioProduto.Buscar(filtroProduto);
+        List<Produto> produtos = repositorioProduto.Buscar(null);
 
         return produtos;
+    }
+    
+    private List getPedidos() {
+        
+        Repositorio<Pedido> repositorioPedido = Repositorios.getPedidoRepositorio();
+        
+        List<Pedido> pedidos = repositorioPedido.Buscar(null);
+        
+        return pedidos;
     }
     
     
@@ -136,6 +140,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         btnDeletar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtValReferencia = new javax.swing.JTextField();
+        alterarSituacao = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("SGPL - Editar Pregão");
@@ -143,6 +148,16 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         jLabel1.setText("Pedido");
 
         selPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selPedido.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selPedidoItemStateChanged(evt);
+            }
+        });
+        selPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selPedidoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Quantidade dias p/ entrega");
 
@@ -196,6 +211,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         jLabel8.setText("Val. Ref");
 
+        alterarSituacao.setText("Alterar Situação do item");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -214,11 +231,14 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(btnCancelar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnDeletar))
+                                    .addComponent(btnDeletar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(alterarSituacao)
+                                    .addGap(0, 0, Short.MAX_VALUE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(selProduto, 0, 299, Short.MAX_VALUE)
+                                            .addComponent(selProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(txtValReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(23, 23, 23))
@@ -287,7 +307,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
-                    .addComponent(btnDeletar))
+                    .addComponent(btnDeletar)
+                    .addComponent(alterarSituacao))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -310,8 +331,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 
         String produto = String.valueOf(selProduto.getSelectedItem());
         String[] split = produto.split("-");
-        linha.add(split[0]);
-        linha.add(split[1]);
+        linha.add(((Produto)selProduto.getSelectedItem()).getId());
+        linha.add(((Produto)selProduto.getSelectedItem()).getNome());
         linha.add(txtQtd.getText()); 
         linha.add(txtValReferencia.getText()); 
         
@@ -348,8 +369,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     itemPregao.setProduto((Produto)v.get(0));
                     itemPregao.setQuantidade((double)v.get(2));
                     itemPregao.setValorReferencia((double)v.get(3));
+                    itemPregao.setPregao(entidade);
                     
-                    //Pegar pregao
                     
                     Repositorio<ItemPregao> repositorioItemPregao = Repositorios.getItemPregaoRepositorio();
                     try {
@@ -370,8 +391,47 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         cancelar();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void selPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selPedidoActionPerformed
+        
+    }//GEN-LAST:event_selPedidoActionPerformed
+
+    private void selPedidoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selPedidoItemStateChanged
+        if(selPedido.getSelectedItem() == null)
+            return;
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo.addColumn("Cod");
+        modelo.addColumn("Produto");
+        modelo.addColumn("Quantidade"); 
+        modelo.addColumn("Valor Referência");
+                
+        /*
+        Repositorio<Pedido> repositorioPedido = Repositorios.getPedidoRepositorio();
+        
+        Pedido pedido = repositorioPedido.Abrir(((Pedido)selPedido.getSelectedItem()).getId());
+        
+        List<ItemPedido> itens = pedido.getItens();
+        */
+        List<ItemPedido> itens = ((Pedido)selPedido.getSelectedItem()).getItens();
+        
+        if(itens != null) {
+            for(ItemPedido item : itens) {
+                Vector linha = new Vector();
+                linha.add(item.getProduto().getId());
+
+                modelo.addRow(linha);
+            }
+        }
+           
+        
+        tblProdutos.setModel(modelo);
+        
+        
+    }//GEN-LAST:event_selPedidoItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alterarSituacao;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnDeletar;
