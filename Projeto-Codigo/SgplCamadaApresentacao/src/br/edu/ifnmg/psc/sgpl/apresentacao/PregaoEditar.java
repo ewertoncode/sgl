@@ -45,23 +45,24 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         ComboBoxModel model = new DefaultComboBoxModel(StatusPregao.values());
         selStatus.setModel(model);
         
-        DefaultTableModel modelo = new DefaultTableModel();
+        List<Produto> produtos = this.getProdutos();
         
-        // Informa quais as colunas da tabela 
-        modelo.addColumn("Cod");
-        modelo.addColumn("Produto");
-        modelo.addColumn("Quantidade"); 
-        modelo.addColumn("Valor Referência");
+        if(!produtos.isEmpty()) {
+        
+            DefaultTableModel modelo = new DefaultTableModel();
 
-        tblProdutos.setModel(modelo);
-        
-        
-       List<Produto> produtos = this.getProdutos();
-       
-       for(Produto p : produtos) {
-           selProduto.addItem(p.toString());
+            // Informa quais as colunas da tabela 
+            modelo.addColumn("Cod");
+            modelo.addColumn("Produto");
+            modelo.addColumn("Quantidade"); 
+            modelo.addColumn("Valor Referência");
+
+            tblProdutos.setModel(modelo);
+
+           for(Produto p : produtos) {
+                selProduto.addItem(p.toString());
+           }
        }
-
     }
     
     private List getProdutos() {

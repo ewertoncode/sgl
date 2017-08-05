@@ -40,8 +40,14 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
     @Override
     public int retornaIdSelecionado() {
         int linha = tblBusca.getSelectedRow();
-        int id = Integer.parseInt( tblBusca.getModel().getValueAt(linha, 0).toString() );
-        return id;
+        if(tblBusca.getModel().getRowCount() > 0) {
+            int id = Integer.parseInt( tblBusca.getModel().getValueAt(linha, 0).toString() );
+            return id;
+        } else {
+            return 0;
+        }
+        
+        
     }
 
     @Override

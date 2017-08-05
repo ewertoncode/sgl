@@ -45,7 +45,7 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
     public void novo() {                                
         
         int id = retornaIdSelecionado();
-        
+
         filtro = repositorio.Abrir(id);
         
         try {
