@@ -14,11 +14,13 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
+import java.awt.Dimension;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PedidoBuscar extends TelaBusca<Pedido> {
 
+    
+    
     UsuarioRepositorio usuarios = Repositorios.getUsuarioRepositorio();
     ProdutoRepositorio produtos = Repositorios.getProdutoRepositorio();
     FornecedorRepositorio fornecedores = Repositorios.getFornecedorRepositorio();
@@ -39,6 +43,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
         
         super(repositorio, tipo_tela);
         initComponents(); 
+        this.toFront();
         
         List<Usuario> lista = usuarios.Buscar(null);        
         List<Produto> lista2 = produtos.Buscar(null);        
@@ -156,6 +161,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
 
         cbxFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/buscar.png"))); // NOI18N
         buscar.setText("Buscar");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +169,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
             }
         });
 
+        novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/novo.png"))); // NOI18N
         novo.setText("Novo");
         novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +177,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
             }
         });
 
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/editar.png"))); // NOI18N
         editar.setText("Editar");
         editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,14 +189,6 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(buscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(novo)
-                .addGap(79, 79, 79)
-                .addComponent(editar)
-                .addGap(145, 145, 145))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -202,8 +202,15 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
                             .addComponent(cbxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addComponent(cbxUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap(69, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(buscar)
+                        .addGap(56, 56, 56)
+                        .addComponent(novo)
+                        .addGap(51, 51, 51)
+                        .addComponent(editar)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +234,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
                     .addComponent(buscar)
                     .addComponent(novo)
                     .addComponent(editar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
