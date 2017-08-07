@@ -75,9 +75,16 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
     protected void setParametros(PreparedStatement sql, Pregao obj) {
         try{            
             sql.setDate(1, (java.sql.Date) obj.getData());            
-            sql.setInt(2, obj.getDiasEntrega());                        
-            sql.setInt(3, obj.getPedido().getId());
-            sql.setInt(4, obj.getUsuario().getId());
+            sql.setInt(2, obj.getDiasEntrega());  
+            if(obj.getPedido() != null) 
+                sql.setInt(3, obj.getPedido().getId());
+            else
+                sql.setNull(3, 0);
+            
+            if(obj.getUsuario() != null)
+                sql.setInt(4, obj.getUsuario().getId());
+            else
+                sql.setNull(4, 0);
             
             if(obj.getId() > 0)
                 sql.setInt(5, obj.getId());
@@ -96,9 +103,17 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
             Pregao obj = new Pregao();
             obj.setId(resultado.getInt("id"));
             obj.setData(resultado.getDate("data"));
-            obj.setDiasEntrega(resultado.getInt("diasEntrega"));                     
-            obj.setPedido(pedidos.Abrir(resultado.getInt("pedido")));
-            obj.setUsuario(usuarios.Abrir(resultado.getInt("usuario")));
+            obj.setDiasEntrega(resultado.getInt("diasEntrega"));  
+            if(resultado.getInt("pedido") > 0)
+                obj.setPedido(pedidos.Abrir(resultado.getInt("pedido")));
+            else 
+                obj.setPedido(null);
+            
+            if(resultado.getInt("usuario") > 0) 
+                obj.setUsuario(usuarios.Abrir(resultado.getInt("usuario")));
+            else
+                obj.setUsuario(null);
+               
             
             return obj;
             

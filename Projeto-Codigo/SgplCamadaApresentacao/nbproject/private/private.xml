@@ -3,25 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <file>file:/Users/ewertoncardoso/Documents/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/ProdutoEditar.java</file>
-            <file>file:/Users/ewertoncardoso/Documents/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/TelaPrincipal.java</file>
             <file>file:/Users/ewertoncardoso/Documents/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/PregaoEditar.java</file>
-            <file>file:/Users/ewertoncardoso/Documents/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/PregaoBuscar.java</file>
-=======
-            <file>file:/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/PregaoEditar.java</file>
-=======
-            <file>file:/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/TelaPrincipal.java</file>
->>>>>>> 7386ec23bac734d4f116e0dd8de7b4cdc9a70418
-            <file>file:/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/PedidoBuscar.java</file>
-            <file>file:/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/PedidoEditar.java</file>
-<<<<<<< HEAD
-            <file>file:/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/TelaBusca.java</file>
->>>>>>> 855c3d66f08387b8d7aa8fbcd011cb8f96b014b9
-=======
-            <file>file:/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/TelaLogin.java</file>
->>>>>>> 7386ec23bac734d4f116e0dd8de7b4cdc9a70418
+            <file>file:/Users/ewertoncardoso/Documents/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/SgplCamadaApresentacao.java</file>
         </group>
     </open-files>
 </project-private>

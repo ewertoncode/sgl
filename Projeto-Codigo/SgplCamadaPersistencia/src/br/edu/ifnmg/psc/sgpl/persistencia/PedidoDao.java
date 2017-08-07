@@ -9,6 +9,9 @@ package br.edu.ifnmg.psc.sgpl.persistencia;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PedidoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,12 +106,13 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
         return null;
     }
     
-    /*
+    
     @Override
     public Pedido Abrir(int id){
+
         try{
             PreparedStatement sql = conexao.prepareStatement(this.getConsultaAbrir());
-            
+
             sql.setInt(1, id);
             
             ResultSet resultado = sql.executeQuery();            
@@ -126,11 +130,21 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
                 
                 while(resultadoItens.next()) {
                     
-                    ProdutoDao produtoDao = null;
+                    ProdutoRepositorio produtoDao = null;
+                    try {
+                        produtoDao = new ProdutoDao();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(PedidoDao.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
                     ItemPedido item = new ItemPedido();
                     item.setId(resultadoItens.getInt("id"));
-                    item.setProduto(produtoDao.Abrir(resultadoItens.getInt("produto")));
+                    Produto produto = produtoDao.Abrir(resultadoItens.getInt("produto"));
+                    item.setQuantidade(resultadoItens.getInt("quantidade"));
+                    item.setValorFornecedor1(resultadoItens.getDouble("valorFornecedor1"));
+                    item.setValorFornecedor2(resultadoItens.getDouble("valorFornecedor2"));
+                    item.setValorFornecedor3(resultadoItens.getDouble("valorFornecedor3"));
+                    item.setProduto(produto);
                     listaItens.add(item);
                 }
                 
@@ -148,6 +162,6 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
         }
         return null;
     }
-*/
+
 
 }
