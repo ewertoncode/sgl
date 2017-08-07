@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 20-Jul-2017 às 11:43
--- Versão do servidor: 5.7.18-0ubuntu0.16.04.1
--- PHP Version: 7.0.18-0ubuntu0.16.04.1
+-- Generation Time: 07-Ago-2017 às 10:19
+-- Versão do servidor: 5.6.25
+-- PHP Version: 7.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -118,7 +120,9 @@ CREATE TABLE `item_pedido` (
 --
 
 INSERT INTO `item_pedido` (`id`, `quantidade`, `Fornecedor1`, `valorFornecedor1`, `Fornecedor2`, `valorFornecedor2`, `Fornecedor3`, `valorFornecedor3`, `pedido`, `produto`) VALUES
-(1, 20, 6, 30, 5, 31, 7, 32, 1, 0);
+(1, 20, 6, 30, 5, 31, 7, 32, 1, 0),
+(2, 5, 10, 5, 20, 5, 15, 8, 3, 1),
+(3, 10, 10, 5, 15, 5, 10, 5, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -205,8 +209,9 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id`, `data`, `usuario`) VALUES
-(3, '2017-07-04', 5),
-(4, '2017-07-04', 5);
+(3, '2017-08-06', 5),
+(4, '2017-07-04', 5),
+(5, '2017-08-07', 5);
 
 -- --------------------------------------------------------
 
@@ -217,9 +222,9 @@ INSERT INTO `pedido` (`id`, `data`, `usuario`) VALUES
 CREATE TABLE `pregao` (
   `id` int(11) NOT NULL,
   `data` date NOT NULL,
-  `diasEntrega` date NOT NULL,
-  `pedido` int(11) NOT NULL,
-  `usuario` int(11) NOT NULL
+  `diasEntrega` int(11) DEFAULT NULL,
+  `pedido` int(11) DEFAULT NULL,
+  `usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -227,7 +232,32 @@ CREATE TABLE `pregao` (
 --
 
 INSERT INTO `pregao` (`id`, `data`, `diasEntrega`, `pedido`, `usuario`) VALUES
-(2, '2017-07-04', '2017-07-06', 1, 5);
+(23, '2017-08-07', 1, NULL, NULL),
+(24, '2017-08-07', 1, NULL, NULL),
+(25, '2017-08-07', 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pregao_itens`
+--
+
+CREATE TABLE `pregao_itens` (
+  `id` int(11) NOT NULL,
+  `produto_id` int(11) NOT NULL,
+  `qtd` int(2) NOT NULL,
+  `pregao_id` int(11) DEFAULT NULL,
+  `valor_referencia` decimal(10,2) NOT NULL,
+  `fornecedor_id` int(11) DEFAULT NULL,
+  `status_item` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `pregao_itens`
+--
+
+INSERT INTO `pregao_itens` (`id`, `produto_id`, `qtd`, `pregao_id`, `valor_referencia`, `fornecedor_id`, `status_item`) VALUES
+(9, 1, 5, NULL, '6.00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -366,7 +396,16 @@ ALTER TABLE `pedido`
 -- Indexes for table `pregao`
 --
 ALTER TABLE `pregao`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_pedido` (`pedido`);
+
+--
+-- Indexes for table `pregao_itens`
+--
+ALTER TABLE `pregao_itens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_pregao_id` (`pregao_id`),
+  ADD KEY `fk_produto_id` (`produto_id`);
 
 --
 -- Indexes for table `produto`
@@ -415,7 +454,7 @@ ALTER TABLE `historico_renegociacao`
 -- AUTO_INCREMENT for table `item_pedido`
 --
 ALTER TABLE `item_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `item_pregao`
 --
@@ -435,12 +474,17 @@ ALTER TABLE `notificacao_fornecedor`
 -- AUTO_INCREMENT for table `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `pregao`
 --
 ALTER TABLE `pregao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT for table `pregao_itens`
+--
+ALTER TABLE `pregao_itens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `produto`
 --
@@ -461,6 +505,24 @@ ALTER TABLE `status_item`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `pregao`
+--
+ALTER TABLE `pregao`
+  ADD CONSTRAINT `fk_pedido` FOREIGN KEY (`pedido`) REFERENCES `pedido` (`id`);
+
+--
+-- Limitadores para a tabela `pregao_itens`
+--
+ALTER TABLE `pregao_itens`
+  ADD CONSTRAINT `fk_pregao_id` FOREIGN KEY (`pregao_id`) REFERENCES `pregao` (`id`),
+  ADD CONSTRAINT `fk_produto_id` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
