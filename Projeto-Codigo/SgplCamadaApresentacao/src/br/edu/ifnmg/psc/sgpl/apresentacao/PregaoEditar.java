@@ -20,6 +20,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
+import br.edu.ifnmg.psc.sgpl.persistencia.ItemPregaoDao;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
@@ -70,7 +71,6 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    System.out.println("---aqui---");
                     if (selPedido.getSelectedItem() == null) {
                         return;
                     }
@@ -422,10 +422,18 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 for (Vector v : this.listaProdutos) {
                     Repositorio<Produto> repositorioProduto = Repositorios.getProdutoRepositorio();
                     Produto produto = repositorioProduto.Abrir((int) v.get(0));
-                    //ItemPregaoRepositorio daoItemPregao = new ItemPregaoDao();
-                    Repositorio<ItemPregao> daoItemPregao = Repositorios.getItemPregaoRepositorio();
-                    ItemPregao itemPregao = new ItemPregao(0, (double) v.get(2), (double) v.get(3), null, produto, null, null);
-                    boolean salvarItem = daoItemPregao.Salvar(itemPregao);
+                    ItemPregaoRepositorio daoItemPregao;
+                    try {
+                        daoItemPregao = new ItemPregaoDao();
+                        ItemPregao itemPregao = new ItemPregao(0, (double) v.get(2), (double) v.get(3), null, produto, null, null);
+                        boolean salvarItem = daoItemPregao.Salvar(itemPregao);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(PregaoEditar.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PregaoEditar.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
                 }
 
                 JOptionPane.showMessageDialog(rootPane, "Registro salvo com sucesso!");
