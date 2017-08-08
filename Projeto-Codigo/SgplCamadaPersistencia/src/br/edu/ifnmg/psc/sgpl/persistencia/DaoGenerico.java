@@ -64,7 +64,8 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
             else                
                 return false;            
             
-        }catch(Exception e){                        
+        }catch(Exception e){ 
+            System.out.println(e.getMessage());
             return false;
         }        
     }

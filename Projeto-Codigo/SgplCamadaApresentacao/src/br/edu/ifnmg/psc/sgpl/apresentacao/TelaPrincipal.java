@@ -24,7 +24,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     
     public TelaPrincipal() {
-     
+
+        /*
         if(!Aplicacao.isLogged()){
             if(telalogin == null)
                 telalogin = new TelaLogin();
@@ -33,10 +34,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.setVisible(false);
             return;
         }
-         
-        initComponents();
-       
 
+         */
+
+        initComponents();
+      
     }
 
     /**

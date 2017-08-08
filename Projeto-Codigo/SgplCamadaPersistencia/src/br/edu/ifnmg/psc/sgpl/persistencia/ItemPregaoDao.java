@@ -31,7 +31,7 @@ public class ItemPregaoDao extends DaoGenerico<ItemPregao> implements ItemPregao
     
     @Override
     protected String getConsultaInsert() {
-        return "insert into item_pregao(quantidade, valorReferencia, pregao, produto, fornecedor, statusItem) values(?, ?, ?, ?, ?, ?)";
+        return "insert into pregao_itens(produto_id, qtd, pregao_id, valor_referencia, fornecedor_id, status_item) values(?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -64,12 +64,23 @@ public class ItemPregaoDao extends DaoGenerico<ItemPregao> implements ItemPregao
     @Override
     protected void setParametros(PreparedStatement sql, ItemPregao obj) {
         try{            
-            sql.setDouble(1, obj.getQuantidade());            
-            sql.setDouble(2, obj.getValorReferencia());                        
-            sql.setInt(3, obj.getPregao().getId());
-            sql.setInt(4, obj.getProduto().getId());
-            sql.setInt(5, obj.getForncedor().getId());
-            sql.setInt(6, obj.getStatusItem().getId());
+            sql.setDouble(1, obj.getProduto().getId());  
+            sql.setInt(2, (int)obj.getQuantidade()); 
+            if(obj.getPregao() != null)
+                sql.setInt(3, obj.getPregao().getId());   
+            else
+                sql.setNull(3, 0);   
+            
+            sql.setDouble(4, obj.getValorReferencia());
+            if(obj.getForncedor() != null)
+                sql.setInt(5, obj.getForncedor().getId());
+            else
+                sql.setNull(5, 0);
+            
+            if(obj.getStatusItem() != null)
+                sql.setInt(6, obj.getStatusItem().getId());
+            else
+                sql.setNull(6, 0);
             
             if(obj.getId() > 0)
                 sql.setInt(7, obj.getId());

@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/Users/ewertoncardoso/Documents/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/PregaoEditar.java</file>
+            <file>file:/Users/ewertoncardoso/Documents/projetos/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/SgplCamadaApresentacao.java</file>
+=======
             <file>file:/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/TelaPrincipal.java</file>
+>>>>>>> 0d6c2dcb3089c193cbc0baa1076209f911cd1b58
         </group>
     </open-files>
 </project-private>

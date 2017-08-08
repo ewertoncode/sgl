@@ -44,6 +44,12 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
     
     public void novo() {                                
         
+
+        //int id = retornaIdSelecionado();
+
+        //filtro = repositorio.Abrir(id);
+        
+
         //Se clicar no botão NOVO, como não vai ter nenhuma linha selecionada, 
         //ele joga no catch, e não chama o método setEntidade. "Reduzir código depois..."
         try {

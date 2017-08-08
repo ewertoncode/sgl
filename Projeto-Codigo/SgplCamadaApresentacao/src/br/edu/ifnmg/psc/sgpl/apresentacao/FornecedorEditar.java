@@ -8,7 +8,6 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
-import br.edu.ifnmg.psc.sgpl.persistencia.EnderecoDao;
 import java.sql.SQLException;
 import java.text.ParseException;
 
