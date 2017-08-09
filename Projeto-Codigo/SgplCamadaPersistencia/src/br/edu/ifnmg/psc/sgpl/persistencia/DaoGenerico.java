@@ -8,6 +8,7 @@ package br.edu.ifnmg.psc.sgpl.persistencia;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Entidade;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Pregao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -160,6 +161,6 @@ public abstract class DaoGenerico<T extends Entidade> implements Repositorio<T>{
         }
                 
         return null;
-    }             
+    }   
     
 }
