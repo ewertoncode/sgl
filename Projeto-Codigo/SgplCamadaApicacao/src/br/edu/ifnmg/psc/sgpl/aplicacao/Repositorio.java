@@ -20,4 +20,5 @@ public interface Repositorio<T extends Entidade>{
     public T Abrir(int id);
     
     public List<T> Buscar(T filtro);    
+
 }

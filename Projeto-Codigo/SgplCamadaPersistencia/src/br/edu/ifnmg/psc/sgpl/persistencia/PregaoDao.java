@@ -52,6 +52,10 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
     protected String getConsultaBuscar() {
         return "select * from pregao";
     }
+    
+    protected String getMaxId() {
+        return "select max(id) as maxId from pregao";
+    }
 
     @Override
     protected void setBuscaFiltros(Pregao filtro) {
@@ -125,6 +129,25 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
 
     private void adicionarFiltro(String data, Date data0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Pregao getLast(){
+        
+        try {        
+            PreparedStatement sql = conexao.prepareStatement(this.getMaxId());
+            
+            ResultSet resultado = sql.executeQuery();  
+            while(resultado.next()) {
+                return this.Abrir(resultado.getInt("maxId"));
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }  
+        
+        return null;
     }
     
     

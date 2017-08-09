@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.persistencia.ItemPregaoDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.PregaoDao;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
@@ -110,6 +111,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
             }
 
         });
+        
+        
 
     }
 
@@ -352,18 +355,19 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     .addComponent(jLabel6)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar)
-                    .addComponent(txtValReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(selProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtValReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
                     .addComponent(btnDeletar)
                     .addComponent(alterarSituacao))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -417,6 +421,20 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
             if (repositorio.Salvar(entidade)) {
 
+                
+                Pregao last = null;
+                
+                try {
+                    PregaoDao pregaoDao = new PregaoDao();
+                    last = pregaoDao.getLast();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PregaoEditar.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PregaoEditar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+               
+                
                 //Salvar itens
    
                 for (Vector v : this.listaProdutos) {
@@ -425,7 +443,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     ItemPregaoRepositorio daoItemPregao;
                     try {
                         daoItemPregao = new ItemPregaoDao();
-                        ItemPregao itemPregao = new ItemPregao(0, (double) v.get(2), (double) v.get(3), null, produto, null, null);
+                        ItemPregao itemPregao = new ItemPregao(0, (double) v.get(2), (double) v.get(3), last, produto, null, null);
                         boolean salvarItem = daoItemPregao.Salvar(itemPregao);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PregaoEditar.class.getName()).log(Level.SEVERE, null, ex);
