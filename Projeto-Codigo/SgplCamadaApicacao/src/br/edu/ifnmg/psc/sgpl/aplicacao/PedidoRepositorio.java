@@ -9,6 +9,6 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
  *
  * @author haw
  */
-public interface PedidoRepositorio extends Repositorio<Pedido>{
+public interface PedidoRepositorio extends Repositorio<Pedido>{   
     
 }

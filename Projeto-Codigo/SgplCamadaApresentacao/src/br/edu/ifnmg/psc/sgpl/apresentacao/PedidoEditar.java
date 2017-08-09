@@ -17,6 +17,7 @@ import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import br.edu.ifnmg.psc.sgpl.aplicacao.UsuarioRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
+import br.edu.ifnmg.psc.sgpl.persistencia.PedidoDao;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -126,7 +127,6 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
         return this.listaProdutos;
     } 
     
-    ////////////////////////////////////////////////
     private List setSalvaItens(Vector ItensPedido) {
         
         listaSalvaItens.add(ItensPedido);
@@ -449,47 +449,61 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
             return;
         }
 
-        try {
-            carregaObjeto();
-        } catch (ViolacaoRegraDeNegocioException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja realmente salvar o pregao?") == 0) {                        
+            
+            try {
+                carregaObjeto();
+                
+            } catch (ViolacaoRegraDeNegocioException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                return;
+            }
+
+            if (repositorio.Salvar(entidade)) {
+                
+                Pedido last = null;
+                
+                try {
+                    PedidoDao pedidoDao = new PedidoDao();
+                    last = pedidoDao.getLast();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PedidoEditar.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PedidoEditar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                for (Vector v : this.listaSalvaItens) {
+
+                    ItemPedido itemPedido = new ItemPedido();
+
+                    itemPedido.setPedido(last);
+                    itemPedido.setProduto((Produto) v.get(0));
+                    itemPedido.setQuantidade(Double.parseDouble(v.get(1).toString()));
+                    itemPedido.setFornecedor1((Fornecedor) v.get(2));
+                    itemPedido.setValorFornecedor1(Double.parseDouble(v.get(3).toString()));
+                    itemPedido.setFornecedor2((Fornecedor) v.get(4));
+                    itemPedido.setValorFornecedor2(Double.parseDouble(v.get(5).toString()));
+                    itemPedido.setFornecedor3((Fornecedor) v.get(6));
+                    itemPedido.setValorFornecedor3(Double.parseDouble(v.get(7).toString()));
+
+                    Repositorio<ItemPedido> repositorioItemPedido = Repositorios.getItemPedidoRepositorio();
+                    try {
+                        if (repositorioItemPedido.Salvar(itemPedido)) {
+                            JOptionPane.showMessageDialog(rootPane, "Registro salvo com sucesso!");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Falha ao salvar Registro!");
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(rootPane, e.getMessage());
+                        return;
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha ao salvar Registro!");
+            }
         }
 
-        if (repositorio.Salvar(entidade)) {
-                        
-            //Pegar o maior id??????
-            
-            for (Vector v : this.listaSalvaItens) {
-
-                ItemPedido itemPedido = new ItemPedido();
-                
-                itemPedido.setPedido(entidade);
-                itemPedido.setProduto((Produto) v.get(0));
-                itemPedido.setQuantidade(Double.parseDouble(v.get(1).toString()));
-                itemPedido.setFornecedor1((Fornecedor) v.get(2));
-                itemPedido.setValorFornecedor1(Double.parseDouble(v.get(3).toString()));
-                itemPedido.setFornecedor2((Fornecedor) v.get(4));
-                itemPedido.setValorFornecedor2(Double.parseDouble(v.get(5).toString()));
-                itemPedido.setFornecedor3((Fornecedor) v.get(6));
-                itemPedido.setValorFornecedor3(Double.parseDouble(v.get(7).toString()));
-                
-
-                Repositorio<ItemPedido> repositorioItemPedido = Repositorios.getItemPedidoRepositorio();
-                try {
-                    if (repositorioItemPedido.Salvar(itemPedido)) {
-                        JOptionPane.showMessageDialog(rootPane, "Registro salvo com sucesso!");
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Falha ao salvar Registro!");
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, e.getMessage());
-                    return;
-                }
-            }
-        }else
-            JOptionPane.showMessageDialog(rootPane, "Falha ao salvar Registro!");
-        
-        cancelar();        
+        cancelar();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -507,32 +521,31 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
 
         DefaultTableModel modelo = new DefaultTableModel();
-        
+
         modelo.addColumn("Produto");
         modelo.addColumn("Quantidade");
         modelo.addColumn("Fornecedor 1");
         modelo.addColumn("Valor");
         modelo.addColumn("Fornecedor 2");
         modelo.addColumn("Valor");
-        modelo.addColumn("Fornecedor 3");                
+        modelo.addColumn("Fornecedor 3");
         modelo.addColumn("Valor");
-        
-        Vector linha = new Vector(); 
-        Vector salvaItens = new Vector(); 
-                
-        linha.add(((Produto)cbxProduto.getSelectedItem()).getNome());        
-        linha.add(txtQuantidade.getText()); 
-        linha.add(((Fornecedor)cbxFornecedor1.getSelectedItem()).getNomeFantasia());
-        linha.add(txtValor1.getText()); 
-        linha.add(((Fornecedor)cbxFornecedor2.getSelectedItem()).getNomeFantasia());
-        linha.add(txtValor2.getText()); 
-        linha.add(((Fornecedor)cbxFornecedor3.getSelectedItem()).getNomeFantasia());
-        linha.add(txtValor3.getText()); 
-                  
-                
-        salvaItens.add(((Produto)cbxProduto.getSelectedItem()));
-        salvaItens.add(txtQuantidade.getText()); 
-        salvaItens.add(((Fornecedor)cbxFornecedor1.getSelectedItem()));
+
+        Vector linha = new Vector();
+        Vector salvaItens = new Vector();
+
+        linha.add(((Produto) cbxProduto.getSelectedItem()).getNome());
+        linha.add(txtQuantidade.getText());
+        linha.add(((Fornecedor) cbxFornecedor1.getSelectedItem()).getNomeFantasia());
+        linha.add(txtValor1.getText());
+        linha.add(((Fornecedor) cbxFornecedor2.getSelectedItem()).getNomeFantasia());
+        linha.add(txtValor2.getText());
+        linha.add(((Fornecedor) cbxFornecedor3.getSelectedItem()).getNomeFantasia());
+        linha.add(txtValor3.getText());
+
+        salvaItens.add(((Produto) cbxProduto.getSelectedItem()));
+        salvaItens.add(txtQuantidade.getText());
+        salvaItens.add(((Fornecedor) cbxFornecedor1.getSelectedItem()));
         salvaItens.add(txtValor1.getText()); 
         salvaItens.add(((Fornecedor)cbxFornecedor2.getSelectedItem()));
         salvaItens.add(txtValor2.getText()); 
@@ -581,11 +594,6 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     private javax.swing.JTextField txtValor2;
     private javax.swing.JTextField txtValor3;
     // End of variables declaration//GEN-END:variables
-
-    //UsuarioRepositorio usuarios;
-    //ItemPedidoRepositorio itensPedidos;
-    //FornecedorRepositorio fornecedores;
-    //ProdutoRepositorio produtos;
     
                
     @Override
