@@ -39,6 +39,7 @@ import javax.swing.JOptionPane;
 public class PregaoEditar extends TelaEdicao<Pregao> {
 
     private List<Vector> listaProdutos = new Vector();
+
     /**
      * Creates new form PregaoEditar
      */
@@ -58,6 +59,9 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         modelo.addColumn("Quantidade");
         modelo.addColumn("Valor Referência");
 
+        for (Vector v : this.listaProdutos) {
+            modelo.addRow(v);
+        }
         tblProdutos.setModel(modelo);
 
         List<Produto> produtos = this.getProdutos();
@@ -105,14 +109,15 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
                         }
                     }
+                    btnAdicionar.setVisible(false);
+                    txtQtd.setVisible(false);
+                    lblQtd.setVisible(false);
 
                     tblProdutos.setModel(modelo);
                 }
             }
 
         });
-        
-        
 
     }
 
@@ -141,12 +146,34 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         return this.listaProdutos;
     }
 
-
     @Override
     public void carregaCampos() {
         selPedido.setSelectedItem(entidade.getPedido());
         cmpQtdDias.setValue(entidade.getDiasEntrega());
         selStatus.setSelectedItem(entidade.getStatus());
+
+        if (entidade.getId() > 0) {
+            List<ItemPregao> itens = entidade.getItens();
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            modelo.addColumn("Cod");
+            modelo.addColumn("Produto");
+            modelo.addColumn("Quantidade");
+            modelo.addColumn("Valor Referência");
+            
+            for (ItemPregao item : itens) {
+                Vector linha = new Vector();
+                linha.add(item.getProduto().getId());
+                linha.add(item.getProduto().getNome());
+                linha.add(item.getQuantidade());
+                linha.add(item.getValorReferencia());
+
+                modelo.addRow(linha);
+                setProdutoInList(linha);
+
+            }
+            tblProdutos.setModel(modelo);
+        }
     }
 
     @Override
@@ -156,6 +183,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         java.sql.Date d = new java.sql.Date(date.getTime());
         entidade.setData(d);
         entidade.setDiasEntrega((Integer) cmpQtdDias.getValue());
+        entidade.setPedido((Pedido) selPedido.getSelectedItem());
         entidade.setStatus((StatusPregao) selStatus.getSelectedItem());
         //entidade.setUsuario(Aplicacao.getUsuario());
     }
@@ -183,7 +211,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         selProduto = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
+        lblQtd = new javax.swing.JLabel();
         txtQtd = new javax.swing.JTextField();
         btnAdicionar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -235,7 +263,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         jLabel5.setText("Produto");
 
-        jLabel6.setText("Quantidade");
+        lblQtd.setText("Quantidade");
 
         txtQtd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +291,11 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/apagar.png"))); // NOI18N
         btnDeletar.setText("Deletar");
@@ -301,7 +334,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                                         .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnAdicionar))
-                                    .addComponent(jLabel6))))
+                                    .addComponent(lblQtd))))
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
@@ -352,7 +385,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
+                    .addComponent(lblQtd)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,12 +420,10 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         Vector linha = new Vector();
 
-        String produto = String.valueOf(selProduto.getSelectedItem());
-        String[] split = produto.split("-");
         linha.add(((Produto) selProduto.getSelectedItem()).getId());
         linha.add(((Produto) selProduto.getSelectedItem()).getNome());
-        linha.add(txtQtd.getText());
-        linha.add(txtValReferencia.getText());
+        linha.add(Double.parseDouble(txtQtd.getText()));
+        linha.add(Double.parseDouble(txtValReferencia.getText()));
 
         this.setProdutoInList(linha);
 
@@ -421,9 +452,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
             if (repositorio.Salvar(entidade)) {
 
-                
                 Pregao last = null;
-                
+
                 try {
                     PregaoDao pregaoDao = new PregaoDao();
                     last = pregaoDao.getLast();
@@ -432,11 +462,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 } catch (SQLException ex) {
                     Logger.getLogger(PregaoEditar.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-               
-                
                 //Salvar itens
-   
+
                 for (Vector v : this.listaProdutos) {
                     Repositorio<Produto> repositorioProduto = Repositorios.getProdutoRepositorio();
                     Produto produto = repositorioProduto.Abrir((int) v.get(0));
@@ -450,8 +477,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     } catch (SQLException ex) {
                         Logger.getLogger(PregaoEditar.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
+
                 }
 
                 JOptionPane.showMessageDialog(rootPane, "Registro salvo com sucesso!");
@@ -472,8 +498,12 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
     private void selPedidoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selPedidoItemStateChanged
 
-        
+
     }//GEN-LAST:event_selPedidoItemStateChanged
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -488,10 +518,10 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblQtd;
     private javax.swing.JComboBox<String> selPedido;
     private javax.swing.JComboBox<String> selProduto;
     private javax.swing.JComboBox<String> selStatus;

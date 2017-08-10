@@ -6,6 +6,7 @@
 package br.edu.ifnmg.psc.sgpl.aplicacao;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,6 +21,7 @@ public class Pregao implements Entidade{
     private Pedido pedido;
     private Usuario usuario;
     private StatusPregao status;
+    private List<ItemPregao> itens;
     
    
     @Override
@@ -83,6 +85,14 @@ public class Pregao implements Entidade{
         this.pedido = pedido;
         this.usuario = usuario;
         this.status = status;
+    }
+    
+    public List getItens() {
+        return itens;
+    }
+
+    public void setItens(List itens) {
+        this.itens = itens;
     }
 
     @Override

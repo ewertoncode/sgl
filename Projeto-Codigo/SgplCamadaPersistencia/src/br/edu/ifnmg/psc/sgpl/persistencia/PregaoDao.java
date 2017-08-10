@@ -6,15 +6,22 @@
 
 package br.edu.ifnmg.psc.sgpl.persistencia;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedido;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Pregao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.PregaoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregao;
 
 /**
  *
@@ -55,6 +62,10 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
     
     protected String getMaxId() {
         return "select max(id) as maxId from pregao";
+    }
+    
+    protected String getConsutaBuscaItens() {
+        return "select * from pregao_itens where pregao_id =?";
     }
 
     @Override
@@ -147,6 +158,71 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
             return null;
         }  
         
+        return null;
+    }
+    
+    @Override
+    public Pregao Abrir(int id){
+
+        try{
+            PreparedStatement sql = conexao.prepareStatement(this.getConsultaAbrir());
+
+            sql.setInt(1, id);
+            
+            ResultSet resultado = sql.executeQuery();            
+            if(resultado.next()) {
+                Pregao pregao = new Pregao();
+                pregao.setId(resultado.getInt("id"));
+                pregao.setData(resultado.getDate("data"));
+                pregao.setDiasEntrega(resultado.getInt("diasEntrega"));
+                if(resultado.getInt("pedido") > 0)
+                    pregao.setPedido(pedidos.Abrir(resultado.getInt("pedido")));
+                    else 
+                        pregao.setPedido(null);
+
+                    if(resultado.getInt("usuario") > 0) 
+                        pregao.setUsuario(usuarios.Abrir(resultado.getInt("usuario")));
+                    else
+                        pregao.setUsuario(null);
+                
+                List<ItemPregao> listaItens = new ArrayList<>();
+                PreparedStatement sqlItens = conexao.prepareStatement(this.getConsutaBuscaItens());
+            
+                sqlItens.setInt(1, pregao.getId());
+
+                ResultSet resultadoItens = sqlItens.executeQuery();
+                
+                while(resultadoItens.next()) {
+                    
+                    ProdutoRepositorio produtoDao = null;
+                    try {
+                        produtoDao = new ProdutoDao();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(PedidoDao.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    ItemPregao item = new ItemPregao();
+                    item.setId(resultadoItens.getInt("id"));
+                    Produto produto = produtoDao.Abrir(resultadoItens.getInt("produto_id"));
+                    item.setProduto(produto);
+                    item.setQuantidade(resultadoItens.getInt("qtd"));
+                    item.setValorReferencia(resultadoItens.getDouble("valor_referencia"));
+                    
+                    listaItens.add(item);
+                }
+                
+                pregao.setItens(listaItens);
+                
+                return pregao;
+                
+            }
+            else
+                return null;
+            
+        }catch(SQLException e){
+            Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, e);
+            
+        }
         return null;
     }
     
