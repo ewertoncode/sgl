@@ -212,7 +212,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
 
     @Override
     public void preencheFiltro() {
-        try {                                     
+        try {                                  
             if(!txtNome.getText().isEmpty())
                filtro.setNome(txtNome.getText());
             
@@ -244,6 +244,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
             linha.add(u.getId());
             linha.add(u.getNome());            
             linha.add(u.getEmail());
+            linha.add(u.getSenha());
             linha.add(u.getSetor());
                                     
             modelo.addRow(linha);

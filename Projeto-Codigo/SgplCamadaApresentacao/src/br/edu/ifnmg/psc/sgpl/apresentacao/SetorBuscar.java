@@ -176,7 +176,8 @@ public class SetorBuscar extends TelaBusca<Setor> {
 
     @Override
     public void preencheFiltro() {
-        try {                                     
+        try {     
+            filtro.setNome(null);
             if(!txtNome.getText().isEmpty())
                filtro.setNome(txtNome.getText());                        
                         
