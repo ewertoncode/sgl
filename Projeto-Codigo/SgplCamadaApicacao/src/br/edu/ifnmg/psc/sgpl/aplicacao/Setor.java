@@ -29,21 +29,12 @@ public class Setor implements Entidade{
     }
     
     //Regra de Negócio UC1.1/RN1
-    public void setNome(String nome) throws ViolacaoRegraDeNegocioException {
-        if(nome == null || nome.length() < 1)
-            throw new ViolacaoRegraDeNegocioException("O nome do setor deve ter no mínimo 1 caracter!");
+    public void setNome(String nome) throws ViolacaoRegraDeNegocioException {        
         this.nome = nome;
     }        
     
     //Contrutor1
     public Setor() {
-    }
-    
-    
-    //Construtor2
-    public Setor(int id, String nome){
-        this.id = id;
-        this.nome = nome;
     }
     
     @Override
@@ -53,6 +44,6 @@ public class Setor implements Entidade{
 
     }
     
-    //Fazer o hashCode() e equals() ????????????
+
         
 }

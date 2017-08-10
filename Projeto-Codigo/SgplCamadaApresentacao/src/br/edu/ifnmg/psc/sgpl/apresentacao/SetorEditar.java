@@ -19,6 +19,7 @@ public class SetorEditar extends TelaEdicao<Setor> {
      */
     public SetorEditar() {
         initComponents();
+        entidade = new Setor();
     }
 
     /**
@@ -138,6 +139,6 @@ public class SetorEditar extends TelaEdicao<Setor> {
 
     @Override
     public boolean verificarCamposObrigatorios() {
-        return txtNome.getText().length() >= 4;
+        return !txtNome.getText().isEmpty();
     }
 }

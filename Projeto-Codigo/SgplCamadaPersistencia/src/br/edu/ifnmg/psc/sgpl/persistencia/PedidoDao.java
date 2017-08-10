@@ -61,6 +61,10 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
         return "select * from item_pedido where pedido =?";
     }
 
+    protected String getMaxId() {
+        return "select max(id) as maxId from pedido";
+    }    
+    
     @Override
     protected void setBuscaFiltros(Pedido filtro) {
         if(filtro.getId() > 0)
@@ -160,6 +164,25 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
             Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, e);
             
         }
+        return null;
+    }
+    
+    public Pedido getLast(){
+        
+        try {        
+            PreparedStatement sql = conexao.prepareStatement(this.getMaxId());
+            
+            ResultSet resultado = sql.executeQuery();  
+            while(resultado.next()) {
+                return this.Abrir(resultado.getInt("maxId"));
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoGenerico.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }  
+        
         return null;
     }
 

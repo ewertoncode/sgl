@@ -95,7 +95,7 @@ public class Fornecedor implements Entidade{
 
     @Override
     public String toString() {        
-        return id + " - " + razaoSocial + " - " + nomeFantasia + " - " + cnpj + " - " + telefone + " - " + email + " - " + endereco + " ";
+        return id + " - " + razaoSocial + " - " + nomeFantasia + " ";
     }    
     
 }

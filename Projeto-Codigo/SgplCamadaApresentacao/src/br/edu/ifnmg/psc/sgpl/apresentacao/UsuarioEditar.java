@@ -5,10 +5,15 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.Setor;
+import br.edu.ifnmg.psc.sgpl.aplicacao.SetorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Usuario;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import br.edu.ifnmg.psc.sgpl.persistencia.SetorDao;
 import java.sql.SQLException;
+import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -16,11 +21,21 @@ import java.sql.SQLException;
  */
 public class UsuarioEditar extends TelaEdicao<Usuario> {
 
+     SetorRepositorio setores = Repositorios.getSetorRepositorio();
     /**
      * Creates new form UsuarioEditar
      */
     public UsuarioEditar() throws SQLException, ClassNotFoundException{        
         initComponents();
+        
+        List<Setor> lista = setores.Buscar(null);
+        
+        lista.add(0, null);
+        
+        ComboBoxModel modelo = new DefaultComboBoxModel(lista.toArray());
+        
+        cbxSetor.setModel(modelo);
+        entidade = new Usuario();
     }
 
     @SuppressWarnings("unchecked")
@@ -200,11 +215,11 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         entidade.setNome(txtNome.getText());        
         entidade.setEmail(txtEmail.getText());
         entidade.setSenha(txtSenha.getText());        
-        entidade.getSetor().setNome(txtNome.getText());
+        entidade.setSetor((Setor)cbxSetor.getSelectedItem());
     }
 
     @Override
     public boolean verificarCamposObrigatorios() {
-        return txtNome.getText().length() >= 4;
+        return !txtNome.getText().isEmpty();
     }
 }

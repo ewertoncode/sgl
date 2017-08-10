@@ -113,6 +113,6 @@ public class Usuario implements Entidade{
 
     @Override
     public String toString() {
-        return id + " - " + nome + " - " + email + " - " + senha + " - " + setor + " - " + endereco;
+        return id + " - " + nome + " - " + email + " - " + setor + " - " ;
     }   
 }
