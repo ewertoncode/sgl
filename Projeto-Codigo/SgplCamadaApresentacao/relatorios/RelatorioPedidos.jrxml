@@ -49,13 +49,26 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="189" y="0" width="289" height="79" uuid="7f2d46c3-6780-4d6d-abf2-64815ca26bdb"/>
+				<imageExpression><![CDATA["/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/SGPLLOGO.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="73e415e7-5707-41b9-92d9-703e42f51233"/>
+				<textElement textAlignment="Center">
+					<font size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sistema Gerenciador de Processos Licitatórios]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<staticText>
 				<reportElement x="251" y="0" width="64" height="20" uuid="9f56b7df-71d6-4989-b0aa-fd8ebe8383ce"/>
 				<text><![CDATA[Quantidade]]></text>
@@ -142,7 +155,12 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="225" y="33" width="152" height="20" uuid="3fb435f6-c4ea-4820-8a16-d0186967f167"/>
+				<text><![CDATA[Todos os Direitos Reservados]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
