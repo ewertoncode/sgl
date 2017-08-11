@@ -83,6 +83,7 @@ public class Usuario implements Entidade{
     
     //Construtor1
     public Usuario() {
+       
     }
 
     public Usuario(int id, String email, String senha) {
@@ -90,26 +91,7 @@ public class Usuario implements Entidade{
         this.email = email;
         this.senha = senha;
     }            
-    
-    //Construtor2
-    //Perguntar - this.setId(id);
-    public Usuario(int id, String nome, String email, String senha, Setor setor) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.setor = setor;
-    }
-    
-    //Construtor3
-    public Usuario(int id, String nome, String email, String senha, Setor setor, Endereco endereco) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.setor = setor;
-        this.endereco = endereco;
-    }
+   
 
     @Override
     public String toString() {

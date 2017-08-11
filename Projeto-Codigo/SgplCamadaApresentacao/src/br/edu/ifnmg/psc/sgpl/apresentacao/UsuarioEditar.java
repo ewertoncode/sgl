@@ -215,7 +215,8 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         entidade.setNome(txtNome.getText());        
         entidade.setEmail(txtEmail.getText());
         entidade.setSenha(txtSenha.getText());        
-        entidade.setSetor((Setor)cbxSetor.getSelectedItem());
+        //Retornar apenas o id
+        entidade.setSetor(((Setor)cbxSetor.getSelectedItem()));        
     }
 
     @Override
