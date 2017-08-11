@@ -82,8 +82,7 @@ public class Usuario implements Entidade{
     
     
     //Construtor1
-    public Usuario() {
-       
+    public Usuario() {               
     }
 
     public Usuario(int id, String email, String senha) {
