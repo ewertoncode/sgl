@@ -299,6 +299,11 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/apagar.png"))); // NOI18N
         btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Val. Ref");
 
@@ -504,6 +509,10 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        apagar();
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

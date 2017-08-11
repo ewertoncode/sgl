@@ -103,7 +103,7 @@ public abstract class TelaEdicao<T extends Entidade> extends javax.swing.JIntern
     
     public void cancelar(){
        
-            busca.setVisible(true);
+        busca.setVisible(true);
         
         this.setVisible(false);
         this.dispose();

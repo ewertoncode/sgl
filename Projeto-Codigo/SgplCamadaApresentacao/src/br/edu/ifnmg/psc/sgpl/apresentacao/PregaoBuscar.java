@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Pregao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Setor;
@@ -54,9 +55,18 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
 
     @Override
     public void preencheFiltro() {
-        try {                                     
+        try {    
+            filtro.setId(0);
+            filtro.setPedido(null);
             if(!txtCodPregao.getText().isEmpty())
-               filtro.setId(Integer.parseInt(txtCodPregao.getText()));                        
+               filtro.setId(Integer.parseInt(txtCodPregao.getText()));
+            
+            if(!txtCodPedido.getText().isEmpty()) {
+                Repositorio<Pedido> repositorioPedido = Repositorios.getPedidoRepositorio();
+                Pedido pedido = repositorioPedido.Abrir(Integer.parseInt(txtCodPedido.getText()));
+                filtro.setPedido(pedido);    
+            }
+               
                         
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());                        
@@ -77,11 +87,25 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
         // Adiciona as linhas da tabela        
         for(Pregao s : listagem){                        
             
+            
+            
+            Pregao pregao = repositorio.Abrir(s.getId());
+            int qtdItens = 0;
+            if(pregao.getItens() != null) {
+                qtdItens = pregao.getItens().size();
+            }
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");  
             Vector linha = new Vector();
+            
+            int pedidoId = 0;
+            
+            if(pregao.getPedido() != null)
+                pedidoId = pregao.getPedido().getId();
+            
             linha.add(s.getId());
-            linha.add("");
-            linha.add(s.getPedido());  
-            linha.add(s.getData());
+            linha.add(qtdItens);
+            linha.add((pedidoId > 0) ? pedidoId : "");  
+            linha.add(fmt.format(s.getData()));
             linha.add(s.getDiasEntrega());
                                                 
             modelo.addRow(linha);
@@ -102,14 +126,12 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
         jLabel1 = new javax.swing.JLabel();
         txtCodPregao = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        selSetor = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        selStatus = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBusca = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        txtCodPedido = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("SGPL - Pregões");
@@ -122,11 +144,14 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
             }
         });
 
-        jLabel2.setText("Setor");
+        jLabel2.setText("Cód. Pedido");
 
         btnBuscar.setText("Buscar");
-
-        jLabel3.setText("Status");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblBusca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,18 +195,12 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
                             .addComponent(txtCodPregao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(selSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(selStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscar)
-                                .addGap(79, 79, 79))))
+                                .addComponent(txtCodPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar)))
+                        .addGap(298, 377, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -196,17 +215,13 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCodPregao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(selSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(selStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodPregao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -231,6 +246,10 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
         editar();
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -238,11 +257,9 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
     private javax.swing.JButton btnNovo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> selSetor;
-    private javax.swing.JComboBox<String> selStatus;
     private javax.swing.JTable tblBusca;
+    private javax.swing.JTextField txtCodPedido;
     private javax.swing.JTextField txtCodPregao;
     // End of variables declaration//GEN-END:variables
 
