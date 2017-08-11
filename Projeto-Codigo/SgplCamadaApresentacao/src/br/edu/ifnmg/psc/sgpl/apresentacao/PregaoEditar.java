@@ -299,10 +299,20 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/apagar.png"))); // NOI18N
         btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Val. Ref");
 
         alterarSituacao.setText("Alterar Situação do item");
+        alterarSituacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarSituacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -504,6 +514,16 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        apagar();
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void alterarSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarSituacaoActionPerformed
+        StatusItemPregao statusItemPregao = new StatusItemPregao();
+        this.add(statusItemPregao);
+        statusItemPregao.setVisible(true);
+    }//GEN-LAST:event_alterarSituacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
