@@ -81,6 +81,7 @@ public class Fornecedor implements Entidade{
     
     //Construtor1
     public Fornecedor() {
+       this.endereco = new Endereco();
     }
 
     public Fornecedor(int id, String razaoSocial, String nomeFantasia, String cnpj, String telefone, String email, Endereco endereco) {

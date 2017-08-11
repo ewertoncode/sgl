@@ -40,7 +40,7 @@ public class Setor implements Entidade{
     @Override
     public String toString(){
 
-        return this.nome;
+        return id + " - " + nome + " ";
 
     }
     

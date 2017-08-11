@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPedidos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2811f63a-cf36-4ad2-bf1f-b7570c2bb7ce">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select *  from item_pedido as ip right join pedido as p on ip.pedido = p.id;]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantidade" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fornecedor1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorFornecedor1" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fornecedor2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorFornecedor2" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fornecedor3" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorFornecedor3" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pedido" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="produto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="id">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="189" y="0" width="289" height="79" uuid="7f2d46c3-6780-4d6d-abf2-64815ca26bdb"/>
+				<imageExpression><![CDATA["/home/haw/Desktop/GitHubPSC/GitPSCSgl/sgl/Projeto-Codigo/SgplCamadaApresentacao/src/br/edu/ifnmg/psc/sgpl/apresentacao/SGPLLOGO.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="73e415e7-5707-41b9-92d9-703e42f51233"/>
+				<textElement textAlignment="Center">
+					<font size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sistema Gerenciador de Processos Licitatórios]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="251" y="0" width="64" height="20" uuid="9f56b7df-71d6-4989-b0aa-fd8ebe8383ce"/>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="37" height="20" uuid="3596de75-a4f4-4f5e-ac90-da366fb1e06a"/>
+				<text><![CDATA[Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="0" width="62" height="20" uuid="ab35880e-9a1f-4aa4-898f-bb2928811a46"/>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="0" width="71" height="20" uuid="de143cce-0eea-4e22-9d05-d0463677a001"/>
+				<text><![CDATA[Data/hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="0" width="41" height="20" uuid="a885322d-a63b-444f-9859-f7c17a109130"/>
+				<text><![CDATA[Usuário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="0" width="55" height="20" uuid="6469a77b-77bf-4dca-8f11-5336b2410425"/>
+				<text><![CDATA[Valor1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="0" width="52" height="20" uuid="1a83075c-419f-4c0b-ab08-3b63dc490155"/>
+				<text><![CDATA[Valor2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="0" width="47" height="20" uuid="ad1a6317-db65-438b-9498-f22814b0bb38"/>
+				<text><![CDATA[Valor3]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="251" y="0" width="64" height="20" uuid="51fd6a10-5be9-42eb-8c20-2206ebfe1005"/>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="1" width="100" height="20" uuid="f5ce8fe8-7f0c-4998-8eb6-1d8d97d41f15"/>
+				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="37" height="20" uuid="e58f057a-9b3c-4d03-afae-76b37d8a9e90"/>
+				<textFieldExpression><![CDATA[$F{pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="1" width="71" height="20" uuid="b7e06180-06c2-4a39-ac29-962c1cf32768"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="1" width="41" height="20" uuid="53be7af5-d5e4-4a8f-9925-13e4aaf2663e"/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="336" y="1" width="41" height="20" uuid="3a812569-908b-4f66-8c80-e1e8e6927250"/>
+				<textFieldExpression><![CDATA[$F{valorFornecedor1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="1" width="14" height="20" uuid="bb38693b-658b-4277-88fa-99d470e074b7"/>
+				<text><![CDATA[R$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="391" y="1" width="38" height="20" uuid="f97fc8f3-8ffd-4ee1-a6a5-122dd5d944bc"/>
+				<textFieldExpression><![CDATA[$F{valorFornecedor2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="377" y="1" width="14" height="20" uuid="045a6496-d797-4440-88a7-6ea07b019cff"/>
+				<text><![CDATA[R$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="1" width="14" height="20" uuid="160d56cd-aff3-4297-b539-b14d0188935e"/>
+				<text><![CDATA[R$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="443" y="1" width="33" height="20" uuid="85531f2e-825d-479c-9fe7-b359ab623f72"/>
+				<textFieldExpression><![CDATA[$F{valorFornecedor3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="225" y="33" width="152" height="20" uuid="3fb435f6-c4ea-4820-8a16-d0186967f167"/>
+				<text><![CDATA[Todos os Direitos Reservados]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

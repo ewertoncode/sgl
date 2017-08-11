@@ -21,9 +21,10 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
      * Creates new form FornecedorBuscar
      */
     public FornecedorEditar() throws SQLException, ClassNotFoundException, ParseException {
+        
         this.enderecos = Repositorios.getEnderecoRepositorio();        
         initComponents();   
-
+        entidade = new Fornecedor();
     }
 
     /**
@@ -140,6 +141,14 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
                 txtTelefoneActionPerformed(evt);
             }
         });
+
+        txtPais.setText("Brasil");
+
+        txtEstado.setText("Minas Gerais");
+
+        txtCidade.setText("Januária");
+
+        txtCep.setText("39480000");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -332,8 +341,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
 
 
     EnderecoRepositorio enderecos;
-    
-    // Descobrir como criar o objeto Endereco e carregar seus atributos
+        
     @Override
     public void carregaCampos(){                        
         
@@ -356,8 +364,6 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
             txtCidade.setText(entidade.getEndereco().getCidade());        
             txtCep.setText(entidade.getEndereco().getCep());    
         }
-        
-                    
     }    
     
     @Override
@@ -368,7 +374,7 @@ public class FornecedorEditar extends TelaEdicao<Fornecedor> {
         entidade.setCnpj(txtCnpj.getText());
         entidade.setTelefone(txtTelefone.getText());
         entidade.setEmail(txtEmail.getText());    
-        
+                
         entidade.getEndereco().setLogradouro(txtLogradouro.getText());
         entidade.getEndereco().setNumero(txtNumero.getText());
         entidade.getEndereco().setComplemento(txtComplemento.getText());

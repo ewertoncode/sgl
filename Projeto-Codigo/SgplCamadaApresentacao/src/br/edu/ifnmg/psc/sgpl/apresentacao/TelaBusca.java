@@ -80,6 +80,7 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
             tela_edicao.setBusca(this); 
             tela_edicao.setRepositorio(repositorio);
             this.getParent().add(tela_edicao);
+            
             tela_edicao.setVisible(true);
             this.setVisible(false);
         }
