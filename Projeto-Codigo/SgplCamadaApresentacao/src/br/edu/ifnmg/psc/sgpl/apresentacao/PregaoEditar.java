@@ -308,6 +308,11 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         jLabel8.setText("Val. Ref");
 
         alterarSituacao.setText("Alterar Situação do item");
+        alterarSituacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarSituacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -513,6 +518,12 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         apagar();
     }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void alterarSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarSituacaoActionPerformed
+        StatusItemPregao statusItemPregao = new StatusItemPregao();
+        this.add(statusItemPregao);
+        statusItemPregao.setVisible(true);
+    }//GEN-LAST:event_alterarSituacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
