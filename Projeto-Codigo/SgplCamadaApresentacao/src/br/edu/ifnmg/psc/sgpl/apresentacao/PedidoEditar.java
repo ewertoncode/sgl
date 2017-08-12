@@ -6,6 +6,7 @@
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.Aplicacao;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Entidade;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedido;
@@ -595,14 +596,46 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     private javax.swing.JTextField txtValor3;
     // End of variables declaration//GEN-END:variables
     
-               
+    UsuarioRepositorio usuarios = Repositorios.getUsuarioRepositorio();
+    FornecedorRepositorio fornecedores = Repositorios.getFornecedorRepositorio();
+    
+    
     @Override
     public void carregaCampos() {  
-        cbxUsuario.setSelectedItem(entidade.getUsuario());
-        //Como retornar apenas um atributo(Quantidade)????
-        txtQuantidade.setText(entidade.getItens().toString());
-        //cbxFornecedor1.setSelectedItem(entidade.);
+        cbxUsuario.setSelectedItem(entidade.getUsuario());                
+        txtQuantidade.setText(entidade.getItens().toString());        
         
+        if (entidade.getId() > 0) {
+            List<ItemPedido> itens = entidade.getItens();
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            modelo.addColumn("Produto");
+            modelo.addColumn("Quantidade");
+            modelo.addColumn("Fornecedor 1");
+            modelo.addColumn("Valor");
+            modelo.addColumn("Fornecedor 2");
+            modelo.addColumn("Valor");
+            modelo.addColumn("Fornecedor 3");
+            modelo.addColumn("Valor");
+            
+            for (ItemPedido item : itens) {
+                Vector linha = new Vector();
+                linha.add(item.getProduto().getId());               
+                linha.add(item.getQuantidade());                                                         
+                //linha.add(item.getFornecedor1().getClass());     
+                linha.add(item.getValorFornecedor1());     
+                //linha.add(item.getFornecedor2().getNomeFantasia());     
+                linha.add(item.getValorFornecedor2());     
+                //linha.add(item.getFornecedor3().getNomeFantasia());     
+                linha.add(item.getValorFornecedor3());     
+                
+
+                modelo.addRow(linha);
+                setProdutoInList(linha);
+
+            }
+            tblItem.setModel(modelo);
+        }
     }   
 
     List<Produto> produtos = this.getProdutos();        

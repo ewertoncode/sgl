@@ -54,7 +54,7 @@ public class Pedido implements Entidade{
         this.itens = itens;
     }
 
-    public Pedido() {
+    public Pedido() {        
     }
 
     public Pedido(int id, String data, Usuario usuario) {
