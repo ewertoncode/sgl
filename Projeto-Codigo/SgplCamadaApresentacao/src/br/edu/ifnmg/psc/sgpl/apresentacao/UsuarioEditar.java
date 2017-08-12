@@ -214,8 +214,7 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
     public void carregaObjeto() throws ViolacaoRegraDeNegocioException {
         entidade.setNome(txtNome.getText());        
         entidade.setEmail(txtEmail.getText());
-        entidade.setSenha(txtSenha.getText());        
-        //Retornar apenas o id
+        entidade.setSenha(txtSenha.getText());                
         entidade.setSetor(((Setor)cbxSetor.getSelectedItem()));        
     }
 

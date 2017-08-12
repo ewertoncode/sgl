@@ -29,12 +29,12 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
     
     @Override
     protected String getConsultaInsert(){
-        return "insert into usuario(nome, email, senha, setor, endereco) values (?, ?, ?, ?, ?)";
+        return "insert into usuario(nome, email, senha, setor) values (?, ?, ?, ?)";
     }
 
     @Override
     protected String getConsultaUpdate() {
-        return "update usuario set nome = ?, email = ?, senha = ?, setor = ?, endereco = ? where id = ?";
+        return "update usuario set nome = ?, email = ?, senha = ?, setor = ? where id = ?";
     }
 
     @Override
@@ -73,11 +73,10 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             sql.setString(1, obj.getNome());            
             sql.setString(2, obj.getEmail());            
             sql.setString(3, obj.getSenha());
-            sql.setInt(4, obj.getSetor().getId());
-            sql.setInt(5, obj.getEndereco().getId());
+            sql.setInt(4, obj.getSetor().getId());            
             
             if(obj.getId() > 0)
-                sql.setInt(6, obj.getId());
+                sql.setInt(5, obj.getId());
             
         }catch(SQLException e){
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e);
@@ -94,8 +93,7 @@ public class UsuarioDao extends DaoGenerico<Usuario> implements UsuarioRepositor
             obj.setId(resultado.getInt("id"));
             obj.setNome(resultado.getString("nome"));
             obj.setEmail(resultado.getString("email"));            
-            obj.setSetor(setores.Abrir(resultado.getInt("setor")));
-            obj.setEndereco(enderecos.Abrir(resultado.getInt("endereco")));
+            obj.setSetor(setores.Abrir(resultado.getInt("setor")));            
             
             return obj;
             
