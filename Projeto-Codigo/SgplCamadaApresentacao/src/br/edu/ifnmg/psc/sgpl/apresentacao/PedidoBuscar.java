@@ -89,18 +89,18 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
         
         // Informa quais as colunas da tabela        
         modelo.addColumn("Id");        
-        modelo.addColumn("Produto");               
-        modelo.addColumn("Quantidade");                
+        modelo.addColumn("Usuário");               
+        modelo.addColumn("Data");                
         
         
         // Adiciona as linhas da tabela        
         for(Pedido p : listagem){                        
             
             Vector linha = new Vector();
-            linha.add(p.getId());            
-            linha.add((pedidos.Abrir(p.getId()).getItens()));
-            //Como retornar apenas um atributo(Quantidade)????
-            //linha.add((pedidos.Abrir(p.getId()).getItens().size()+3));
+            linha.add(p.getId());      
+            linha.add(p.getUsuario().getNome());
+            linha.add(p.getData());
+                                    
             modelo.addRow(linha);
         }
         

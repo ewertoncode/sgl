@@ -123,7 +123,9 @@ public class PedidoDao extends DaoGenerico<Pedido> implements PedidoRepositorio{
             if(resultado.next()) {
                 Pedido pedido = new Pedido();
                 pedido.setId(resultado.getInt("id"));
-                pedido.setData(resultado.getString("data"));
+                pedido.setData(resultado.getString("data"));                
+                pedido.setUsuario(usuario.Abrir(resultado.getInt("usuario")));
+                
                 
                 List<ItemPedido> listaItens = new ArrayList<>();
                 PreparedStatement sqlItens = conexao.prepareStatement(this.getConsutaBuscaItens());
