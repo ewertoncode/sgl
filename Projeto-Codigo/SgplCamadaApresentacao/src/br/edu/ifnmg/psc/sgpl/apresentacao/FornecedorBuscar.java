@@ -27,14 +27,11 @@ public class FornecedorBuscar extends TelaBusca<Fornecedor> {
      */
     
     FornecedorBuscar(Repositorio<Fornecedor> repositorio, Class tipo_tela) {
-        
-        
+                
         super(repositorio, tipo_tela);
-        initComponents();               
-        buscar();
+        initComponents();                       
         filtro = new Fornecedor();   
-          
-        
+        buscar();          
     }
 
     /**

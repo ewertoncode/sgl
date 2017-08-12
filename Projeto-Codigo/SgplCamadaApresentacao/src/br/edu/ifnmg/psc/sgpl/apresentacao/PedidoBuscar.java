@@ -8,7 +8,9 @@ package br.edu.ifnmg.psc.sgpl.apresentacao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedido;
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
+import br.edu.ifnmg.psc.sgpl.aplicacao.PedidoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ProdutoRepositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
@@ -35,6 +37,7 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
     UsuarioRepositorio usuarios = Repositorios.getUsuarioRepositorio();
     ProdutoRepositorio produtos = Repositorios.getProdutoRepositorio();
     FornecedorRepositorio fornecedores = Repositorios.getFornecedorRepositorio();
+    PedidoRepositorio pedidos = Repositorios.getPedidoRepositorio();
     
     /**
      * Creates new form PedidoBuscar
@@ -47,19 +50,20 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
         
         List<Usuario> lista = usuarios.Buscar(null);        
         List<Produto> lista2 = produtos.Buscar(null);        
-        List<Fornecedor> lista3 = fornecedores.Buscar(null);
+        List<Fornecedor> lista3 = fornecedores.Buscar(null);        
         
         lista.add(0, null);
         lista2.add(0, null);
-        lista3.add(0, null);
+        lista3.add(0, null);        
         
         ComboBoxModel modelo = new DefaultComboBoxModel(lista.toArray());
         ComboBoxModel modelo2 = new DefaultComboBoxModel(lista2.toArray());
-        ComboBoxModel modelo3 = new DefaultComboBoxModel(lista3.toArray());
+        ComboBoxModel modelo3 = new DefaultComboBoxModel(lista3.toArray());        
         
         cbxUsuario.setModel(modelo);        
         cbxProduto.setModel(modelo2);        
         cbxFornecedor.setModel(modelo3);
+        
         
         filtro = new Pedido();                
         buscar();
@@ -93,10 +97,10 @@ public class PedidoBuscar extends TelaBusca<Pedido> {
         for(Pedido p : listagem){                        
             
             Vector linha = new Vector();
-            linha.add(p.getId());
-            //linha.add(produtos.Buscar());
-            //linha.add(p.getProduto());                        
-            //linha.add(p.getQuantidade());                        
+            linha.add(p.getId());            
+            linha.add((pedidos.Abrir(p.getId()).getItens()));
+            //Como retornar apenas um atributo(Quantidade)????
+            //linha.add((pedidos.Abrir(p.getId()).getItens().size()+3));
             modelo.addRow(linha);
         }
         

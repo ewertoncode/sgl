@@ -72,8 +72,7 @@ public class FornecedorDao extends DaoGenerico<Fornecedor> implements Fornecedor
         if((filtro.getEmail() != null) && (!filtro.getEmail().isEmpty()))
             this.adicionarFiltro("email", filtro.getEmail());
              
-        if(filtro.getEndereco()!= null) 
-            this.adicionarFiltro("endereco", filtro.getEndereco().getId());
+        
     }
 
     @Override

@@ -139,7 +139,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -150,7 +150,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(cbxSetor, 0, 177, Short.MAX_VALUE))))
+                            .addComponent(cbxSetor, 0, 237, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(178, 178, 178)
@@ -217,8 +217,8 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
                filtro.setNome(txtNome.getText());
             
             if(!txtEmail.getText().isEmpty())
-               filtro.setEmail(txtNome.getText());                        
-                        
+               filtro.setEmail(txtNome.getText());                                                
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());                        
         }      
@@ -243,8 +243,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
             Vector linha = new Vector();
             linha.add(u.getId());
             linha.add(u.getNome());            
-            linha.add(u.getEmail());
-            linha.add(u.getSenha());
+            linha.add(u.getEmail());            
             linha.add(u.getSetor());
                                     
             modelo.addRow(linha);

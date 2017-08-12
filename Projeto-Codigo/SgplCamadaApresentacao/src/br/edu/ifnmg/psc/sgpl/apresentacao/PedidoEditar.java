@@ -597,7 +597,11 @@ public class PedidoEditar extends TelaEdicao<Pedido> {
     
                
     @Override
-    public void carregaCampos() {        
+    public void carregaCampos() {  
+        cbxUsuario.setSelectedItem(entidade.getUsuario());
+        //Como retornar apenas um atributo(Quantidade)????
+        txtQuantidade.setText(entidade.getItens().toString());
+        //cbxFornecedor1.setSelectedItem(entidade.);
         
     }   
 
