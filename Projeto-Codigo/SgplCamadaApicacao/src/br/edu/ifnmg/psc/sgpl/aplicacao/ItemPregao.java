@@ -17,7 +17,7 @@ public class ItemPregao implements Entidade{
     private Pregao pregao;
     private Produto produto;
     private Fornecedor forncedor;
-    private StatusItem statusItem;
+    private StatusPregaoItem statusItem;
     
     @Override
     public int getId() {
@@ -69,11 +69,11 @@ public class ItemPregao implements Entidade{
         this.forncedor = forncedor;
     }
 
-    public StatusItem getStatusItem() {
+    public StatusPregaoItem getStatusItem() {
         return statusItem;
     }
 
-    public void setStatusItem(StatusItem statusItem) {
+    public void setStatusItem(StatusPregaoItem statusItem) {
         this.statusItem = statusItem;
     }
     
@@ -82,7 +82,7 @@ public class ItemPregao implements Entidade{
     }
     
     //Contrutor2
-    public ItemPregao(int id, double quantidade, double valorReferencia, Pregao pregao, Produto produto, Fornecedor forncedor, StatusItem statusItem) {
+    public ItemPregao(int id, double quantidade, double valorReferencia, Pregao pregao, Produto produto, Fornecedor forncedor, StatusPregaoItem statusItem) {
         this.id = id;
         this.quantidade = quantidade;
         this.valorReferencia = valorReferencia;

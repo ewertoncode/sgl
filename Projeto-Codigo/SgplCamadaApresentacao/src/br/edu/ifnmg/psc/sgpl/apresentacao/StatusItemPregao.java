@@ -5,18 +5,65 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregao;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
+import br.edu.ifnmg.psc.sgpl.aplicacao.StatusItem;
+import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregao;
+import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregaoItem;
+import br.edu.ifnmg.psc.sgpl.persistencia.ItemPregaoDao;
+import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ewertoncardoso
  */
 public class StatusItemPregao extends javax.swing.JInternalFrame {
 
+    
+    private ItemPregao itemPregao = null;
+    
+    private ItemPregaoDao itemPregaoDao = null;
+    
+    
     /**
      * Creates new form StatusItemPregao
      */
-    public StatusItemPregao() {
+    public StatusItemPregao(int idItem) {
+        
         initComponents();
+        try {
+            this.itemPregaoDao = new ItemPregaoDao();
+            
+            this.itemPregao = itemPregaoDao.Abrir(idItem);
+            
+            lblPrduto.setText(this.itemPregao.getProduto().toString());
+            lblQtd.setText(Double.toString(this.itemPregao.getQuantidade()));
+ 
+            if(this.itemPregao.getStatusItem() != null)
+                lblStatus.setText(this.itemPregao.getStatusItem().getDescricao());
+            else
+                lblStatus.setText("-");
+            
+            
+            ComboBoxModel model = new DefaultComboBoxModel(StatusPregaoItem.values());
+            selStatusItem.setModel(model);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StatusItemPregao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusItemPregao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,10 +78,12 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblPrduto = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        selStatusItem = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblQtd = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("SGPL - Atualizar status");
@@ -43,19 +92,29 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Quantidade:");
 
-        jLabel3.setText("Status:");
+        jLabel3.setText("Alterar para:");
 
         lblPrduto.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        lblPrduto.setText("Produto XXX");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         lblQtd.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        lblQtd.setText("00");
+
+        jLabel4.setText("Status atual:");
+
+        lblStatus.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,10 +122,12 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -74,9 +135,10 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
                     .addComponent(lblPrduto)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQtd))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(selStatusItem, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQtd)
+                    .addComponent(lblStatus))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,29 +151,59 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblQtd))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel4)
+                    .addComponent(lblStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selStatusItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       
+        this.setVisible(false);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        
+        this.itemPregao.setStatusItem((StatusPregaoItem) selStatusItem.getSelectedItem());
+        
+        try{
+            this.itemPregaoDao.Salvar(this.itemPregao);
+            JOptionPane.showMessageDialog(rootPane, "Registro salvo com sucesso!");
+            this.setVisible(false);
+            this.dispose();
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao salvar!");
+        }
+
+        
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblPrduto;
     private javax.swing.JLabel lblQtd;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JComboBox<String> selStatusItem;
     // End of variables declaration//GEN-END:variables
 }

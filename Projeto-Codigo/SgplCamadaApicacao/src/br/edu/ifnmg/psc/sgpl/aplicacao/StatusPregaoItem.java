@@ -9,7 +9,7 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
  *
  * @author ewertoncardoso
  */
-public enum StatusItemPregao {
+public enum StatusPregaoItem {
     
     LICITANDO(1,"Licitando item"),
     LICITADO(2, "Produto licitado"),
@@ -20,7 +20,7 @@ public enum StatusItemPregao {
     private int id;
     private String descricao;
     
-    private StatusItemPregao(int id, String desc){
+    private StatusPregaoItem(int id, String desc){
         this.id = id;
         this.descricao = desc;
     }
@@ -47,8 +47,8 @@ public enum StatusItemPregao {
         return descricao;
     }
     
-    public static StatusPregao Abrir(int id){
-        for(StatusPregao t : StatusPregao.values())
+    public static StatusPregaoItem Abrir(int id){
+        for(StatusPregaoItem t : StatusPregaoItem.values())
             if(id == t.getId())
                 return t;
         return null;

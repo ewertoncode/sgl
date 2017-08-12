@@ -20,6 +20,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregaoItem;
 import br.edu.ifnmg.psc.sgpl.persistencia.ItemPregaoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.PregaoDao;
 import java.awt.event.ItemEvent;
@@ -58,6 +59,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         modelo.addColumn("Produto");
         modelo.addColumn("Quantidade");
         modelo.addColumn("Valor Referência");
+        modelo.addColumn("Status");
 
         for (Vector v : this.listaProdutos) {
             modelo.addRow(v);
@@ -70,7 +72,11 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         List<Pedido> pedidos = this.getPedidos();
         ComboBoxModel modelPedido = new DefaultComboBoxModel(pedidos.toArray());
-        selPedido.setModel(modelPedido);
+        
+        if(entidade.getPedido() != null) 
+            selPedido.setModel((ComboBoxModel<String>) entidade.getPedido());
+        else
+            selPedido.setModel(modelPedido);
 
         selPedido.addItemListener(new ItemListener() {
             @Override
@@ -85,6 +91,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     modelo.addColumn("Produto");
                     modelo.addColumn("Quantidade");
                     modelo.addColumn("Valor Referência");
+                    modelo.addColumn("Status");
 
                     Repositorio<Pedido> repositorioPedido = Repositorios.getPedidoRepositorio();
 
@@ -97,10 +104,10 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
                         for (ItemPedido item : itens) {
                             Vector linha = new Vector();
-                            linha.add(item.getProduto().getId());
+                            linha.add(item.getId());
                             linha.add(item.getProduto().getNome());
                             linha.add(item.getQuantidade());
-
+                            
                             double media = (item.getValorFornecedor1() + item.getValorFornecedor2() + item.getValorFornecedor3()) / 3;
                             linha.add(media);
 
@@ -148,7 +155,12 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
     @Override
     public void carregaCampos() {
-        selPedido.setSelectedItem(entidade.getPedido());
+        
+        List<Pedido> pedido = new Vector();
+        pedido.add(entidade.getPedido());
+        ComboBoxModel modelPedido = new DefaultComboBoxModel(pedido.toArray());
+        
+        selPedido.setModel(modelPedido);
         cmpQtdDias.setValue(entidade.getDiasEntrega());
         selStatus.setSelectedItem(entidade.getStatus());
 
@@ -160,13 +172,19 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
             modelo.addColumn("Produto");
             modelo.addColumn("Quantidade");
             modelo.addColumn("Valor Referência");
+            modelo.addColumn("Status");
             
             for (ItemPregao item : itens) {
                 Vector linha = new Vector();
-                linha.add(item.getProduto().getId());
+                linha.add(item.getId());
                 linha.add(item.getProduto().getNome());
                 linha.add(item.getQuantidade());
                 linha.add(item.getValorReferencia());
+                String status = "";
+                if(item.getStatusItem() != null)
+                    status = item.getStatusItem().getDescricao();
+                
+                linha.add(status);
 
                 modelo.addRow(linha);
                 setProdutoInList(linha);
@@ -229,7 +247,6 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         jLabel1.setText("Pedido");
 
-        selPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selPedido.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 selPedidoItemStateChanged(evt);
@@ -409,7 +426,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
                     .addComponent(btnDeletar)
-                    .addComponent(alterarSituacao))
+                    .addComponent(alterarSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -420,6 +437,9 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQtdActionPerformed
 
+    
+    
+    
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         DefaultTableModel modelo = new DefaultTableModel();
 
@@ -430,7 +450,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         Vector linha = new Vector();
 
-        linha.add(((Produto) selProduto.getSelectedItem()).getId());
+        linha.add("");
         linha.add(((Produto) selProduto.getSelectedItem()).getNome());
         linha.add(Double.parseDouble(txtQtd.getText()));
         linha.add(Double.parseDouble(txtValReferencia.getText()));
@@ -519,10 +539,25 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         apagar();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
+
+    public int retornaIdSelecionado() {
+        int linha = tblProdutos.getSelectedRow();
+        
+        if(tblProdutos.getModel().getRowCount() > 0) {
+            int id = Integer.parseInt( tblProdutos.getModel().getValueAt(linha, 0).toString() );
+            return id;
+        } else {
+            return 0;
+        }
+    }
+    
     private void alterarSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarSituacaoActionPerformed
-        StatusItemPregao statusItemPregao = new StatusItemPregao();
-        this.add(statusItemPregao);
+        int id = retornaIdSelecionado();
+        StatusItemPregao statusItemPregao = new StatusItemPregao(id);
+        this.getParent().add(statusItemPregao);
         statusItemPregao.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_alterarSituacaoActionPerformed
 
 

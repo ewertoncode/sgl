@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregao;
+import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregaoItem;
 
 /**
  *
@@ -207,6 +208,7 @@ public class PregaoDao extends DaoGenerico<Pregao> implements PregaoRepositorio{
                     item.setProduto(produto);
                     item.setQuantidade(resultadoItens.getInt("qtd"));
                     item.setValorReferencia(resultadoItens.getDouble("valor_referencia"));
+                    item.setStatusItem(StatusPregaoItem.Abrir(resultadoItens.getInt("status_item")));
                     
                     listaItens.add(item);
                 }

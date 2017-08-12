@@ -8,6 +8,7 @@ package br.edu.ifnmg.psc.sgpl.persistencia;
 
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregaoRepositorio;
+import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregaoItem;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ViolacaoRegraDeNegocioException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,23 +37,23 @@ public class ItemPregaoDao extends DaoGenerico<ItemPregao> implements ItemPregao
 
     @Override
     protected String getConsultaUpdate() {
-        return "update item_pregao set quantidade = ?, valorReferencia = ?, pregao = ?, produto = ?, fornecedor = ?, statusItem = ? where id =?";
+        return "update pregao_itens set produto_id = ?, qtd = ?, pregao_id = ?, valor_referencia = ?, fornecedor_id = ?, status_item = ? where id =?";
     }
 
     @Override
     protected String getConsultaDelete() {
-        return "delete from item_pregao where id = ?";
+        return "delete from pregao_itens where id = ?";
     }
 
     @Override
     protected String getConsultaAbrir() {
-        return "select * from usuario where id = ?";
+        return "select * from pregao_itens where id = ?";
         
     }
 
     @Override
     protected String getConsultaBuscar() {
-        return "select * from usuario";
+        return "select * from pregao_itens";
     }
 
     @Override
@@ -64,7 +65,7 @@ public class ItemPregaoDao extends DaoGenerico<ItemPregao> implements ItemPregao
     @Override
     protected void setParametros(PreparedStatement sql, ItemPregao obj) {
         try{            
-            sql.setDouble(1, obj.getProduto().getId());  
+            sql.setInt(1, obj.getProduto().getId());  
             sql.setInt(2, (int)obj.getQuantidade()); 
             if(obj.getPregao() != null)
                 sql.setInt(3, obj.getPregao().getId());   
@@ -100,12 +101,12 @@ public class ItemPregaoDao extends DaoGenerico<ItemPregao> implements ItemPregao
         try{
             ItemPregao obj = new ItemPregao();
             obj.setId(resultado.getInt("id"));
-            obj.setQuantidade(resultado.getDouble("quantidade"));
-            obj.setValorReferencia(resultado.getDouble("valorReferencia"));
-            obj.setPregao(pregoes.Abrir(resultado.getInt("pregao")));
-            obj.setProduto(produtos.Abrir(resultado.getInt("produtos")));
-            obj.setForncedor(fornecedores.Abrir(resultado.getInt("fornecedores")));
-            obj.setStatusItem(statusItens.Abrir(resultado.getInt("statusItens")));
+            obj.setQuantidade(resultado.getDouble("qtd"));
+            obj.setValorReferencia(resultado.getDouble("valor_referencia"));
+            obj.setPregao(pregoes.Abrir(resultado.getInt("pregao_id")));
+            obj.setProduto(produtos.Abrir(resultado.getInt("produto_id")));
+            obj.setForncedor(fornecedores.Abrir(resultado.getInt("fornecedor_id")));
+            obj.setStatusItem(StatusPregaoItem.Abrir(resultado.getInt("status_item")));
             
             return obj;
             

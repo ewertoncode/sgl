@@ -48,9 +48,6 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
         } else {
             return 0;
         }
-        
-        
-        
     }
 
     @Override
