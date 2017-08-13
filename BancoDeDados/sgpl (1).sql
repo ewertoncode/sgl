@@ -3,9 +3,15 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
 -- Generation Time: Aug 13, 2017 at 04:33 PM
 -- Server version: 5.7.19-0ubuntu0.16.04.1
 -- PHP Version: 7.0.22-0ubuntu0.16.04.1
+=======
+-- Generation Time: 13-Ago-2017 às 21:54
+-- Versão do servidor: 5.6.25
+-- PHP Version: 7.0.0
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -145,7 +151,33 @@ CREATE TABLE `item_pregao` (
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
 -- Table structure for table `nota_empenho`
+=======
+-- Estrutura da tabela `notas_empenho`
+--
+
+CREATE TABLE `notas_empenho` (
+  `id` int(11) NOT NULL,
+  `numero_nota` int(11) NOT NULL,
+  `item` int(11) NOT NULL,
+  `valor` double NOT NULL,
+  `pago` tinyint(1) NOT NULL,
+  `data_pagamento` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `notas_empenho`
+--
+
+INSERT INTO `notas_empenho` (`id`, `numero_nota`, `item`, `valor`, `pago`, `data_pagamento`) VALUES
+(1, 60, 16, 30, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `nota_empenho`
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 
 CREATE TABLE `nota_empenho` (
@@ -210,6 +242,19 @@ CREATE TABLE `pregao` (
   `usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
+=======
+--
+-- Extraindo dados da tabela `pregao`
+--
+
+INSERT INTO `pregao` (`id`, `data`, `diasEntrega`, `pedido`, `usuario`) VALUES
+(25, '2017-08-07', 0, NULL, NULL),
+(26, '2017-08-07', 2, 3, NULL),
+(27, '2017-08-07', 1, 3, NULL),
+(28, '2017-08-09', 0, 4, NULL);
+
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 -- --------------------------------------------------------
 
 --
@@ -226,6 +271,19 @@ CREATE TABLE `pregao_itens` (
   `status_item` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
+=======
+--
+-- Extraindo dados da tabela `pregao_itens`
+--
+
+INSERT INTO `pregao_itens` (`id`, `produto_id`, `qtd`, `pregao_id`, `valor_referencia`, `fornecedor_id`, `status_item`) VALUES
+(10, 1, 5, NULL, '6.00', NULL, NULL),
+(11, 1, 5, 28, '6.00', NULL, NULL),
+(15, 1, 5, 28, '300.00', NULL, 2),
+(16, 1, 50, 28, '500.00', 5, 3);
+
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 -- --------------------------------------------------------
 
 --
@@ -266,9 +324,18 @@ CREATE TABLE `setor` (
 --
 
 INSERT INTO `setor` (`id`, `nome`) VALUES
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
 (1, 'Administrativo'),
 (2, 'Contabilidade'),
 (3, 'Obras');
+=======
+(1, 'Setor1'),
+(2, 'Setor1'),
+(3, 'Administração'),
+(4, 'Protocolo'),
+(5, 'Administracao'),
+(6, 'Coordenação licitação');
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 
 -- --------------------------------------------------------
 
@@ -301,12 +368,17 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `setor`, `endereco`) VALUES
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
 (1, 'Marcos André Fonseca', 'marcosAF@gmail.com', '123', 3, NULL),
 (2, 'Felipe Castro ', 'felipeC@gmail.com', '123', 1, NULL),
 (3, 'Wilson Matias', 'wilsonM@hotmail.com', '123', 2, NULL),
 (4, 'Felipe Neto SilvA', 'FelipeNS@hotmail.com', '123', 3, NULL),
 (5, 'Lucas Machado Gomes', 'LucasMG@gmail.com', '123', 1, NULL),
 (6, 'Ricardo Paiva', 'ricardoP@hotmail.com', '1223', 3, NULL);
+=======
+(5, 'Joao Paulo', 'jp@gmail.com', '123', 1, 1),
+(6, 'Érica Santan', 'erica@gmail.com', '123', 6, NULL);
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 
 --
 -- Indexes for dumped tables
@@ -342,6 +414,12 @@ ALTER TABLE `item_pedido`
 -- Indexes for table `item_pregao`
 --
 ALTER TABLE `item_pregao`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notas_empenho`
+--
+ALTER TABLE `notas_empenho`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -433,6 +511,11 @@ ALTER TABLE `item_pedido`
 ALTER TABLE `item_pregao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `notas_empenho`
+--
+ALTER TABLE `notas_empenho`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `nota_empenho`
 --
 ALTER TABLE `nota_empenho`
@@ -451,12 +534,20 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT for table `pregao`
 --
 ALTER TABLE `pregao`
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 -- AUTO_INCREMENT for table `pregao_itens`
 --
 ALTER TABLE `pregao_itens`
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 -- AUTO_INCREMENT for table `produto`
 --
@@ -466,7 +557,11 @@ ALTER TABLE `produto`
 -- AUTO_INCREMENT for table `setor`
 --
 ALTER TABLE `setor`
+<<<<<<< HEAD:BancoDeDados/sgpl.sql
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+>>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 -- AUTO_INCREMENT for table `status_item`
 --

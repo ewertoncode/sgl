@@ -5,6 +5,8 @@
  */
 package br.edu.ifnmg.psc.sgpl.aplicacao;
 
+import java.util.Date;
+
 /**
  *
  * @author Emerson Pereira
@@ -12,12 +14,11 @@ package br.edu.ifnmg.psc.sgpl.aplicacao;
 public class NotaEmpenho implements Entidade{
     
     private int id;
-    private String data;
+    private int numeroNota;
+    private ItemPregao itemPregao;  
     private double valor;
-    private String status;
-    private Fornecedor fornecedor;
-    private Pregao pregao;
-    private Usuario usuario;
+    private boolean pago;
+    private Date dataPagamento;
 
     @Override
     public int getId() {
@@ -29,12 +30,20 @@ public class NotaEmpenho implements Entidade{
         this.id = id;
     }
 
-    public String getData() {
-        return data;
+    public int getNumeroNota() {
+        return numeroNota;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setNumeroNota(int numeroNota) {
+        this.numeroNota = numeroNota;
+    }
+
+    public ItemPregao getItemPregao() {
+        return itemPregao;
+    }
+
+    public void setItemPregao(ItemPregao itemPregao) {
+        this.itemPregao = itemPregao;
     }
 
     public double getValor() {
@@ -45,62 +54,35 @@ public class NotaEmpenho implements Entidade{
         this.valor = valor;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isPago() {
+        return pago;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPago(boolean pago) {
+        this.pago = pago;
     }
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
+    public Date getDataPagamento() {
+        return dataPagamento;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
-    public Pregao getPregao() {
-        return pregao;
-    }
-
-    public void setPregao(Pregao pregao) {
-        this.pregao = pregao;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
     
     
     //Construtor1
     public NotaEmpenho() {
+    
+       this.pago = false;
+    
     }
     
-    //Construtor2
-    public NotaEmpenho(int id, String data, double valor, String status, Fornecedor fornecedor, Pregao pregao, Usuario usuario) {
-        this.id = id;
-        this.data = data;
-        this.valor = valor;
-        this.status = status;
-        this.fornecedor = fornecedor;
-        this.pregao = pregao;
-        this.usuario = usuario;
-    }
+   
 
     @Override
     public String toString() {
-        return "NotaEmpenho: " + "id=" + id + ", data=" + data + ", valor=" + valor + ", status=" + status + ", fornecedor=" + fornecedor + ", pregao=" + pregao + ", usuario=" + usuario + ' ';
+        return "nº" + numeroNota;
     }
-    
-    
-    
-    
-    
-    
+
 }

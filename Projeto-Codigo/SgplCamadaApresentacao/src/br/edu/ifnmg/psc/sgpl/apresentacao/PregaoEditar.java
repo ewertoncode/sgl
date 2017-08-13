@@ -241,6 +241,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         jLabel8 = new javax.swing.JLabel();
         txtValReferencia = new javax.swing.JTextField();
         alterarSituacao = new javax.swing.JButton();
+        btnVincularNotaEmpenho = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("SGPL - Pregão");
@@ -324,10 +325,17 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         jLabel8.setText("Val. Ref");
 
-        alterarSituacao.setText("Alterar Situação do item");
+        alterarSituacao.setText("Alterar situação do item");
         alterarSituacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 alterarSituacaoActionPerformed(evt);
+            }
+        });
+
+        btnVincularNotaEmpenho.setText("Vincular nota de empenho");
+        btnVincularNotaEmpenho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVincularNotaEmpenhoActionPerformed(evt);
             }
         });
 
@@ -346,7 +354,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(selProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(selProduto, 0, 330, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtValReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(23, 23, 23))
@@ -362,7 +370,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnAdicionar))
                                     .addComponent(lblQtd))))
-                        .addGap(0, 8, Short.MAX_VALUE))
+                        .addGap(0, 53, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,8 +394,10 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDeletar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(alterarSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(alterarSituacao)
+                .addComponent(btnVincularNotaEmpenho)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -426,7 +436,8 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
                     .addComponent(btnDeletar)
-                    .addComponent(alterarSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(alterarSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVincularNotaEmpenho, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -560,6 +571,22 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         this.dispose();
     }//GEN-LAST:event_alterarSituacaoActionPerformed
 
+    private void btnVincularNotaEmpenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVincularNotaEmpenhoActionPerformed
+        
+        int id = retornaIdSelecionado();
+        if(id == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um item");
+            return;
+        }
+            
+        VincularNotaEmpenho vincularNotaEmpenho = new VincularNotaEmpenho(id);
+        this.getParent().add(vincularNotaEmpenho);
+        vincularNotaEmpenho.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnVincularNotaEmpenhoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarSituacao;
@@ -567,6 +594,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVincularNotaEmpenho;
     private javax.swing.JSpinner cmpQtdDias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
