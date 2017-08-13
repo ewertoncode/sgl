@@ -23,12 +23,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
 
+    
+    private Repositorio<NotaEmpenho> repositorio = null;
+    
     /**
      * Creates new form NotaEmpenhoBuscar
      */
     public NotaEmpenhoBuscar(Repositorio<NotaEmpenho> repositorio) {
         
         initComponents();
+        
+        this.repositorio = repositorio;
+        
         List<NotaEmpenho> listagem = repositorio.Buscar(null);        
         preencheTabela(listagem);
     }
@@ -43,8 +49,8 @@ public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        selPago = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNotas = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -54,9 +60,14 @@ public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Buscar por:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pago", "Não Pago" }));
+        selPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pago", "Não Pago" }));
 
-        jButton1.setText("Buscar");
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblNotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,9 +101,9 @@ public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(selPago, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btnBuscar)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,8 +111,8 @@ public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
+                    .addComponent(selPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,7 +129,7 @@ public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
         try {
             NotaEmpenhoDao notaEmpenhoDao = new NotaEmpenhoDao();
             
-            NotaEmpenho notaEmpenho = notaEmpenhoDao.Abrir(retornaIdSelecionado());
+            NotaEmpenho notaEmpenho = repositorio.Abrir(retornaIdSelecionado());
             
             notaEmpenho.setPago(true);
             
@@ -139,13 +150,18 @@ public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        List<NotaEmpenho> listagem = repositorio.Buscar(preencheFiltro());        
+        preencheTabela(listagem);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> selPago;
     private javax.swing.JTable tblNotas;
     // End of variables declaration//GEN-END:variables
 
@@ -157,8 +173,19 @@ public class NotaEmpenhoBuscar extends javax.swing.JInternalFrame {
     }
 
 
-    public void preencheFiltro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public NotaEmpenho preencheFiltro() {
+        NotaEmpenho filtro = new NotaEmpenho();
+        
+        boolean pago = true;
+        
+        if(selPago.getSelectedIndex() == 0) 
+            pago = false;
+        
+        filtro.setPago(pago);
+        
+        return filtro;
+        
+        
     }
 
 
