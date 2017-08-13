@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 07-Ago-2017 às 10:19
+-- Generation Time: 13-Ago-2017 às 21:54
 -- Versão do servidor: 5.6.25
 -- PHP Version: 7.0.0
 
@@ -150,6 +150,28 @@ INSERT INTO `item_pregao` (`id`, `quantidade`, `valorReferencia`, `pregao`, `pro
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `notas_empenho`
+--
+
+CREATE TABLE `notas_empenho` (
+  `id` int(11) NOT NULL,
+  `numero_nota` int(11) NOT NULL,
+  `item` int(11) NOT NULL,
+  `valor` double NOT NULL,
+  `pago` tinyint(1) NOT NULL,
+  `data_pagamento` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `notas_empenho`
+--
+
+INSERT INTO `notas_empenho` (`id`, `numero_nota`, `item`, `valor`, `pago`, `data_pagamento`) VALUES
+(1, 60, 16, 30, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `nota_empenho`
 --
 
@@ -232,9 +254,10 @@ CREATE TABLE `pregao` (
 --
 
 INSERT INTO `pregao` (`id`, `data`, `diasEntrega`, `pedido`, `usuario`) VALUES
-(23, '2017-08-07', 1, NULL, NULL),
-(24, '2017-08-07', 1, NULL, NULL),
-(25, '2017-08-07', 0, NULL, NULL);
+(25, '2017-08-07', 0, NULL, NULL),
+(26, '2017-08-07', 2, 3, NULL),
+(27, '2017-08-07', 1, 3, NULL),
+(28, '2017-08-09', 0, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -257,7 +280,10 @@ CREATE TABLE `pregao_itens` (
 --
 
 INSERT INTO `pregao_itens` (`id`, `produto_id`, `qtd`, `pregao_id`, `valor_referencia`, `fornecedor_id`, `status_item`) VALUES
-(9, 1, 5, NULL, '6.00', NULL, NULL);
+(10, 1, 5, NULL, '6.00', NULL, NULL),
+(11, 1, 5, 28, '6.00', NULL, NULL),
+(15, 1, 5, 28, '300.00', NULL, 2),
+(16, 1, 50, 28, '500.00', 5, 3);
 
 -- --------------------------------------------------------
 
@@ -298,7 +324,8 @@ INSERT INTO `setor` (`id`, `nome`) VALUES
 (2, 'Setor1'),
 (3, 'Administração'),
 (4, 'Protocolo'),
-(5, 'Administracao');
+(5, 'Administracao'),
+(6, 'Coordenação licitação');
 
 -- --------------------------------------------------------
 
@@ -338,7 +365,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `setor`, `endereco`) VALUES
-(5, 'Joao Paulo', 'jp@gmail.com', '123', 1, 1);
+(5, 'Joao Paulo', 'jp@gmail.com', '123', 1, 1),
+(6, 'Érica Santan', 'erica@gmail.com', '123', 6, NULL);
 
 --
 -- Indexes for dumped tables
@@ -372,6 +400,12 @@ ALTER TABLE `item_pedido`
 -- Indexes for table `item_pregao`
 --
 ALTER TABLE `item_pregao`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notas_empenho`
+--
+ALTER TABLE `notas_empenho`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -461,6 +495,11 @@ ALTER TABLE `item_pedido`
 ALTER TABLE `item_pregao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `notas_empenho`
+--
+ALTER TABLE `notas_empenho`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `nota_empenho`
 --
 ALTER TABLE `nota_empenho`
@@ -479,12 +518,12 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT for table `pregao`
 --
 ALTER TABLE `pregao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `pregao_itens`
 --
 ALTER TABLE `pregao_itens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `produto`
 --
@@ -494,7 +533,7 @@ ALTER TABLE `produto`
 -- AUTO_INCREMENT for table `setor`
 --
 ALTER TABLE `setor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `status_item`
 --
@@ -504,7 +543,7 @@ ALTER TABLE `status_item`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
