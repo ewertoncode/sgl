@@ -92,7 +92,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnDeletar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="alterarSituacao" min="-2" max="-2" attributes="0"/>
+              <Component id="alterarSituacao" min="-2" pref="167" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -299,7 +299,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="alterarSituacao">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Alterar Situa&#xe7;&#xe3;o do item"/>
+        <Property name="text" type="java.lang.String" value="Alterar situa&#xe7;&#xe3;o do item"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alterarSituacaoActionPerformed"/>

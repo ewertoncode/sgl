@@ -324,7 +324,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
 
         jLabel8.setText("Val. Ref");
 
-        alterarSituacao.setText("Alterar Situação do item");
+        alterarSituacao.setText("Alterar situação do item");
         alterarSituacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 alterarSituacaoActionPerformed(evt);
@@ -387,7 +387,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDeletar)
                 .addGap(18, 18, 18)
-                .addComponent(alterarSituacao)
+                .addComponent(alterarSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

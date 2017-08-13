@@ -5,14 +5,18 @@
  */
 package br.edu.ifnmg.psc.sgpl.apresentacao;
 
+import br.edu.ifnmg.psc.sgpl.aplicacao.Fornecedor;
 import br.edu.ifnmg.psc.sgpl.aplicacao.ItemPregao;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Pedido;
 import br.edu.ifnmg.psc.sgpl.aplicacao.Produto;
+import br.edu.ifnmg.psc.sgpl.aplicacao.Repositorio;
 import br.edu.ifnmg.psc.sgpl.aplicacao.StatusItem;
 import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregao;
 import br.edu.ifnmg.psc.sgpl.aplicacao.StatusPregaoItem;
 import br.edu.ifnmg.psc.sgpl.persistencia.ItemPregaoDao;
 import br.edu.ifnmg.psc.sgpl.persistencia.ProdutoDao;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -50,9 +54,24 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
             else
                 lblStatus.setText("-");
             
+            if(this.itemPregao.getForncedor() != null)
+                lblFornecedor.setText(this.itemPregao.getForncedor().getNomeFantasia());
+            else
+                lblFornecedor.setText("-");
             
             ComboBoxModel model = new DefaultComboBoxModel(StatusPregaoItem.values());
             selStatusItem.setModel(model);
+            
+            Repositorio<Fornecedor> repositorioFornecedor = Repositorios.getFornecedorRepositorio();
+
+            List<Fornecedor> fornecedores = repositorioFornecedor.Buscar(null);
+            
+
+            ComboBoxModel modelFornecedor = new DefaultComboBoxModel(fornecedores.toArray());
+            
+            selFornecedor.setModel(modelFornecedor);
+            selFornecedor.insertItemAt("", 0);
+            selFornecedor.setSelectedIndex(0);
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(StatusItemPregao.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,9 +103,13 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
         lblQtd = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblFornecedor = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        selFornecedor = new javax.swing.JComboBox<>();
 
         setClosable(true);
-        setTitle("SGPL - Atualizar status");
+        setTitle("SGPL - Atualizar status e Fornecedor");
 
         jLabel1.setText("Produto:");
 
@@ -116,6 +139,12 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
 
         lblStatus.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
 
+        jLabel5.setText("Fornecedor vendedor:");
+
+        lblFornecedor.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        jLabel6.setText("Fornecedor:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,22 +152,26 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
                     .addComponent(jLabel4)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
                     .addComponent(lblPrduto)
-                    .addComponent(selStatusItem, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selStatusItem, 0, 266, Short.MAX_VALUE)
                     .addComponent(lblQtd)
-                    .addComponent(lblStatus))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(lblStatus)
+                    .addComponent(lblFornecedor)
+                    .addComponent(selFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,11 +188,19 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblStatus))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selStatusItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(23, 23, 23)
+                    .addComponent(jLabel5)
+                    .addComponent(lblFornecedor))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(selStatusItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(selFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
@@ -179,6 +220,9 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
         this.itemPregao.setStatusItem((StatusPregaoItem) selStatusItem.getSelectedItem());
+        
+        if(selFornecedor.getSelectedIndex() > 0) 
+            this.itemPregao.setForncedor((Fornecedor) selFornecedor.getSelectedItem());
         
         try{
             this.itemPregaoDao.Salvar(this.itemPregao);
@@ -201,9 +245,13 @@ public class StatusItemPregao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lblFornecedor;
     private javax.swing.JLabel lblPrduto;
     private javax.swing.JLabel lblQtd;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JComboBox<String> selFornecedor;
     private javax.swing.JComboBox<String> selStatusItem;
     // End of variables declaration//GEN-END:variables
 }
