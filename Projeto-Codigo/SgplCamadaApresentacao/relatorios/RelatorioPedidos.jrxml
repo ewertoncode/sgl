@@ -3,45 +3,26 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
-		<![CDATA[select *  from item_pedido as ip right join pedido as p on ip.pedido = p.id;]]>
+	<queryString>
+		<![CDATA[select setor.id, setor.nome, sum(item_pedido.valorFornecedor1) , sum(item_pedido.valorFornecedor2) , sum(item_pedido.valorFornecedor3) 
+from setor left join usuario
+on setor.id=usuario.setor
+join pedido
+on pedido.usuario=usuario.id
+join item_pedido
+on item_pedido.pedido=pedido.id
+group by setor.id
+order by setor.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="quantidade" class="java.lang.Double">
+	<field name="nome" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Fornecedor1" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="valorFornecedor1" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Fornecedor2" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="valorFornecedor2" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Fornecedor3" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="valorFornecedor3" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pedido" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="produto" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="data" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="usuario" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="sum(item_pedido.valorFornecedor1)" class="java.lang.Double"/>
+	<field name="sum(item_pedido.valorFornecedor2)" class="java.lang.Double"/>
+	<field name="sum(item_pedido.valorFornecedor3)" class="java.lang.Double"/>
 	<group name="id">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 	</group>
@@ -57,7 +38,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="38" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="35" uuid="73e415e7-5707-41b9-92d9-703e42f51233"/>
 				<textElement textAlignment="Center">
@@ -68,91 +49,72 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="22" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<staticText>
-				<reportElement x="251" y="0" width="64" height="20" uuid="9f56b7df-71d6-4989-b0aa-fd8ebe8383ce"/>
-				<text><![CDATA[Quantidade]]></text>
+				<reportElement x="0" y="0" width="25" height="20" uuid="035f3978-826d-4681-92f0-5ee9cdfa1347"/>
+				<text><![CDATA[id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="37" height="20" uuid="3596de75-a4f4-4f5e-ac90-da366fb1e06a"/>
-				<text><![CDATA[Pedido]]></text>
+				<reportElement x="141" y="0" width="100" height="20" uuid="0549ce73-51b8-40b9-bd23-df4495768146"/>
+				<text><![CDATA[Valor 1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="189" y="0" width="62" height="20" uuid="ab35880e-9a1f-4aa4-898f-bb2928811a46"/>
-				<text><![CDATA[Produto]]></text>
+				<reportElement x="25" y="0" width="100" height="20" uuid="d860d82b-8186-457b-86e0-6987f362e98c"/>
+				<text><![CDATA[Setor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="48" y="0" width="71" height="20" uuid="de143cce-0eea-4e22-9d05-d0463677a001"/>
-				<text><![CDATA[Data/hora]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="136" y="0" width="41" height="20" uuid="a885322d-a63b-444f-9859-f7c17a109130"/>
-				<text><![CDATA[Usuário]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="322" y="0" width="55" height="20" uuid="6469a77b-77bf-4dca-8f11-5336b2410425"/>
-				<text><![CDATA[Valor1]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="377" y="0" width="52" height="20" uuid="1a83075c-419f-4c0b-ab08-3b63dc490155"/>
-				<text><![CDATA[Valor2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="429" y="0" width="47" height="20" uuid="ad1a6317-db65-438b-9498-f22814b0bb38"/>
+				<reportElement x="373" y="0" width="100" height="20" uuid="2daf34b4-92c6-41e5-a206-2d49c0e23392"/>
 				<text><![CDATA[Valor3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="4" width="100" height="20" uuid="5ef32044-fe82-42a5-9a7a-64aca245a25b"/>
+				<text><![CDATA[Valor 2]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="251" y="0" width="64" height="20" uuid="51fd6a10-5be9-42eb-8c20-2206ebfe1005"/>
-				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="25" height="20" uuid="6b9d637d-6142-4940-8408-64f000dbf919"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="189" y="1" width="100" height="20" uuid="f5ce8fe8-7f0c-4998-8eb6-1d8d97d41f15"/>
-				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
+				<reportElement x="25" y="0" width="100" height="20" uuid="442e1f70-2746-41f3-a2a2-c5bcc9fab245"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="37" height="20" uuid="e58f057a-9b3c-4d03-afae-76b37d8a9e90"/>
-				<textFieldExpression><![CDATA[$F{pedido}]]></textFieldExpression>
+				<reportElement x="257" y="1" width="100" height="20" uuid="6d421a0d-1edb-494e-afd1-5422bd253258"/>
+				<textFieldExpression><![CDATA[$F{sum(item_pedido.valorFornecedor2)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="48" y="1" width="71" height="20" uuid="b7e06180-06c2-4a39-ac29-962c1cf32768"/>
-				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+				<reportElement x="373" y="1" width="100" height="20" uuid="bba58d04-1a9c-4a1a-8fb7-804a6645c014"/>
+				<textFieldExpression><![CDATA[$F{sum(item_pedido.valorFornecedor3)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="136" y="1" width="41" height="20" uuid="53be7af5-d5e4-4a8f-9925-13e4aaf2663e"/>
-				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="336" y="1" width="41" height="20" uuid="3a812569-908b-4f66-8c80-e1e8e6927250"/>
-				<textFieldExpression><![CDATA[$F{valorFornecedor1}]]></textFieldExpression>
+				<reportElement x="141" y="1" width="100" height="20" uuid="6b086a05-c30a-415a-830d-e1ad489033ef"/>
+				<textFieldExpression><![CDATA[$F{sum(item_pedido.valorFornecedor1)}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="322" y="1" width="14" height="20" uuid="bb38693b-658b-4277-88fa-99d470e074b7"/>
-				<text><![CDATA[R$]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="391" y="1" width="38" height="20" uuid="f97fc8f3-8ffd-4ee1-a6a5-122dd5d944bc"/>
-				<textFieldExpression><![CDATA[$F{valorFornecedor2}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="377" y="1" width="14" height="20" uuid="045a6496-d797-4440-88a7-6ea07b019cff"/>
+				<reportElement x="125" y="1" width="16" height="20" uuid="9b90b2dd-f30a-420a-b0ac-baa8681ef126"/>
 				<text><![CDATA[R$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="429" y="1" width="14" height="20" uuid="160d56cd-aff3-4297-b539-b14d0188935e"/>
+				<reportElement x="241" y="1" width="16" height="20" uuid="a4118f96-46e6-4327-be01-c266f5c62617"/>
 				<text><![CDATA[R$]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="443" y="1" width="33" height="20" uuid="85531f2e-825d-479c-9fe7-b359ab623f72"/>
-				<textFieldExpression><![CDATA[$F{valorFornecedor3}]]></textFieldExpression>
-			</textField>
+			<staticText>
+				<reportElement x="357" y="1" width="16" height="20" uuid="fb84531b-93b5-4aba-8b3a-e2847f054ece"/>
+				<text><![CDATA[R$]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="478" y="25" width="77" height="20" uuid="03641862-49bc-4471-80e7-655a7b8fc181"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch">
