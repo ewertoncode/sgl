@@ -66,13 +66,13 @@ public class ItemPedidoDao extends DaoGenerico<ItemPedido> implements ItemPedido
     @Override
     protected void setParametros(PreparedStatement sql, ItemPedido obj) {
         try{            
-            sql.setDouble(1, obj.getQuantidade());            
-            sql.setDouble(2, obj.getValorFornecedor1());            
-            sql.setInt(3, obj.getFornecedor1().getId());            
-            sql.setDouble(4, obj.getValorFornecedor2());            
-            sql.setInt(5, obj.getFornecedor2().getId());            
-            sql.setDouble(6, obj.getValorFornecedor3());            
-            sql.setInt(7, obj.getFornecedor3().getId());            
+            sql.setDouble(1, obj.getQuantidade());                                
+            sql.setInt(2, obj.getFornecedor1().getId());      
+            sql.setDouble(3, obj.getValorFornecedor1());                
+            sql.setInt(4, obj.getFornecedor2().getId());    
+            sql.setDouble(5, obj.getValorFornecedor2());                        
+            sql.setInt(6, obj.getFornecedor3().getId());            
+            sql.setDouble(7, obj.getValorFornecedor3());            
             sql.setInt(8, obj.getPedido().getId());
             sql.setInt(9, obj.getProduto().getId());
             

@@ -134,7 +134,7 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
         txtCodPedido = new javax.swing.JTextField();
 
         setClosable(true);
-        setTitle("SGPL - Pregões");
+        setTitle("SGPL - Pregão");
 
         jLabel1.setText("Cód. Pregão");
 
@@ -146,6 +146,7 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
 
         jLabel2.setText("Cód. Pedido");
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifnmg/psc/sgpl/apresentacao/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,12 +201,12 @@ public class PregaoBuscar extends TelaBusca<Pregao> {
                                 .addComponent(txtCodPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnBuscar)))
-                        .addGap(298, 377, Short.MAX_VALUE))
+                        .addGap(298, 358, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNovo)
-                                .addGap(18, 18, 18)
+                                .addGap(27, 27, 27)
                                 .addComponent(btnEditar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 17, Short.MAX_VALUE))))

@@ -243,7 +243,7 @@ public class PregaoEditar extends TelaEdicao<Pregao> {
         alterarSituacao = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("SGPL - Editar Pregão");
+        setTitle("SGPL - Pregão");
 
         jLabel1.setText("Pedido");
 
