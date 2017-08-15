@@ -1,19 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: localhost
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
--- Generation Time: Aug 13, 2017 at 04:33 PM
--- Server version: 5.7.19-0ubuntu0.16.04.1
--- PHP Version: 7.0.22-0ubuntu0.16.04.1
-=======
--- Generation Time: 13-Ago-2017 às 21:54
+-- Generation Time: 15-Ago-2017 às 01:52
 -- Versão do servidor: 5.6.25
 -- PHP Version: 7.0.0
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -29,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `endereco`
+-- Estrutura da tabela `endereco`
 --
 
 CREATE TABLE `endereco` (
@@ -45,20 +41,19 @@ CREATE TABLE `endereco` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `endereco`
+-- Extraindo dados da tabela `endereco`
 --
 
 INSERT INTO `endereco` (`id`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `cep`, `estado`, `pais`) VALUES
-(1, 'Rua das Flores', '123', 'Casa', 'Belo Monte', 'Januária', '39480-000', 'Minas Gerais', 'Brasil'),
-(2, 'Rua Independência', '213', 'AP', 'Vila  América', 'Januária', '39480-000', 'Minas Gerais', 'Brasil'),
-(3, 'Rua Canaã', '654', 'AP', 'Centro', 'Januária', '39480-000', 'Minas Gerais', 'Brasil'),
-(4, 'Coqueiros', '453', 'Loja Verde', 'Centro', 'Januária', '39480-000', 'Minas Gerais', 'Brasil'),
-(5, 'Sete Setembro', '63', 'AP', 'Vila Verde', 'Januária', '39480-000', 'Minas Gerais', 'Brasil');
+(9, 'Rua do Binário', '10', 'Casa Verde', 'Sete Setembro', 'Januária', '39480-000', 'MG', 'Brasil'),
+(10, 'Rua do Binário', '10', 'Casa Verde', 'Sete Setembro', 'Januária', '39480-000', 'MG', 'Brasil'),
+(11, 'Rua do Binário', '10', 'Casa Verde', 'Sete Setembro', 'Januária', '39480-000', 'MG', 'Brasil'),
+(12, 'Rua do Binário', '10', 'Casa Verde', 'Sete Setembro', 'Januária', '39480-000', 'MG', 'Brasil');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fornecedor`
+-- Estrutura da tabela `fornecedor`
 --
 
 CREATE TABLE `fornecedor` (
@@ -72,20 +67,17 @@ CREATE TABLE `fornecedor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `fornecedor`
+-- Extraindo dados da tabela `fornecedor`
 --
 
 INSERT INTO `fornecedor` (`id`, `razaoSocial`, `nomeFantasia`, `cnpj`, `telefone`, `email`, `endereco`) VALUES
-(1, 'Casa Martel LTDA', 'Casa Martel', '53.453.453/4534-63', '55 (33) 34534-5344', 'cm@gmail.com', 1),
-(2, 'Easy Informática LTDA', 'Easy Informática', '98.234.723/8749-23', '55 (33) 99122-3123', 'easyinformatica@hotmail.com', 2),
-(3, 'DF Soluções LTDA', 'DF Soluções ', '42.342.346/2874-62', '55 (33) 91231-2312', 'dfsoluções@gmail.com', 3),
-(4, 'Distribuidora Amaral LTDA', 'Distribuidora Amaral ', '32.423.423/4234-23', '55 (  )      -    ', 'distribuidoraamaral@yahoo.com', 4),
-(5, 'Graal Consultoria LTDA', 'Graal Consultoria ', '62.374.623/4234-21', '55 (33) 91321-2312', 'graalconsultoria@hotmail.com', 5);
+(5, 'Luis1 LTDA', 'Distribuidora do Luis', '1921281281', 'luisLTDA@gmail.com', '123123', 0),
+(7, 'Luis1 LTDA', 'Distribuidora do Luis', '1921281281', 'luisLTDA@gmail.com', '123123', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `historico_renegociacao`
+-- Estrutura da tabela `historico_renegociacao`
 --
 
 CREATE TABLE `historico_renegociacao` (
@@ -97,10 +89,17 @@ CREATE TABLE `historico_renegociacao` (
   `usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `historico_renegociacao`
+--
+
+INSERT INTO `historico_renegociacao` (`id`, `descricao`, `data`, `pregao`, `fornecedor`, `usuario`) VALUES
+(1, 'Pagara corretamente...', '2017-07-04', 0, 32, 5);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item_pedido`
+-- Estrutura da tabela `item_pedido`
 --
 
 CREATE TABLE `item_pedido` (
@@ -117,25 +116,18 @@ CREATE TABLE `item_pedido` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `item_pedido`
+-- Extraindo dados da tabela `item_pedido`
 --
 
 INSERT INTO `item_pedido` (`id`, `quantidade`, `Fornecedor1`, `valorFornecedor1`, `Fornecedor2`, `valorFornecedor2`, `Fornecedor3`, `valorFornecedor3`, `pedido`, `produto`) VALUES
-(1, 10, 1, 1203.12, 2, 1241.43, 3, 1233.43, 1, 1),
-(2, 8, 3, 1024.67, 4, 1031.77, 5, 1019.99, 2, 6),
-(3, 20, 3, 122.8, 4, 131.66, 5, 109.12, 2, 3),
-(4, 100, 3, 102.8, 4, 101.66, 5, 99.12, 2, 5),
-(5, 81, 4, 124, 5, 127.34, 1, 123.21, 3, 3),
-(6, 3, 4, 1124, 5, 1127.34, 1, 1213.21, 3, 1),
-(7, 3, 1, 938.12, 1, 888.23, 1, 892.53, 4, 2),
-(8, 7, 1, 123.12, 1, 152.21, 1, 163.47, 4, 4),
-(9, 79, 3, 132.12, 5, 89.34, 4, 83.53, 5, 5),
-(10, 12, 3, 1327.12, 5, 1634.12, 4, 1123.12, 5, 6);
+(1, 20, 6, 30, 5, 31, 7, 32, 1, 0),
+(2, 5, 10, 5, 20, 5, 15, 8, 3, 1),
+(3, 10, 10, 5, 15, 5, 10, 5, 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item_pregao`
+-- Estrutura da tabela `item_pregao`
 --
 
 CREATE TABLE `item_pregao` (
@@ -148,12 +140,16 @@ CREATE TABLE `item_pregao` (
   `statusItem` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `item_pregao`
+--
+
+INSERT INTO `item_pregao` (`id`, `quantidade`, `valorReferencia`, `pregao`, `produto`, `fornecedor`, `statusItem`) VALUES
+(1, 10, 20, 0, 0, 32, 2);
+
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
--- Table structure for table `nota_empenho`
-=======
 -- Estrutura da tabela `notas_empenho`
 --
 
@@ -177,7 +173,6 @@ INSERT INTO `notas_empenho` (`id`, `numero_nota`, `item`, `valor`, `pago`, `data
 
 --
 -- Estrutura da tabela `nota_empenho`
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 
 CREATE TABLE `nota_empenho` (
@@ -190,10 +185,17 @@ CREATE TABLE `nota_empenho` (
   `usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `nota_empenho`
+--
+
+INSERT INTO `nota_empenho` (`id`, `data`, `valor`, `status`, `fornecedor`, `pregao`, `usuario`) VALUES
+(1, '2017-07-04', 10.3, 'Desativado', 0, 0, 5);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notificacao_fornecedor`
+-- Estrutura da tabela `notificacao_fornecedor`
 --
 
 CREATE TABLE `notificacao_fornecedor` (
@@ -205,10 +207,17 @@ CREATE TABLE `notificacao_fornecedor` (
   `pregao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `notificacao_fornecedor`
+--
+
+INSERT INTO `notificacao_fornecedor` (`id`, `descricao`, `data`, `status`, `fornecedor`, `pregao`) VALUES
+(1, 'Em curso....', '2017-07-10', 1, 32, 0);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedido`
+-- Estrutura da tabela `pedido`
 --
 
 CREATE TABLE `pedido` (
@@ -218,20 +227,18 @@ CREATE TABLE `pedido` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pedido`
+-- Extraindo dados da tabela `pedido`
 --
 
 INSERT INTO `pedido` (`id`, `data`, `usuario`) VALUES
-(1, '2017-08-13', 1),
-(2, '2017-08-13', 1),
-(3, '2017-08-13', 3),
-(4, '2017-08-13', 4),
-(5, '2017-08-13', 6);
+(3, '2017-08-06', 5),
+(4, '2017-07-04', 5),
+(5, '2017-08-07', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pregao`
+-- Estrutura da tabela `pregao`
 --
 
 CREATE TABLE `pregao` (
@@ -242,8 +249,6 @@ CREATE TABLE `pregao` (
   `usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
-=======
 --
 -- Extraindo dados da tabela `pregao`
 --
@@ -254,11 +259,10 @@ INSERT INTO `pregao` (`id`, `data`, `diasEntrega`, `pedido`, `usuario`) VALUES
 (27, '2017-08-07', 1, 3, NULL),
 (28, '2017-08-09', 0, 4, NULL);
 
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pregao_itens`
+-- Estrutura da tabela `pregao_itens`
 --
 
 CREATE TABLE `pregao_itens` (
@@ -271,8 +275,6 @@ CREATE TABLE `pregao_itens` (
   `status_item` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
-=======
 --
 -- Extraindo dados da tabela `pregao_itens`
 --
@@ -283,11 +285,10 @@ INSERT INTO `pregao_itens` (`id`, `produto_id`, `qtd`, `pregao_id`, `valor_refer
 (15, 1, 5, 28, '300.00', NULL, 2),
 (16, 1, 50, 28, '500.00', 5, 3);
 
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produto`
+-- Estrutura da tabela `produto`
 --
 
 CREATE TABLE `produto` (
@@ -297,21 +298,16 @@ CREATE TABLE `produto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `produto`
+-- Extraindo dados da tabela `produto`
 --
 
 INSERT INTO `produto` (`id`, `nome`, `catmat`) VALUES
-(1, 'Desktop Dell 8GB', '164867'),
-(2, 'Mesa Madeira Marfim', '103726'),
-(3, 'Memória RAM 16GB', '526372'),
-(4, 'Banco Acolchoado', '927362'),
-(5, 'Folha sem Pauta A4', '836472'),
-(6, 'Impressora HP4000', '948309');
+(1, 'Computador', '123456');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `setor`
+-- Estrutura da tabela `setor`
 --
 
 CREATE TABLE `setor` (
@@ -320,27 +316,21 @@ CREATE TABLE `setor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `setor`
+-- Extraindo dados da tabela `setor`
 --
 
 INSERT INTO `setor` (`id`, `nome`) VALUES
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
-(1, 'Administrativo'),
-(2, 'Contabilidade'),
-(3, 'Obras');
-=======
 (1, 'Setor1'),
 (2, 'Setor1'),
 (3, 'Administração'),
 (4, 'Protocolo'),
 (5, 'Administracao'),
 (6, 'Coordenação licitação');
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `status_item`
+-- Estrutura da tabela `status_item`
 --
 
 CREATE TABLE `status_item` (
@@ -348,10 +338,17 @@ CREATE TABLE `status_item` (
   `nome` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `status_item`
+--
+
+INSERT INTO `status_item` (`id`, `nome`) VALUES
+(1, 'Ativos');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estrutura da tabela `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -364,21 +361,12 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuario`
+-- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `setor`, `endereco`) VALUES
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
-(1, 'Marcos André Fonseca', 'marcosAF@gmail.com', '123', 3, NULL),
-(2, 'Felipe Castro ', 'felipeC@gmail.com', '123', 1, NULL),
-(3, 'Wilson Matias', 'wilsonM@hotmail.com', '123', 2, NULL),
-(4, 'Felipe Neto SilvA', 'FelipeNS@hotmail.com', '123', 3, NULL),
-(5, 'Lucas Machado Gomes', 'LucasMG@gmail.com', '123', 1, NULL),
-(6, 'Ricardo Paiva', 'ricardoP@hotmail.com', '1223', 3, NULL);
-=======
 (5, 'Joao Paulo', 'jp@gmail.com', '123', 1, 1),
 (6, 'Érica Santan', 'erica@gmail.com', '123', 6, NULL);
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 
 --
 -- Indexes for dumped tables
@@ -394,8 +382,7 @@ ALTER TABLE `endereco`
 -- Indexes for table `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_endereco` (`endereco`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `historico_renegociacao`
@@ -407,8 +394,7 @@ ALTER TABLE `historico_renegociacao`
 -- Indexes for table `item_pedido`
 --
 ALTER TABLE `item_pedido`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_produto` (`produto`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `item_pregao`
@@ -438,8 +424,7 @@ ALTER TABLE `notificacao_fornecedor`
 -- Indexes for table `pedido`
 --
 ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_usuario` (`usuario`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pregao`
@@ -478,8 +463,7 @@ ALTER TABLE `status_item`
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_setor` (`setor`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -489,12 +473,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `historico_renegociacao`
 --
@@ -504,12 +488,12 @@ ALTER TABLE `historico_renegociacao`
 -- AUTO_INCREMENT for table `item_pedido`
 --
 ALTER TABLE `item_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `item_pregao`
 --
 ALTER TABLE `item_pregao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `notas_empenho`
 --
@@ -519,12 +503,12 @@ ALTER TABLE `notas_empenho`
 -- AUTO_INCREMENT for table `nota_empenho`
 --
 ALTER TABLE `nota_empenho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `notificacao_fornecedor`
 --
 ALTER TABLE `notificacao_fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pedido`
 --
@@ -534,39 +518,27 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT for table `pregao`
 --
 ALTER TABLE `pregao`
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 -- AUTO_INCREMENT for table `pregao_itens`
 --
 ALTER TABLE `pregao_itens`
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 -- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `setor`
 --
 ALTER TABLE `setor`
-<<<<<<< HEAD:BancoDeDados/sgpl.sql
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
->>>>>>> 085d8b67488c8a093deee8ddd7002f56154c5d9d:BancoDeDados/sgpl (1).sql
 --
 -- AUTO_INCREMENT for table `status_item`
 --
 ALTER TABLE `status_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
@@ -577,41 +549,18 @@ ALTER TABLE `usuario`
 --
 
 --
--- Constraints for table `fornecedor`
---
-ALTER TABLE `fornecedor`
-  ADD CONSTRAINT `fk_endereco` FOREIGN KEY (`endereco`) REFERENCES `endereco` (`id`);
-
---
--- Constraints for table `item_pedido`
---
-ALTER TABLE `item_pedido`
-  ADD CONSTRAINT `fk_produto` FOREIGN KEY (`produto`) REFERENCES `produto` (`id`);
-
---
--- Constraints for table `pedido`
---
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`);
-
---
--- Constraints for table `pregao`
+-- Limitadores para a tabela `pregao`
 --
 ALTER TABLE `pregao`
   ADD CONSTRAINT `fk_pedido` FOREIGN KEY (`pedido`) REFERENCES `pedido` (`id`);
 
 --
--- Constraints for table `pregao_itens`
+-- Limitadores para a tabela `pregao_itens`
 --
 ALTER TABLE `pregao_itens`
   ADD CONSTRAINT `fk_pregao_id` FOREIGN KEY (`pregao_id`) REFERENCES `pregao` (`id`),
   ADD CONSTRAINT `fk_produto_id` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`);
-
---
--- Constraints for table `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_setor` FOREIGN KEY (`setor`) REFERENCES `setor` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
