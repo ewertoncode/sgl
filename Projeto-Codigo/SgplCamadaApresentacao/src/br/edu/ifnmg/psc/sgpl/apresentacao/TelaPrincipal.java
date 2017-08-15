@@ -25,7 +25,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
 
-        /*
+        
         if(!Aplicacao.isLogged()){
             if(telalogin == null)
                 telalogin = new TelaLogin();
@@ -35,7 +35,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
 
-         */
+         
 
         initComponents();
       
@@ -66,6 +66,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        pedidosPorUsuario = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
 
@@ -162,6 +163,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem2);
+
+        pedidosPorUsuario.setText("Pedidos por Usuário");
+        pedidosPorUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pedidosPorUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu4.add(pedidosPorUsuario);
 
         jMenuBar1.add(jMenu4);
 
@@ -279,6 +288,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu7MouseClicked
 
+    private void pedidosPorUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pedidosPorUsuarioActionPerformed
+        
+    }//GEN-LAST:event_pedidosPorUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -333,5 +346,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuSetores;
     private javax.swing.JMenuItem mnuUsuarios;
     private java.awt.Panel panel1;
+    private javax.swing.JMenuItem pedidosPorUsuario;
     // End of variables declaration//GEN-END:variables
 }
